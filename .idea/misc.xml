@@ -3,8 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavApp/app/src/main/res/drawable/bottomSheet_background.xml" value="0.244" />
+        <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavApp/app/src/main/res/drawable/bottom_sheet_background.xml" value="0.244" />
+        <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavApp/app/src/main/res/drawable/bottom_sheet_bakground.xml" value="0.244" />
+        <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavApp/app/src/main/res/drawable/ic_searchicon.xml" value="0.244" />
+        <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavApp/app/src/main/res/drawable/places_end.xml" value="0.244" />
+        <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavApp/app/src/main/res/drawable/places_first.xml" value="0.244" />
+        <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavApp/app/src/main/res/drawable/places_mid.xml" value="0.244" />
+        <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavApp/app/src/main/res/drawable/search_background.xml" value="0.244" />
+        <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavApp/app/src/main/res/layout/activity_bottom_sheet.xml" value="0.4" />
         <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavApp/app/src/main/res/layout/activity_home.xml" value="0.24010416666666667" />
         <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavApp/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavApp/app/src/main/res/layout/categories_item.xml" value="0.72" />
+        <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavApp/app/src/main/res/layout/places_item.xml" value="0.4" />
       </map>
     </option>
   </component>
