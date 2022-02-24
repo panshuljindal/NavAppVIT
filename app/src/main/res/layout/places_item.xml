@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/offwhite">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/places_mid"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/placesCategoriesBackground"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="9dp"
+            android:layout_marginBottom="9dp"
+            app:cardBackgroundColor="@color/academic"
+            app:cardCornerRadius="9dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/placesCategoriesImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="15dp"
+                app:srcCompat="@drawable/ic_academics" />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/placesCategoriesBuildingName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/medium"
+            android:text="Technology Tower"
+            android:textColor="@color/black"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toTopOf="@+id/placesCategoriesTextview"
+            app:layout_constraintStart_toEndOf="@+id/placesCategoriesBackground"
+            app:layout_constraintTop_toTopOf="@+id/placesCategoriesBackground" />
+
+        <TextView
+            android:id="@+id/placesCategoriesTextview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="0dp"
+            android:fontFamily="@font/medium"
+            android:paddingLeft="10dp"
+            android:paddingTop="3dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="3dp"
+            android:text="Academic Block"
+            android:textColor="@color/academic"
+            android:textSize="9dp"
+            app:layout_constraintBottom_toBottomOf="@+id/placesCategoriesBackground"
+            app:layout_constraintStart_toEndOf="@+id/placesCategoriesBackground"
+            app:layout_constraintTop_toBottomOf="@+id/placesCategoriesBuildingName" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha="0.3"
+            app:cardBackgroundColor="@color/academic"
+            app:cardCornerRadius="17dp"
+            app:layout_constraintBottom_toBottomOf="@+id/placesCategoriesTextview"
+            app:layout_constraintEnd_toEndOf="@+id/placesCategoriesTextview"
+            app:layout_constraintStart_toStartOf="@+id/placesCategoriesTextview"
+            app:layout_constraintTop_toTopOf="@+id/placesCategoriesTextview">
+
+        </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_forward" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
