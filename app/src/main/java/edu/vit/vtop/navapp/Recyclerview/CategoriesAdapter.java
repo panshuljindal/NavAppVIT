@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -35,7 +36,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.My
     public void onBindViewHolder(MyViewholder holder, int position) {
         holder.name.setText(list.get(position).getName());
         holder.icon.setImageResource(list.get(position).getIcon());
-        holder.background.setCardBackgroundColor(list.get(position).getColor());
+        holder.background.setCardBackgroundColor(ContextCompat.getColor(context,list.get(position).getColor()));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

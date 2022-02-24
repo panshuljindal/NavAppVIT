@@ -37,6 +37,7 @@
             android:paddingBottom="13dp"
             android:text=""
             android:textColor="#9948484A"
+            android:textColorHint="#9948484A"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -71,6 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="13dp"
+            android:overScrollMode="never"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/categoriesTextView" />
@@ -94,7 +96,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="13dp"
-
+            android:overScrollMode="never"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/placesTextView" />
