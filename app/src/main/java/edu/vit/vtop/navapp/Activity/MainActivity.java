@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         list.add(new DataModel("Technology Tower","TT",10.00,11.00,"Academic Blocks"));
         list.add(new DataModel("Food Court","FC",10.00,11.00,"Restaurants"));
         list.add(new DataModel("Cafe Coffee Day","CCD",10.00,11.00,"Coffee Shops"));
-        list.add(new DataModel("Silver Jubliee Tower","SJT",10.00,11.00,"Academic Blocks"));
+        list.add(new DataModel("HOD Scope","SJT",10.00,11.00,"Admin Offices"));
         list.add(new DataModel("Silver Jubliee Tower","SJT",10.00,11.00,"Academic Blocks"));
         list.add(new DataModel("Silver Jubliee Tower","SJT",10.00,11.00,"Academic Blocks"));
         DataHandling.saveList(list,MainActivity.this);
