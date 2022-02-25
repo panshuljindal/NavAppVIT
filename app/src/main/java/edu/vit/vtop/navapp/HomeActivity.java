@@ -42,7 +42,6 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     private ActivityHomeBinding binding;
-    private FloatingActionButton user_location;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -141,13 +140,15 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Create a LatLngBounds that includes the VIT Campus bounds
         LatLngBounds vitBounds = new LatLngBounds(
-                new LatLng(12.973208, 79.153890), // SW bounds
-                new LatLng(12.974411, 79.167821)  // NE bounds
+                new LatLng(12.967077, 79.152291), // SW bounds
+                new LatLng(12.978755, 79.167387)  // NE bounds
         );
+
 
 // Constrain the camera target to the VIT Campus bounds.
         mMap.setLatLngBoundsForCameraTarget(vitBounds);
-
+        mMap.setMinZoomPreference(16.0f); // Set a preference for minimum zoom (Zoom out).
+//        mMap.setMaxZoomPreference(14.0f); // Set a preference for maximum zoom (Zoom In).
 
 //        ArrayList<LatLng> latLngList = new ArrayList<>();
 //        latLngList.add(new LatLng(-27.457, 153.040));
