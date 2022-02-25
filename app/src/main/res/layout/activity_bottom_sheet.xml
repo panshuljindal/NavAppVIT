@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:elevation="50dp"
     app:behavior_hideable="false"
-    app:behavior_peekHeight="390dp"
+    app:behavior_peekHeight="320dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
     android:background="@drawable/bottom_sheet_background"
     app:layout_constraintEnd_toEndOf="parent"

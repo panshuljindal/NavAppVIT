@@ -15,6 +15,7 @@ import edu.vit.vtop.navapp.R;
 import edu.vit.vtop.navapp.Recyclerview.CategoriesAdapter;
 import edu.vit.vtop.navapp.Recyclerview.PlacesAdapter;
 import edu.vit.vtop.navapp.RecyclerviewModels.CategoriesModel;
+import edu.vit.vtop.navapp.Utils.DataHandling;
 import edu.vit.vtop.navapp.Utils.DataModel;
 
 public class BottomSheet extends AppCompatActivity {
@@ -57,6 +58,7 @@ public class BottomSheet extends AppCompatActivity {
 //        placesList.add(new PlacesModel("M Block","Hostel Blocks"));
 //        placesList.add(new PlacesModel("All Mart","Shopping"));
 //        placesList.add(new PlacesModel("FC","Restaurant"));
+        placesList = DataHandling.getList(context);
         PlacesAdapter adapter = new PlacesAdapter(placesList,context);
         LinearLayoutManager manager1 = new LinearLayoutManager(context);
         manager1.setOrientation(RecyclerView.VERTICAL);
