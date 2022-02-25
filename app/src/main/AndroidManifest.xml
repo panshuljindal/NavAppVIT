@@ -18,9 +18,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NavApp">
-        <activity
-            android:name=".Activity.CategoryActivity"
-            android:exported="false" />
+
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 
@@ -34,8 +32,15 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/map_key" />
+            android:value="YOUR_API_KEY" />
 
+        <activity
+            android:name=".Activity.NavigationActivity"
+            android:exported="false"
+            android:label="@string/title_activity_navigation" />
+        <activity
+            android:name=".Activity.CategoryActivity"
+            android:exported="false" />
         <activity
             android:name=".Activity.HomeActivity"
             android:exported="false"
