@@ -16,13 +16,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import edu.vit.vtop.navapp.R;
-import edu.vit.vtop.navapp.RecyclerviewModels.PlacesModel;
+import edu.vit.vtop.navapp.Utils.DataModel;
 
 public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.MyViewHolder> {
-    List<PlacesModel> list;
+    List<DataModel> list;
     Context context;
 
-    public PlacesAdapter(List<PlacesModel> list, Context context) {
+    public PlacesAdapter(List<DataModel> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -35,39 +35,39 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        PlacesModel model = list.get(position);
-        holder.placeName.setText(model.getPlaceName());
-        holder.categoryName.setText(model.getCategoriesName());
-        if(model.getCategoriesName().contains("Academic")){
+        DataModel model = list.get(position);
+        holder.placeName.setText(model.getName());
+        holder.categoryName.setText(model.getCategory());
+        if(model.getCategory().contains("Academic")){
             holder.categoryName.setTextColor(ContextCompat.getColor(context,R.color.academic));
             holder.icon.setImageResource(R.drawable.ic_academics);
             holder.categories.setCardBackgroundColor(ContextCompat.getColor(context,R.color.academic));
             holder.iconCategory.setCardBackgroundColor(ContextCompat.getColor(context,R.color.academic));
 
-        }if(model.getCategoriesName().contains("Hostel")){
+        }if(model.getCategory().contains("Hostel")){
             holder.categoryName.setTextColor(ContextCompat.getColor(context,R.color.hostel));
             holder.icon.setImageResource(R.drawable.ic_hostel);
             holder.categories.setCardBackgroundColor(ContextCompat.getColor(context,R.color.hostel));
             holder.iconCategory.setCardBackgroundColor(ContextCompat.getColor(context,R.color.hostel));
 
-        }if(model.getCategoriesName().contains("Shopping")){
+        }if(model.getCategory().contains("Shopping")){
             holder.categoryName.setTextColor(ContextCompat.getColor(context,R.color.shopping));
             holder.icon.setImageResource(R.drawable.ic_shopping);
             holder.categories.setCardBackgroundColor(ContextCompat.getColor(context,R.color.shopping));
             holder.iconCategory.setCardBackgroundColor(ContextCompat.getColor(context,R.color.shopping));
-        }if(model.getCategoriesName().contains("Admin")){
+        }if(model.getCategory().contains("Admin")){
             holder.categoryName.setTextColor(ContextCompat.getColor(context,R.color.admin));
             holder.icon.setImageResource(R.drawable.ic_admin);
             holder.categories.setCardBackgroundColor(ContextCompat.getColor(context,R.color.admin));
             holder.iconCategory.setCardBackgroundColor(ContextCompat.getColor(context,R.color.admin));
 
-        }if(model.getCategoriesName().contains("Coffee")){
+        }if(model.getCategory().contains("Coffee")){
             holder.categoryName.setTextColor(ContextCompat.getColor(context,R.color.coffee));
             holder.icon.setImageResource(R.drawable.ic_coffee);
             holder.categories.setCardBackgroundColor(ContextCompat.getColor(context,R.color.coffee));
             holder.iconCategory.setCardBackgroundColor(ContextCompat.getColor(context,R.color.coffee));
 
-        }if(model.getCategoriesName().contains("Restaurant")){
+        }if(model.getCategory().contains("Restaurant")){
             holder.categoryName.setTextColor(ContextCompat.getColor(context,R.color.restaurant));
             holder.icon.setImageResource(R.drawable.ic_restaurant);
             holder.categories.setCardBackgroundColor(ContextCompat.getColor(context,R.color.restaurant));
@@ -79,7 +79,7 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.MyViewHold
         }
         if(position==list.size()-1){
             holder.cl.setBackground(ContextCompat.getDrawable(context,R.drawable.places_end));
-            Log.i("Position",model.getPlaceName());
+//            Log.i("Position",model.getPlaceName());
         }
     }
 

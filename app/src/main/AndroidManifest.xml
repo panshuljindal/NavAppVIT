@@ -19,10 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NavApp">
         <activity
-            android:name=".CategoryActivity"
-            android:exported="false" />
-        <activity
-            android:name=".BottomSheet"
+            android:name=".Activity.CategoryActivity"
             android:exported="false" />
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
@@ -40,11 +37,11 @@
             android:value="@string/map_key" />
 
         <activity
-            android:name=".HomeActivity"
+            android:name=".Activity.HomeActivity"
             android:exported="false"
             android:label="@string/title_activity_home" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

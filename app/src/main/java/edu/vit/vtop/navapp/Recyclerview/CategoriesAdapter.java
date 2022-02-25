@@ -1,6 +1,7 @@
 package edu.vit.vtop.navapp.Recyclerview;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import edu.vit.vtop.navapp.Activity.CategoryActivity;
 import edu.vit.vtop.navapp.R;
 import edu.vit.vtop.navapp.RecyclerviewModels.CategoriesModel;
 
@@ -40,7 +42,10 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.My
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent i = new Intent(context, CategoryActivity.class);
+                i.putExtra("category",list.get(position).getName());
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(i);
             }
         });
     }
