@@ -1,4 +1,4 @@
-package edu.vit.vtop.navapp;
+package edu.vit.vtop.navapp.Activity;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -36,6 +36,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.vit.vtop.navapp.R;
 import edu.vit.vtop.navapp.databinding.ActivityHomeBinding;
 
 public class HomeActivity extends FragmentActivity implements OnMapReadyCallback {

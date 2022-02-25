@@ -1,4 +1,4 @@
-package edu.vit.vtop.navapp;
+package edu.vit.vtop.navapp.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,11 +8,10 @@ import android.content.Context;
 import android.os.Bundle;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import edu.vit.vtop.navapp.R;
 import edu.vit.vtop.navapp.Recyclerview.CategoriesAdapter;
 import edu.vit.vtop.navapp.Recyclerview.PlacesAdapter;
 import edu.vit.vtop.navapp.RecyclerviewModels.CategoriesModel;
