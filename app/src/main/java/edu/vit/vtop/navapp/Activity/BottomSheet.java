@@ -42,7 +42,7 @@ public class BottomSheet extends AppCompatActivity {
         categoriesList.add(new CategoriesModel("Hostel Blocks",R.color.hostel,R.drawable.ic_hostel));
         categoriesList.add(new CategoriesModel("Coffee Shops",R.color.coffee,R.drawable.ic_coffee));
         categoriesList.add(new CategoriesModel("Admin Offices",R.color.admin,R.drawable.ic_admin));
-        categoriesList.add(new CategoriesModel("Academic Block",R.color.academic,R.drawable.ic_academics));
+        categoriesList.add(new CategoriesModel("Academic Blocks",R.color.academic,R.drawable.ic_academics));
         Collections.reverse(categoriesList);
         CategoriesAdapter categoriesAdapter = new CategoriesAdapter(categoriesList,context);
         LinearLayoutManager manager = new LinearLayoutManager(context);

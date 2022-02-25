@@ -19,17 +19,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NavApp">
         <activity
-<<<<<<< HEAD
             android:name=".Activity.CategoryActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.BottomSheet"
-=======
-            android:name=".CategoryActivity"
-            android:exported="false" />
-        <activity
-            android:name=".BottomSheet"
->>>>>>> bf0b743e2bc0e207dcb06d1d41e4d7a457fe2849
             android:exported="false" />
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
