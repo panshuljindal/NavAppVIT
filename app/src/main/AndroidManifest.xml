@@ -21,9 +21,6 @@
         <activity
             android:name=".Activity.CategoryActivity"
             android:exported="false" />
-        <activity
-            android:name=".Activity.BottomSheet"
-            android:exported="false" />
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 
