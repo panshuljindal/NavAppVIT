@@ -44,7 +44,6 @@
             android:paddingTop="13dp"
             android:paddingRight="10dp"
             android:paddingBottom="13dp"
-            android:text=""
             android:textColor="#9948484A"
             android:textColorHint="#9948484A"
             app:layout_constraintEnd_toEndOf="parent"
