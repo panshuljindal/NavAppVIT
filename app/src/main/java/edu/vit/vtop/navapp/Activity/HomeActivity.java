@@ -2,10 +2,14 @@ package edu.vit.vtop.navapp.Activity;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -20,6 +24,7 @@ import android.os.Bundle;
 import android.content.Context;
 import android.os.Handler;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -31,18 +36,30 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import edu.vit.vtop.navapp.R;
+import edu.vit.vtop.navapp.Recyclerview.CategoriesAdapter;
+import edu.vit.vtop.navapp.Recyclerview.PlacesAdapter;
+import edu.vit.vtop.navapp.RecyclerviewModels.CategoriesModel;
+import edu.vit.vtop.navapp.Utils.DataModel;
 import edu.vit.vtop.navapp.databinding.ActivityHomeBinding;
 
 public class HomeActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private ActivityHomeBinding binding;
+    private BottomSheetBehavior bottomSheetBehavior;
+    private RecyclerView categories,places;
+    private List<CategoriesModel> categoriesList;
+    private List<DataModel> placesList;
+    private Context context;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -66,6 +83,54 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
                 );
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        // get the bottom sheet view
+        ConstraintLayout bottomSheetLayout = findViewById(R.id.bottom_sheet);
+
+
+        categories = findViewById(R.id.categoriesRecyclerView);
+        places=findViewById(R.id.placesRecyclerView);
+        categoriesList=new ArrayList<>();
+        placesList=new ArrayList<>();
+
+//        context=HomeActivity.this;
+        addCategories();
+        addPlaces();
+
+        // init the bottom sheet behavior
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
+
+//        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
+        bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                switch (newState) {
+                    case BottomSheetBehavior.STATE_HIDDEN:
+//                        Toast.makeText(getApplicationContext(),"STATE HIDDEN",Toast.LENGTH_LONG).show();
+                        break;
+                    case BottomSheetBehavior.STATE_EXPANDED:
+//                        Toast.makeText(getApplicationContext(),"STATE EXPANDED",Toast.LENGTH_LONG).show();
+                        // update toggle button text
+                        break;
+                    case BottomSheetBehavior.STATE_COLLAPSED:
+//                        Toast.makeText(getApplicationContext(),"STATE COLLAPSED",Toast.LENGTH_LONG).show();
+                        // update collapsed button text
+                        break;
+                    case BottomSheetBehavior.STATE_DRAGGING:
+//                        Toast.makeText(getApplicationContext(),"STATE DRAGGING",Toast.LENGTH_LONG).show();
+                        break;
+                    case BottomSheetBehavior.STATE_SETTLING:
+//                        Toast.makeText(getApplicationContext(),"STATE SETTLING",Toast.LENGTH_LONG).show();
+                        break;
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -191,4 +256,33 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
         // after generating our bitmap we are returning our bitmap.
         return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
+
+    void addCategories(){
+        categoriesList.add(new CategoriesModel("Restaurants",R.color.restaurant,R.drawable.ic_restaurant));
+        categoriesList.add(new CategoriesModel("Shopping",R.color.shopping,R.drawable.ic_shopping));
+        categoriesList.add(new CategoriesModel("Hostel Blocks",R.color.hostel,R.drawable.ic_hostel));
+        categoriesList.add(new CategoriesModel("Coffee Shops",R.color.coffee,R.drawable.ic_coffee));
+        categoriesList.add(new CategoriesModel("Admin Offices",R.color.admin,R.drawable.ic_admin));
+        categoriesList.add(new CategoriesModel("Academic Block",R.color.academic,R.drawable.ic_academics));
+        Collections.reverse(categoriesList);
+        CategoriesAdapter categoriesAdapter = new CategoriesAdapter(categoriesList,getApplicationContext());
+        LinearLayoutManager manager = new LinearLayoutManager(getApplicationContext());
+        manager.setOrientation(RecyclerView.HORIZONTAL);
+        categories.setAdapter(categoriesAdapter);
+        categories.setLayoutManager(manager);
+    }
+    void addPlaces(){
+//        placesList.add(new PlacesModel("SJT","Academic Block"));
+//        placesList.add(new PlacesModel("SW Office","Admin Offices"));
+//        placesList.add(new PlacesModel("CCD","Coffee Shops"));
+//        placesList.add(new PlacesModel("M Block","Hostel Blocks"));
+//        placesList.add(new PlacesModel("All Mart","Shopping"));
+//        placesList.add(new PlacesModel("FC","Restaurant"));
+        PlacesAdapter adapter = new PlacesAdapter(placesList,getApplicationContext());
+        LinearLayoutManager manager1 = new LinearLayoutManager(getApplicationContext());
+        manager1.setOrientation(RecyclerView.VERTICAL);
+        places.setAdapter(adapter);
+        places.setLayoutManager(manager1);
+    }
+
 }
