@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ import edu.vit.vtop.navapp.Utils.DataModel;
 public class CategoryActivity extends AppCompatActivity {
 
     List<DataModel> list,sortedList;
+    ImageView back,cancel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,5 +48,22 @@ public class CategoryActivity extends AppCompatActivity {
         }catch (Exception e){
 
         }
+        setOnclick();
+    }
+    public void setOnclick(){
+        back=findViewById(R.id.categoryBack);
+        cancel = findViewById(R.id.categoryCancel);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(CategoryActivity.this,HomeActivity.class));
+            }
+        });
     }
 }
