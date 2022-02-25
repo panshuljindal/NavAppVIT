@@ -15,13 +15,13 @@ import edu.vit.vtop.navapp.R;
 import edu.vit.vtop.navapp.Recyclerview.CategoriesAdapter;
 import edu.vit.vtop.navapp.Recyclerview.PlacesAdapter;
 import edu.vit.vtop.navapp.RecyclerviewModels.CategoriesModel;
-import edu.vit.vtop.navapp.RecyclerviewModels.PlacesModel;
+import edu.vit.vtop.navapp.Utils.DataModel;
 
 public class BottomSheet extends AppCompatActivity {
 
     RecyclerView categories,places;
     List<CategoriesModel> categoriesList;
-    List<PlacesModel> placesList;
+    List<DataModel> placesList;
     Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +51,12 @@ public class BottomSheet extends AppCompatActivity {
         categories.setLayoutManager(manager);
     }
     void addPlaces(){
-        placesList.add(new PlacesModel("SJT","Academic Block"));
-        placesList.add(new PlacesModel("SW Office","Admin Offices"));
-        placesList.add(new PlacesModel("CCD","Coffee Shops"));
-        placesList.add(new PlacesModel("M Block","Hostel Blocks"));
-        placesList.add(new PlacesModel("All Mart","Shopping"));
-        placesList.add(new PlacesModel("FC","Restaurant"));
+//        placesList.add(new PlacesModel("SJT","Academic Block"));
+//        placesList.add(new PlacesModel("SW Office","Admin Offices"));
+//        placesList.add(new PlacesModel("CCD","Coffee Shops"));
+//        placesList.add(new PlacesModel("M Block","Hostel Blocks"));
+//        placesList.add(new PlacesModel("All Mart","Shopping"));
+//        placesList.add(new PlacesModel("FC","Restaurant"));
         PlacesAdapter adapter = new PlacesAdapter(placesList,context);
         LinearLayoutManager manager1 = new LinearLayoutManager(context);
         manager1.setOrientation(RecyclerView.VERTICAL);
