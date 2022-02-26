@@ -3,7 +3,7 @@
     <style name="Theme.NavApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimaryVariant">@color/bottomSheetBack</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -13,4 +13,20 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <color name="searchBack">#B3D1D1D6</color>
+    <color name="searchText">#9948484A</color>
+    <color name="heading">#48484A</color>
+    <color name="boldHeading">#000000</color>
+    <color name="subHeading">#2C2C2E</color>
+    <color name="arrowIcon">#F2F2F7</color>
+    <color name="bottomSheetBack">#F2F2F7</color>
+    <color name="placesForward">#C7C7CC</color>
+    <color name="placesBack">#FFFFFF</color>
+    <color name="floatBack">#131118</color>
+    <color name="settings">#323232</color>
+
+
+
+
 </resources>

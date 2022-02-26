@@ -1,4 +1,3 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <solid android:color="@color/bottomSheetBack"></solid>
-    <corners android:topLeftRadius="15dp" android:topRightRadius="15dp"></corners>
 </shape>
