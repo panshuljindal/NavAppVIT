@@ -35,9 +35,16 @@ public class DataHandling {
         }
         return list;
     }
-    public static void savePlaces(List<DataModel> saveLike, Context context){
+    public static void addPlace(DataModel model, Context context){
         Gson gson = new Gson();
-        String json = gson.toJson(saveLike);
+        List<DataModel> list = getPlaces(context);
+        if(list.size()>5){
+            list.remove(list.get(0));
+            list.add(model);
+        }else{
+            list.add(model);
+        }
+        String json = gson.toJson(list);
         SharedPreferences pref = context.getSharedPreferences("edu.vit.vtop.navapp", MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putString("placesList",json);
