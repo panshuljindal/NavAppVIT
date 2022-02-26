@@ -49,27 +49,31 @@
 
         <TextView
             android:id="@+id/navDestination"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
+            android:layout_marginRight="40dp"
             android:fontFamily="@font/medium"
             android:text="SCOPE HoD Office"
-            android:textColor="@color/black"
+            android:textColor="@color/boldHeading"
             android:textSize="25dp"
+            map:layout_constraintEnd_toStartOf="@+id/navCancel"
             map:layout_constraintStart_toStartOf="parent"
             map:layout_constraintTop_toBottomOf="@id/textView" />
 
         <TextView
             android:id="@+id/navAddress"
-            map:layout_constraintTop_toBottomOf="@id/navDestination"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="16dp"
-            map:layout_constraintStart_toStartOf="parent"
-            android:fontFamily="@font/book"
-            android:textColor="#2c2c2e "
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="40dp"
+            android:fontFamily="@font/book"
+            android:text="TextView"
+            android:textColor="@color/subHeading"
+            map:layout_constraintEnd_toEndOf="@+id/navDestination"
+            map:layout_constraintStart_toStartOf="parent"
+            map:layout_constraintTop_toBottomOf="@id/navDestination" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/navGo"

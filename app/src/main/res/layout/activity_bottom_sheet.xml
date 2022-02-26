@@ -44,8 +44,8 @@
             android:paddingTop="13dp"
             android:paddingRight="10dp"
             android:paddingBottom="13dp"
-            android:textColor="#9948484A"
-            android:textColorHint="#9948484A"
+            android:textColor="@color/searchText"
+            android:textColorHint="@color/searchText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/notchawa" />

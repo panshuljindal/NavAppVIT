@@ -15,17 +15,21 @@
         <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavAppVIT/app/src/main/res/drawable/ic_academics.xml" value="0.2135" />
         <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavAppVIT/app/src/main/res/drawable/ic_arrow_icon.xml" value="0.158" />
         <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavAppVIT/app/src/main/res/drawable/ic_arrow_white.xml" value="0.158" />
+        <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavAppVIT/app/src/main/res/drawable/ic_cancel.xml" value="0.2375" />
+        <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavAppVIT/app/src/main/res/drawable/ic_forward.xml" value="0.2375" />
         <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavAppVIT/app/src/main/res/drawable/ic_marker.xml" value="0.2445" />
         <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavAppVIT/app/src/main/res/drawable/ic_restaurant.xml" value="0.2135" />
+        <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavAppVIT/app/src/main/res/drawable/ic_searchicon.xml" value="0.2375" />
         <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavAppVIT/app/src/main/res/drawable/ic_shopping.xml" value="0.2135" />
         <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavAppVIT/app/src/main/res/drawable/places_end.xml" value="0.2135" />
+        <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavAppVIT/app/src/main/res/drawable/search_background.xml" value="0.2375" />
         <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavAppVIT/app/src/main/res/layout/activity_bottom_sheet.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavAppVIT/app/src/main/res/layout/activity_category.xml" value="0.264" />
         <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavAppVIT/app/src/main/res/layout/activity_home.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavAppVIT/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
-        <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavAppVIT/app/src/main/res/layout/activity_navigation.xml" value="0.4" />
+        <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavAppVIT/app/src/main/res/layout/activity_navigation.xml" value="0.245136186770428" />
         <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavAppVIT/app/src/main/res/layout/categories_item.xml" value="0.8" />
-        <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavAppVIT/app/src/main/res/layout/places_item.xml" value="0.536" />
+        <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavAppVIT/app/src/main/res/layout/places_item.xml" value="0.264" />
       </map>
     </option>
   </component>

@@ -12,10 +12,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="27dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:fontFamily="@font/medium"
         android:text="Coffee Shops"
-        android:textColor="@color/black"
+        android:textColor="@color/boldHeading"
         android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/categoryBack" />
@@ -28,7 +28,7 @@
         android:layout_marginTop="1dp"
         android:fontFamily="@font/medium"
         android:text="Near me"
-        android:textColor="#2C2C2E"
+        android:textColor="@color/subHeading"
         android:textSize="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cTextView" />
@@ -52,13 +52,14 @@
         android:layout_marginLeft="15dp"
         android:layout_marginTop="30dp"
         android:padding="5dp"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_back" />
 
     <ImageView
         android:id="@+id/categoryCancel"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:layout_marginRight="20dp"
         android:padding="5dp"
         android:layout_width="wrap_content"
