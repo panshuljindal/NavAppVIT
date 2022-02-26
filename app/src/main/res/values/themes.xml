@@ -23,6 +23,8 @@
     <color name="bottomSheetBack">#F2F2F7</color>
     <color name="placesForward">#C7C7CC</color>
     <color name="placesBack">#FFFFFF</color>
+    <color name="floatBack">#131118</color>
+    <color name="settings">#323232</color>
 
 
 
