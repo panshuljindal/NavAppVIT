@@ -43,8 +43,8 @@ public class NavigationActivity extends FragmentActivity implements OnMapReadyCa
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(NavigationActivity.this,HomeActivity.class);
-                startActivity(i);
+//                Intent i = new Intent(NavigationActivity.this,HomeActivity.class);
+//                startActivity(i);
                 finish();
             }
         });

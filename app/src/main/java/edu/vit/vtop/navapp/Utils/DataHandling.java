@@ -35,4 +35,11 @@ public class DataHandling {
         }
         return list;
     }
+    public static List<DataModel> searchData(String searchString){
+        List<DataModel> list=new ArrayList<>();
+        list.add(new DataModel("Silver Jubliee Tower","SJT",10.00,11.00,"Academic Blocks"));
+        list.add(new DataModel("Technology Tower","TT",10.00,11.00,"Academic Blocks"));
+
+        return list;
+    }
 }

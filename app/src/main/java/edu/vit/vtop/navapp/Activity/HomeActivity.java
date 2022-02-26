@@ -23,8 +23,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.content.Context;
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -58,10 +62,11 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private ActivityHomeBinding binding;
     private BottomSheetBehavior bottomSheetBehavior;
-    private RecyclerView categories,places;
+    private RecyclerView categories,places,searchRecyclerview;
     private List<CategoriesModel> categoriesList;
     private List<DataModel> placesList;
-    private Context context;
+    private EditText search;
+    private TextView cat,plac;
     ConstraintLayout bottomSheetLayout;
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -89,15 +94,18 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
         // get the bottom sheet view
         bottomSheetLayout = findViewById(R.id.bottom_sheet);
 
-
+        search=findViewById(R.id.searchEditText);
         categories = findViewById(R.id.categoriesRecyclerView);
         places=findViewById(R.id.placesRecyclerView);
+        cat=findViewById(R.id.categoriesTextView);
+        plac=findViewById(R.id.placesTextView);
+        searchRecyclerview=findViewById(R.id.searchRecyclerView);
         categoriesList=new ArrayList<>();
         placesList=new ArrayList<>();
 
-//        context=HomeActivity.this;
         addCategories();
         addPlaces();
+        Search();
 
         // init the bottom sheet behavior
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
@@ -285,6 +293,67 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
         manager1.setOrientation(RecyclerView.VERTICAL);
         places.setAdapter(adapter);
         places.setLayoutManager(manager1);
+    }
+    void Search(){
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String searchString = search.getText().toString();
+                if(searchString==""){
+                    cat.setVisibility(View.VISIBLE);
+                    plac.setText("Places");
+                    places.setVisibility(View.VISIBLE);
+                    categories.setVisibility(View.VISIBLE);
+                    searchRecyclerview.setVisibility(View.INVISIBLE);
+                }else {
+                    cat.setVisibility(View.INVISIBLE);
+                    plac.setText("Results");
+                    places.setVisibility(View.INVISIBLE);
+                    categories.setVisibility(View.INVISIBLE);
+                    searchRecyclerview.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(!bottomSheetBehavior.equals(BottomSheetBehavior.STATE_EXPANDED)){
+                    bottomSheetLayout.setState(BottomSheetBehavior.STATE_EXPANDED,0,0);
+                }
+                String searchString = search.getText().toString();
+                if(searchString.equals("")){
+                    cat.setVisibility(View.VISIBLE);
+                    plac.setText("Places");
+                    places.setVisibility(View.VISIBLE);
+                    categories.setVisibility(View.VISIBLE);
+                    searchRecyclerview.setVisibility(View.INVISIBLE);
+                }else{
+                    cat.setVisibility(View.GONE);
+                    plac.setText("Results");
+                    places.setVisibility(View.GONE);
+                    categories.setVisibility(View.GONE);
+                    searchRecyclerview.setVisibility(View.VISIBLE);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(search.getText().toString().equals(searchString)){
+                                List<DataModel> list = DataHandling.searchData(searchString);
+                                PlacesAdapter adapter = new PlacesAdapter(list,getApplicationContext());
+                                LinearLayoutManager manager1 = new LinearLayoutManager(getApplicationContext());
+                                manager1.setOrientation(RecyclerView.VERTICAL);
+                                searchRecyclerview.setAdapter(adapter);
+                                searchRecyclerview.setLayoutManager(manager1);
+                            }
+                        }
+                    },400);
+
+                }
+            }
+        });
     }
 
 }
