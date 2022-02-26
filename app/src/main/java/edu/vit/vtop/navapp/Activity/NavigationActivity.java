@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -40,6 +41,8 @@ public class NavigationActivity extends FragmentActivity implements OnMapReadyCa
         Intent i = getIntent();
         lat = i.getDoubleExtra("lat", 0.0);
         lng = i.getDoubleExtra("long", 0.0);
+        Log.i("lat",Double.toString(lat));
+        Log.i("long",Double.toString(lng));
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -49,8 +52,8 @@ public class NavigationActivity extends FragmentActivity implements OnMapReadyCa
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent i = new Intent(NavigationActivity.this,HomeActivity.class);
-//                startActivity(i);
+                Intent i = new Intent(NavigationActivity.this,HomeActivity.class);
+                startActivity(i);
                 finish();
             }
         });
@@ -58,7 +61,7 @@ public class NavigationActivity extends FragmentActivity implements OnMapReadyCa
         go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Uri gmmIntentUri = Uri.parse("google.navigation:q=");
+                Uri gmmIntentUri = Uri.parse("google.navigation:q="+lat+","+lng);
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
                 startActivity(mapIntent);
