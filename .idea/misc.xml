@@ -17,6 +17,7 @@
         <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavAppVIT/app/src/main/res/drawable/ic_arrow_icon.xml" value="0.158" />
         <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavAppVIT/app/src/main/res/drawable/ic_arrow_white.xml" value="0.158" />
         <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavAppVIT/app/src/main/res/drawable/ic_cancel.xml" value="0.2375" />
+        <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavAppVIT/app/src/main/res/drawable/ic_dark.xml" value="0.2595" />
         <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavAppVIT/app/src/main/res/drawable/ic_forward.xml" value="0.2375" />
         <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavAppVIT/app/src/main/res/drawable/ic_marker.xml" value="0.2445" />
         <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavAppVIT/app/src/main/res/drawable/ic_restaurant.xml" value="0.2135" />
@@ -28,7 +29,7 @@
         <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavAppVIT/app/src/main/res/drawable/places_mid.xml" value="0.2375" />
         <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavAppVIT/app/src/main/res/drawable/search_background.xml" value="0.2375" />
         <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavAppVIT/app/src/main/res/drawable/settings_background.xml" value="0.2595" />
-        <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavAppVIT/app/src/main/res/layout/activity_bottom_sheet.xml" value="0.2" />
+        <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavAppVIT/app/src/main/res/layout/activity_bottom_sheet.xml" value="0.4" />
         <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavAppVIT/app/src/main/res/layout/activity_category.xml" value="0.264" />
         <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavAppVIT/app/src/main/res/layout/activity_home.xml" value="0.4" />
         <entry key="..\:/Users/Panshul/AndroidStudioProjects/NavAppVIT/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />

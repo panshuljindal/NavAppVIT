@@ -5,6 +5,7 @@
     android:clipToPadding="false"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,35 +22,22 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:context=".Activity.HomeActivity" />
 
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/settings_background"
-            android:padding="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_settings" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/user_location_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:borderWidth="0dp"
-        android:src="@drawable/ic_arrow_icon"
-        android:backgroundTint="#f2f2f7"
-        android:hapticFeedbackEnabled="true"
-        app:layout_anchor="@id/bottom_sheet"
-        app:layout_anchorGravity="top|end"
-        android:translationY="-40dp"
         android:layout_marginVertical="20dp"
         android:layout_marginEnd="20dp"
-        />
+        android:backgroundTint="#f2f2f7"
+        android:hapticFeedbackEnabled="true"
+        android:src="@drawable/ic_arrow_icon"
+        android:translationY="-40dp"
+        app:borderWidth="0dp"
+        app:layout_anchor="@id/bottom_sheet"
+        app:layout_anchorGravity="top|end"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <include
         layout="@layout/activity_bottom_sheet"/>
