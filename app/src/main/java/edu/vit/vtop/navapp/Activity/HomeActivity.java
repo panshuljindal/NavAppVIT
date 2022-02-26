@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -40,11 +41,13 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -146,10 +149,12 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
 
         binding.userLocationButton.setOnClickListener(new View.OnClickListener() {
 
@@ -180,7 +185,7 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
 
                         return;
                     }
-                    mMap.setMyLocationEnabled(true);
+//                    mMap.setMyLocationEnabled(true);
                     mMap.getUiSettings().setMyLocationButtonEnabled(true);
                     mMap.getUiSettings().setAllGesturesEnabled(true);
                     //delay is for after map loaded animation starts
@@ -228,23 +233,28 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
 // Constrain the camera target to the VIT Campus bounds.
         mMap.setLatLngBoundsForCameraTarget(vitBounds);
         mMap.setMinZoomPreference(16.0f); // Set a preference for minimum zoom (Zoom out).
-//        mMap.setMaxZoomPreference(14.0f); // Set a preference for maximum zoom (Zoom In).
 
-//        ArrayList<LatLng> latLngList = new ArrayList<>();
-//        latLngList.add(new LatLng(-27.457, 153.040));
-//        latLngList.add(new LatLng(-33.852, 151.211));
-//        latLngList.add(new LatLng(-37.813, 144.962));
-//        latLngList.add(new LatLng(-34.928, 138.599));
-//        googleMap.addPolygon(PolygonOptions()
-//                .clickable(false)
-//                .addAll(latLngList)
-//                .fillColor(getColor(R.color.polygonColor))
-//                .strokeWidth(0f))
 
         // Add a marker in VIT and move the camera
         LatLng vit = new LatLng(12.974714, 79.164227);
-        mMap.addMarker(new MarkerOptions().position(vit).title("VIT")
-                .icon(BitmapFromVector(getApplicationContext(), R.drawable.ic_marker)));
+        mMap.addMarker(new MarkerOptions().position(vit).title("Admin")
+                .icon(BitmapFromVector(getApplicationContext(), R.drawable.ic_marker_admin)));
+         mMap.addMarker(new MarkerOptions().position(new LatLng(12.974512,79.164327)).title("Academic")
+                .icon(BitmapFromVector(getApplicationContext(), R.drawable.ic_marker_academic)));
+         mMap.addMarker(new MarkerOptions().position(new LatLng(12.974912,79.164127)).title("Coffee")
+                .icon(BitmapFromVector(getApplicationContext(), R.drawable.ic_marker_coffee)));
+         mMap.addMarker(new MarkerOptions().position(new LatLng(12.974522,79.164357)).title("Hostel")
+                .icon(BitmapFromVector(getApplicationContext(), R.drawable.ic_marker_hostel)));
+         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+             @Override
+             public boolean onMarkerClick(@NonNull Marker marker) {
+                 Intent i = new Intent(HomeActivity.this, NavigationActivity.class);
+                 i.putExtra("lat", marker.getPosition().latitude);
+                 i.putExtra("long", marker.getPosition().longitude);
+                 startActivity(i);
+                 return true;
+             }
+         });
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(vit, 15f));
     }
 

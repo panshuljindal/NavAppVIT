@@ -25,6 +25,8 @@
     <color name="placesBack">#FFFFFF</color>
     <color name="floatBack">#131118</color>
     <color name="settings">#323232</color>
+    <color name="nav_button">#f2f2f7</color>
+    <color name="nav_button_icon">#48484A</color>
 
 
 
