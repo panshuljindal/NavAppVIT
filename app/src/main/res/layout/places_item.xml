@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/offwhite">
+    android:background="@color/bottomSheetBack">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/placesItem"
@@ -45,7 +45,7 @@
             android:layout_marginStart="10dp"
             android:fontFamily="@font/medium"
             android:text="Technology Tower"
-            android:textColor="@color/black"
+            android:textColor="@color/boldHeading"
             android:textSize="14dp"
             app:layout_constraintBottom_toTopOf="@+id/placesCategoriesTextview"
             app:layout_constraintStart_toEndOf="@+id/placesCategoriesBackground"

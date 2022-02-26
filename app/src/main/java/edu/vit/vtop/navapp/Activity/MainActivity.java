@@ -28,5 +28,6 @@ public class MainActivity extends AppCompatActivity {
         list.add(new DataModel("Silver Jubliee Tower","SJT",10.00,11.00,"Academic Blocks"));
         DataHandling.saveList(list,MainActivity.this);
         startActivity(new Intent(MainActivity.this,HomeActivity.class));
+        finish();
     }
 }

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -23,7 +24,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.content.Context;
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -35,11 +41,13 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -57,11 +65,12 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private ActivityHomeBinding binding;
     private BottomSheetBehavior bottomSheetBehavior;
-    private RecyclerView categories,places;
+    private RecyclerView categories,places,searchRecyclerview;
     private List<CategoriesModel> categoriesList;
     private List<DataModel> placesList;
-    private Context context;
-
+    private EditText search;
+    private TextView cat,plac;
+    ConstraintLayout bottomSheetLayout;
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,17 +95,20 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(binding.getRoot());
 
         // get the bottom sheet view
-        ConstraintLayout bottomSheetLayout = findViewById(R.id.bottom_sheet);
+        bottomSheetLayout = findViewById(R.id.bottom_sheet);
 
-
+        search=findViewById(R.id.searchEditText);
         categories = findViewById(R.id.categoriesRecyclerView);
         places=findViewById(R.id.placesRecyclerView);
+        cat=findViewById(R.id.categoriesTextView);
+        plac=findViewById(R.id.placesTextView);
+        searchRecyclerview=findViewById(R.id.searchRecyclerView);
         categoriesList=new ArrayList<>();
         placesList=new ArrayList<>();
 
-//        context=HomeActivity.this;
         addCategories();
         addPlaces();
+        Search();
 
         // init the bottom sheet behavior
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
@@ -113,13 +125,17 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
                     case BottomSheetBehavior.STATE_EXPANDED:
 //                        Toast.makeText(getApplicationContext(),"STATE EXPANDED",Toast.LENGTH_LONG).show();
                         // update toggle button text
+                        bottomSheetLayout.setBackground(ContextCompat.getDrawable(HomeActivity.this,R.drawable.bottom_sheet_back));
                         break;
                     case BottomSheetBehavior.STATE_COLLAPSED:
 //                        Toast.makeText(getApplicationContext(),"STATE COLLAPSED",Toast.LENGTH_LONG).show();
                         // update collapsed button text
+                        bottomSheetLayout.setBackground(ContextCompat.getDrawable(HomeActivity.this,R.drawable.bottom_sheet_background));
+
                         break;
                     case BottomSheetBehavior.STATE_DRAGGING:
 //                        Toast.makeText(getApplicationContext(),"STATE DRAGGING",Toast.LENGTH_LONG).show();
+
                         break;
                     case BottomSheetBehavior.STATE_SETTLING:
 //                        Toast.makeText(getApplicationContext(),"STATE SETTLING",Toast.LENGTH_LONG).show();
@@ -133,10 +149,12 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
 
         binding.userLocationButton.setOnClickListener(new View.OnClickListener() {
 
@@ -167,7 +185,7 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
 
                         return;
                     }
-                    mMap.setMyLocationEnabled(true);
+//                    mMap.setMyLocationEnabled(true);
                     mMap.getUiSettings().setMyLocationButtonEnabled(true);
                     mMap.getUiSettings().setAllGesturesEnabled(true);
                     //delay is for after map loaded animation starts
@@ -215,23 +233,28 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
 // Constrain the camera target to the VIT Campus bounds.
         mMap.setLatLngBoundsForCameraTarget(vitBounds);
         mMap.setMinZoomPreference(16.0f); // Set a preference for minimum zoom (Zoom out).
-//        mMap.setMaxZoomPreference(14.0f); // Set a preference for maximum zoom (Zoom In).
 
-//        ArrayList<LatLng> latLngList = new ArrayList<>();
-//        latLngList.add(new LatLng(-27.457, 153.040));
-//        latLngList.add(new LatLng(-33.852, 151.211));
-//        latLngList.add(new LatLng(-37.813, 144.962));
-//        latLngList.add(new LatLng(-34.928, 138.599));
-//        googleMap.addPolygon(PolygonOptions()
-//                .clickable(false)
-//                .addAll(latLngList)
-//                .fillColor(getColor(R.color.polygonColor))
-//                .strokeWidth(0f))
 
         // Add a marker in VIT and move the camera
         LatLng vit = new LatLng(12.974714, 79.164227);
-        mMap.addMarker(new MarkerOptions().position(vit).title("VIT")
-                .icon(BitmapFromVector(getApplicationContext(), R.drawable.ic_marker)));
+        mMap.addMarker(new MarkerOptions().position(vit).title("Admin")
+                .icon(BitmapFromVector(getApplicationContext(), R.drawable.ic_marker_admin)));
+         mMap.addMarker(new MarkerOptions().position(new LatLng(12.974512,79.164327)).title("Academic")
+                .icon(BitmapFromVector(getApplicationContext(), R.drawable.ic_marker_academic)));
+         mMap.addMarker(new MarkerOptions().position(new LatLng(12.974912,79.164127)).title("Coffee")
+                .icon(BitmapFromVector(getApplicationContext(), R.drawable.ic_marker_coffee)));
+         mMap.addMarker(new MarkerOptions().position(new LatLng(12.974522,79.164357)).title("Hostel")
+                .icon(BitmapFromVector(getApplicationContext(), R.drawable.ic_marker_hostel)));
+         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+             @Override
+             public boolean onMarkerClick(@NonNull Marker marker) {
+                 Intent i = new Intent(HomeActivity.this, NavigationActivity.class);
+                 i.putExtra("lat", marker.getPosition().latitude);
+                 i.putExtra("long", marker.getPosition().longitude);
+                 startActivity(i);
+                 return true;
+             }
+         });
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(vit, 15f));
     }
 
@@ -279,6 +302,67 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
         manager1.setOrientation(RecyclerView.VERTICAL);
         places.setAdapter(adapter);
         places.setLayoutManager(manager1);
+    }
+    void Search(){
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String searchString = search.getText().toString();
+                if(searchString==""){
+                    cat.setVisibility(View.VISIBLE);
+                    plac.setText("Places");
+                    places.setVisibility(View.VISIBLE);
+                    categories.setVisibility(View.VISIBLE);
+                    searchRecyclerview.setVisibility(View.INVISIBLE);
+                }else {
+                    cat.setVisibility(View.INVISIBLE);
+                    plac.setText("Results");
+                    places.setVisibility(View.INVISIBLE);
+                    categories.setVisibility(View.INVISIBLE);
+                    searchRecyclerview.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(!bottomSheetBehavior.equals(BottomSheetBehavior.STATE_EXPANDED)){
+                    bottomSheetLayout.setState(BottomSheetBehavior.STATE_EXPANDED,0,0);
+                }
+                String searchString = search.getText().toString();
+                if(searchString.equals("")){
+                    cat.setVisibility(View.VISIBLE);
+                    plac.setText("Places");
+                    places.setVisibility(View.VISIBLE);
+                    categories.setVisibility(View.VISIBLE);
+                    searchRecyclerview.setVisibility(View.INVISIBLE);
+                }else{
+                    cat.setVisibility(View.GONE);
+                    plac.setText("Results");
+                    places.setVisibility(View.GONE);
+                    categories.setVisibility(View.GONE);
+                    searchRecyclerview.setVisibility(View.VISIBLE);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(search.getText().toString().equals(searchString)){
+                                List<DataModel> list = DataHandling.searchData(searchString);
+                                PlacesAdapter adapter = new PlacesAdapter(list,getApplicationContext());
+                                LinearLayoutManager manager1 = new LinearLayoutManager(getApplicationContext());
+                                manager1.setOrientation(RecyclerView.VERTICAL);
+                                searchRecyclerview.setAdapter(adapter);
+                                searchRecyclerview.setLayoutManager(manager1);
+                            }
+                        }
+                    },400);
+
+                }
+            }
+        });
     }
 
 }

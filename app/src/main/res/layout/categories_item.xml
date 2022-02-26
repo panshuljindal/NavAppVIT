@@ -37,7 +37,7 @@
             android:layout_marginTop="9dp"
             android:fontFamily="@font/medium"
             android:text="Academic Blocks"
-            android:textColor="#2C2C2E"
+            android:textColor="@color/subHeading"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
