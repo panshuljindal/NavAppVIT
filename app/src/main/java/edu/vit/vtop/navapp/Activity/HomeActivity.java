@@ -132,7 +132,6 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
                         break;
                     case BottomSheetBehavior.STATE_DRAGGING:
 //                        Toast.makeText(getApplicationContext(),"STATE DRAGGING",Toast.LENGTH_LONG).show();
-                        bottomSheetLayout.setBackground(ContextCompat.getDrawable(HomeActivity.this,R.drawable.bottom_sheet_background));
 
                         break;
                     case BottomSheetBehavior.STATE_SETTLING:
