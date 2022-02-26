@@ -71,24 +71,61 @@
             android:layout_height="wrap_content"
             android:text="TextView" />
 
-        <Button
-            android:id="@+id/button"
+        <androidx.cardview.widget.CardView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="40dp"
-            android:paddingTop="18dp"
-            android:paddingBottom="18dp"
-            android:background="@drawable/button_background"
-            android:fontFamily="@font/medium"
-            android:text="Go"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="18dp"
+            map:layout_constraintStart_toStartOf="parent"
             map:layout_constraintBottom_toBottomOf="parent"
             map:layout_constraintEnd_toEndOf="parent"
-            map:layout_constraintStart_toStartOf="parent" />
+            map:cardBackgroundColor="@color/admin"
+            android:layout_marginBottom="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            map:cardCornerRadius="12dp"
+            >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="19dp"
+                    android:layout_marginBottom="19dp"
+                    android:layout_marginLeft="20dp"
+                    android:fontFamily="@font/medium"
+                    android:text="Go"
+                    android:textColor="@color/white"
+                    android:textSize="17dp"
+                    map:layout_constraintBottom_toBottomOf="parent"
+                    map:layout_constraintEnd_toEndOf="parent"
+                    map:layout_constraintStart_toStartOf="parent"
+                    map:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_white"
+                    android:layout_marginRight="5dp"
+                    map:layout_constraintBottom_toBottomOf="@+id/textView5"
+                    map:layout_constraintEnd_toStartOf="@+id/textView5"
+                    map:layout_constraintTop_toTopOf="@+id/textView5" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:id="@+id/navCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_cancel"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:padding="5dp"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintTop_toBottomOf="@+id/notchawa2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
