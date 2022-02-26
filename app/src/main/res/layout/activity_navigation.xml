@@ -72,17 +72,17 @@
             android:text="TextView" />
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/navGo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            map:layout_constraintStart_toStartOf="parent"
-            map:layout_constraintBottom_toBottomOf="parent"
-            map:layout_constraintEnd_toEndOf="parent"
-            map:cardBackgroundColor="@color/admin"
-            android:layout_marginBottom="40dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
+            android:layout_marginBottom="40dp"
+            map:cardBackgroundColor="@color/admin"
             map:cardCornerRadius="12dp"
-            >
+            map:layout_constraintBottom_toBottomOf="parent"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintStart_toStartOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -92,9 +92,9 @@
                     android:id="@+id/textView5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginTop="19dp"
                     android:layout_marginBottom="19dp"
-                    android:layout_marginLeft="20dp"
                     android:fontFamily="@font/medium"
                     android:text="Go"
                     android:textColor="@color/white"
@@ -108,8 +108,8 @@
                     android:id="@+id/imageView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_arrow_white"
                     android:layout_marginRight="5dp"
+                    android:src="@drawable/ic_arrow_white"
                     map:layout_constraintBottom_toBottomOf="@+id/textView5"
                     map:layout_constraintEnd_toStartOf="@+id/textView5"
                     map:layout_constraintTop_toTopOf="@+id/textView5" />
