@@ -23,6 +23,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.content.Context;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -61,7 +62,7 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
     private List<CategoriesModel> categoriesList;
     private List<DataModel> placesList;
     private Context context;
-
+    ConstraintLayout bottomSheetLayout;
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +87,7 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(binding.getRoot());
 
         // get the bottom sheet view
-        ConstraintLayout bottomSheetLayout = findViewById(R.id.bottom_sheet);
+        bottomSheetLayout = findViewById(R.id.bottom_sheet);
 
 
         categories = findViewById(R.id.categoriesRecyclerView);
@@ -113,13 +114,18 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
                     case BottomSheetBehavior.STATE_EXPANDED:
 //                        Toast.makeText(getApplicationContext(),"STATE EXPANDED",Toast.LENGTH_LONG).show();
                         // update toggle button text
+                        bottomSheetLayout.setBackground(ContextCompat.getDrawable(HomeActivity.this,R.drawable.bottom_sheet_back));
                         break;
                     case BottomSheetBehavior.STATE_COLLAPSED:
 //                        Toast.makeText(getApplicationContext(),"STATE COLLAPSED",Toast.LENGTH_LONG).show();
                         // update collapsed button text
+                        bottomSheetLayout.setBackground(ContextCompat.getDrawable(HomeActivity.this,R.drawable.bottom_sheet_background));
+
                         break;
                     case BottomSheetBehavior.STATE_DRAGGING:
 //                        Toast.makeText(getApplicationContext(),"STATE DRAGGING",Toast.LENGTH_LONG).show();
+                        bottomSheetLayout.setBackground(ContextCompat.getDrawable(HomeActivity.this,R.drawable.bottom_sheet_background));
+
                         break;
                     case BottomSheetBehavior.STATE_SETTLING:
 //                        Toast.makeText(getApplicationContext(),"STATE SETTLING",Toast.LENGTH_LONG).show();
