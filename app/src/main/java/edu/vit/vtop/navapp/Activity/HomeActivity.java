@@ -175,7 +175,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                         break;
                     case Configuration.UI_MODE_NIGHT_NO:
-//
                         mEditor.putString("theme", "dark").apply();
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                         break;
@@ -252,7 +251,16 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getApplicationContext(), R.raw.map_style));
+
+        SharedPreferences mPrefs = getSharedPreferences("THEME", 0);
+        String theme=mPrefs.getString("theme","");
+        if (theme.equals("dark")) {
+            mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getApplicationContext(), R.raw.map_style_night));
+            // Set theme to white
+        } else if(theme.equals("light")) {
+            mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getApplicationContext(), R.raw.map_style));
+            // Set theme to black
+        }
 
         // Create a LatLngBounds that includes the VIT Campus bounds
         LatLngBounds vitBounds = new LatLngBounds(
