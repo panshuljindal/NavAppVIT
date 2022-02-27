@@ -1,5 +1,6 @@
 package edu.vit.vtop.navapp.Activity;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentActivity;
 
@@ -24,7 +25,7 @@ import edu.vit.vtop.navapp.R;
 import edu.vit.vtop.navapp.Utils.DataModel;
 import edu.vit.vtop.navapp.databinding.ActivityNavigationBinding;
 
-public class NavigationActivity extends FragmentActivity implements OnMapReadyCallback {
+public class NavigationActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private ActivityNavigationBinding binding;
@@ -53,8 +54,8 @@ public class NavigationActivity extends FragmentActivity implements OnMapReadyCa
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(NavigationActivity.this,HomeActivity.class);
-                startActivity(i);
+//                Intent i = new Intent(NavigationActivity.this,HomeActivity.class);
+//                startActivity(i);
                 finish();
             }
         });
