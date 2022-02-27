@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         SharedPreferences mPrefs = getSharedPreferences("THEME", 0);
-        boolean theme_boolean = mPrefs.getBoolean("theme_boolean", true);
         String theme=mPrefs.getString("theme","");
         if (theme.equals("dark")) {
             // Set theme to white
