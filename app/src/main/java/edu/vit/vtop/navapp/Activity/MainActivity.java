@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import java.util.ArrayList;
@@ -20,15 +21,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String themeChosen = getSharedPreferences("Appearance_shared_pref", MODE_PRIVATE)
-                .getString("theme", "sys_def");
-        if(themeChosen.equals("dark")){
+        SharedPreferences mPrefs = getSharedPreferences("THEME", 0);
+        boolean theme_boolean = mPrefs.getBoolean("theme_boolean", true);
+        String theme=mPrefs.getString("theme","");
+        if (theme.equals("dark")) {
+            // Set theme to white
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-
-        }
-        else if(themeChosen.equals("light")){
+        } else if(theme.equals("light")) {
+            // Set theme to black
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
+
+
         List<DataModel> list = new ArrayList<>();
         list.add(new DataModel("Silver Jubliee Tower","SJT",10.00,11.00,"Academic Blocks"));
         list.add(new DataModel("Technology Tower","TT",10.00,11.00,"Academic Blocks"));

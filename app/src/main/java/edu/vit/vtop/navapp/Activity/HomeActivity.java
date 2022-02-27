@@ -164,21 +164,23 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         binding.changeTheme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SharedPreferences mPrefs = getSharedPreferences("THEME", 0);
+                SharedPreferences.Editor mEditor = mPrefs.edit();
 
-                SharedPreferences.Editor editor = getSharedPreferences("Appearance_shared_pref", MODE_PRIVATE).edit();
 
                 switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
                     case Configuration.UI_MODE_NIGHT_YES:
-                        editor.putString("theme", "dark");
-                        editor.apply();
+
+                        mEditor.putString("theme", "light").apply();
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                         break;
                     case Configuration.UI_MODE_NIGHT_NO:
-                        editor.putString("theme", "light");
-                        editor.apply();
+//
+                        mEditor.putString("theme", "dark").apply();
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                         break;
                 }
+
 
 
 
