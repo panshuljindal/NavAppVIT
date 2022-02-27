@@ -169,12 +169,12 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
                     case Configuration.UI_MODE_NIGHT_YES:
-                        editor.putString("Appearance_shared_pref", "dark");
+                        editor.putString("theme", "dark");
                         editor.apply();
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                         break;
                     case Configuration.UI_MODE_NIGHT_NO:
-                        editor.putString("Appearance_shared_pref", "light");
+                        editor.putString("theme", "light");
                         editor.apply();
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                         break;
