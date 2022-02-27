@@ -318,16 +318,16 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         categoriesList.add(new CategoriesModel("Admin Offices",R.color.admin,R.drawable.ic_admin));
         categoriesList.add(new CategoriesModel("Academic Blocks",R.color.academic,R.drawable.ic_academics));
         Collections.reverse(categoriesList);
-        CategoriesAdapter categoriesAdapter = new CategoriesAdapter(categoriesList,getApplicationContext());
-        LinearLayoutManager manager = new LinearLayoutManager(getApplicationContext());
+        CategoriesAdapter categoriesAdapter = new CategoriesAdapter(categoriesList,HomeActivity.this);
+        LinearLayoutManager manager = new LinearLayoutManager(HomeActivity.this);
         manager.setOrientation(RecyclerView.HORIZONTAL);
         categories.setAdapter(categoriesAdapter);
         categories.setLayoutManager(manager);
     }
     void addPlaces(){
         placesList= DataHandling.getList(HomeActivity.this);
-        PlacesAdapter adapter = new PlacesAdapter(placesList,getApplicationContext());
-        LinearLayoutManager manager1 = new LinearLayoutManager(getApplicationContext());
+        PlacesAdapter adapter = new PlacesAdapter(placesList,HomeActivity.this);
+        LinearLayoutManager manager1 = new LinearLayoutManager(HomeActivity.this);
         manager1.setOrientation(RecyclerView.VERTICAL);
         places.setAdapter(adapter);
         places.setLayoutManager(manager1);
