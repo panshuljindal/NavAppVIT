@@ -13,7 +13,8 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
-
+    <drawable name="theme_mode">@drawable/ic_switch_to_dark</drawable>
+    <item name="themeName" type="string">dark</item>
     <color name="searchBack">#6648484A</color>
     <color name="searchText">#9948484A</color>
     <color name="heading">#888888</color>

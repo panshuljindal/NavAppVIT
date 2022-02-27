@@ -27,6 +27,7 @@
             android:layout_height="34dp"
             android:elevation="4dp"
             android:padding="20dp"
+            android:id="@+id/change_theme"
             android:background="@color/black"
             android:backgroundTint="@color/nav_button"
             app:layout_constraintTop_toTopOf="parent"
@@ -38,11 +39,12 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:id="@+id/change_theme_imageview"
                 android:hapticFeedbackEnabled="true"
                 android:scaleType="fitCenter"
                 android:padding="5dp"
                 android:background="@color/nav_button"
-                android:src="@drawable/ic_switch_to_dark"
+                android:src="@drawable/theme_mode"
                 />
 
 
