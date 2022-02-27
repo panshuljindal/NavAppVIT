@@ -16,6 +16,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -80,6 +81,17 @@ public class NavigationActivity extends FragmentActivity implements OnMapReadyCa
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getApplicationContext(), R.raw.map_style));
+
+        // Create a LatLngBounds that includes the VIT Campus bounds
+        LatLngBounds vitBounds = new LatLngBounds(
+                new LatLng(12.967077, 79.152291), // SW bounds
+                new LatLng(12.978755, 79.167387)  // NE bounds
+        );
+
+
+// Constrain the camera target to the VIT Campus bounds.
+        mMap.setLatLngBoundsForCameraTarget(vitBounds);
+        mMap.setMinZoomPreference(16.0f); // Set a preference for minimum zoom (Zoom out).
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(lat, lng);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
