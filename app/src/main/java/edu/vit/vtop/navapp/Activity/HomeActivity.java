@@ -216,8 +216,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                         return;
                     }
-//                    mMap.setMyLocationEnabled(true);
-                    mMap.getUiSettings().setMyLocationButtonEnabled(true);
+                    mMap.setMyLocationEnabled(true);
+                    mMap.getUiSettings().setMyLocationButtonEnabled(false);
                     mMap.getUiSettings().setAllGesturesEnabled(true);
                     //delay is for after map loaded animation starts
                     Handler handler = new Handler();
