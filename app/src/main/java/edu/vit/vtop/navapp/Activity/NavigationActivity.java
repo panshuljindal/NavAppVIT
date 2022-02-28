@@ -5,6 +5,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -82,7 +83,15 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getApplicationContext(), R.raw.map_style));
-
+        SharedPreferences mPrefs = getSharedPreferences("THEME", 0);
+        String theme=mPrefs.getString("theme","");
+        if (theme.equals("dark")) {
+            mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getApplicationContext(), R.raw.map_style_night));
+            // Set theme to white
+        } else if(theme.equals("light")) {
+            mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getApplicationContext(), R.raw.map_style));
+            // Set theme to black
+        }
         // Create a LatLngBounds that includes the VIT Campus bounds
         LatLngBounds vitBounds = new LatLngBounds(
                 new LatLng(12.967077, 79.152291), // SW bounds
