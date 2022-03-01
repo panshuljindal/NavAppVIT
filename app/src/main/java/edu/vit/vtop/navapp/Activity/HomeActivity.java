@@ -317,6 +317,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     vector = R.drawable.ic_marker_academic;
                     break;
                 case "Gate":
+
                     // change to gate
                     vector = R.drawable.ic_marker_academic;
                     break;
