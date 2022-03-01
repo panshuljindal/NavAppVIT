@@ -19,4 +19,7 @@ public interface NetworkAPIs {
 
     @GET("api/getByCategory/{id}")
     Call<List<DataModel>> getCategory(@Path("id") String category);
+
+    @GET("api/search")
+    Call<List<DataModel>> search(@Query("sk") String key);
 }

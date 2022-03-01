@@ -37,7 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="15dp"
-                app:srcCompat="@drawable/ic_academics" />
+                app:srcCompat="@drawable/ic_building" />
         </androidx.cardview.widget.CardView>
 
         <TextView

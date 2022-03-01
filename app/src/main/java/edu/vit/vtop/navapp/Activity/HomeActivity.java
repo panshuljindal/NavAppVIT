@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,12 +30,9 @@ import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -50,14 +46,12 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import edu.vit.vtop.navapp.NetworkUtils.NetworkUtil;
 import edu.vit.vtop.navapp.R;
 import edu.vit.vtop.navapp.Recyclerview.CategoriesAdapter;
 import edu.vit.vtop.navapp.Recyclerview.PlacesAdapter;
@@ -65,6 +59,9 @@ import edu.vit.vtop.navapp.RecyclerviewModels.CategoriesModel;
 import edu.vit.vtop.navapp.Utils.DataHandling;
 import edu.vit.vtop.navapp.Utils.DataModel;
 import edu.vit.vtop.navapp.databinding.ActivityHomeBinding;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -76,6 +73,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     private List<DataModel> placesList;
     private EditText search;
     private TextView cat,plac;
+    List<DataModel> list;
     ConstraintLayout bottomSheetLayout;
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -383,7 +381,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         categoriesList.add(new CategoriesModel("Hostel Blocks",R.color.hostel,R.drawable.ic_hostel));
         categoriesList.add(new CategoriesModel("Coffee Shops",R.color.coffee,R.drawable.ic_coffee));
         categoriesList.add(new CategoriesModel("Admin Offices",R.color.admin,R.drawable.ic_admin));
-        categoriesList.add(new CategoriesModel("Academic Blocks",R.color.academic,R.drawable.ic_academics));
+        categoriesList.add(new CategoriesModel("Academic Blocks",R.color.academic,R.drawable.ic_building));
         Collections.reverse(categoriesList);
         CategoriesAdapter categoriesAdapter = new CategoriesAdapter(categoriesList,HomeActivity.this);
         LinearLayoutManager manager = new LinearLayoutManager(HomeActivity.this);
@@ -427,7 +425,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void afterTextChanged(Editable editable) {
                 if(!bottomSheetBehavior.equals(BottomSheetBehavior.STATE_EXPANDED)){
-                    bottomSheetLayout.setState(BottomSheetBehavior.STATE_EXPANDED,0,0);
+                    bottomSheetLayout.setState(BottomSheetBehavior.STATE_EXPANDED,100,100);
                 }
                 String searchString = search.getText().toString();
                 if(searchString.equals("")){
@@ -446,12 +444,31 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                         @Override
                         public void run() {
                             if(search.getText().toString().equals(searchString)){
-                                List<DataModel> list = DataHandling.searchData(searchString);
-                                PlacesAdapter adapter = new PlacesAdapter(list,getApplicationContext());
-                                LinearLayoutManager manager1 = new LinearLayoutManager(getApplicationContext());
-                                manager1.setOrientation(RecyclerView.VERTICAL);
-                                searchRecyclerview.setAdapter(adapter);
-                                searchRecyclerview.setLayoutManager(manager1);
+
+                                Call<List<DataModel>> call = NetworkUtil.networkAPI.search(searchString);
+                                call.enqueue(new Callback<List<DataModel>>() {
+                                    @Override
+                                    public void onResponse(Call<List<DataModel>> call, Response<List<DataModel>> response) {
+                                        if(!response.isSuccessful()){
+                                            return ;
+                                        }
+                                        list=new ArrayList<>();
+                                        list=response.body();
+                                        for (DataModel model: list){
+                                            Log.i("list",model.getName());
+                                        }
+                                        PlacesAdapter adapter = new PlacesAdapter(list,getApplicationContext());
+                                        LinearLayoutManager manager1 = new LinearLayoutManager(getApplicationContext());
+                                        manager1.setOrientation(RecyclerView.VERTICAL);
+                                        searchRecyclerview.setAdapter(adapter);
+                                        searchRecyclerview.setLayoutManager(manager1);
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<List<DataModel>> call, Throwable t) {
+
+                                    }
+                                });
                             }
                         }
                     },400);
