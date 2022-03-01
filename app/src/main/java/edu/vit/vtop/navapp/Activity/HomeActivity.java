@@ -33,6 +33,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -342,8 +343,17 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
              @Override
              public boolean onMarkerClick(@NonNull Marker marker) {
                  Intent i = new Intent(HomeActivity.this, NavigationActivity.class);
-                 i.putExtra("lat", marker.getPosition().latitude);
-                 i.putExtra("long", marker.getPosition().longitude);
+                 for(DataModel e : markers)
+                 {
+                     if(marker.getPosition().longitude == e.getLon() && marker.getPosition().latitude == e.getLat())
+                     {
+//                         Toast.makeText(getApplicationContext(), marker.getPosition().longitude + " " + e.getLon(), Toast.LENGTH_SHORT).show();
+//                         System.out.println(marker.getPosition().longitude + " " + e.getLon());
+                         i.putExtra("marker_object",e);
+                     }
+                 }
+//                 i.putExtra("lat", marker.getPosition().latitude);
+//                 i.putExtra("long", marker.getPosition().longitude);
                  startActivity(i);
                  return true;
              }
