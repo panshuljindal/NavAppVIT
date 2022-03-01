@@ -1,18 +1,42 @@
 package edu.vit.vtop.navapp.Utils;
 
-public class DataModel {
-    String name;
-    String abbreviations;
-    double latitude;
-    double longitude;
-    String category;
 
-    public DataModel(String name, String abbreviations, double latitude, double longitude, String category) {
-        this.name = name;
-        this.abbreviations = abbreviations;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.category = category;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+public class DataModel {
+
+    @SerializedName("_id")
+    private String id;
+
+    @SerializedName("name")
+    private String name;
+
+    @SerializedName("abbreviation")
+    private String abbreviation;
+
+    @SerializedName("lat")
+    private Double lat;
+
+    @SerializedName("lon")
+    private Double lon;
+
+    @SerializedName("category")
+    private String category;
+
+    @SerializedName("isIndependent")
+    private Boolean isIndependent;
+
+    @SerializedName("address")
+    private String address;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -23,28 +47,28 @@ public class DataModel {
         this.name = name;
     }
 
-    public String getAbbreviations() {
-        return abbreviations;
+    public String getAbbreviation() {
+        return abbreviation;
     }
 
-    public void setAbbreviations(String abbreviations) {
-        this.abbreviations = abbreviations;
+    public void setAbbreviation(String abbreviation) {
+        this.abbreviation = abbreviation;
     }
 
-    public double getLatitude() {
-        return latitude;
+    public Double getLat() {
+        return lat;
     }
 
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
+    public void setLat(Double lat) {
+        this.lat = lat;
     }
 
-    public double getLongitude() {
-        return longitude;
+    public Double getLon() {
+        return lon;
     }
 
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
+    public void setLon(Double lon) {
+        this.lon = lon;
     }
 
     public String getCategory() {
@@ -54,4 +78,21 @@ public class DataModel {
     public void setCategory(String category) {
         this.category = category;
     }
+
+    public Boolean getIsIndependent() {
+        return isIndependent;
+    }
+
+    public void setIsIndependent(Boolean isIndependent) {
+        this.isIndependent = isIndependent;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
 }
