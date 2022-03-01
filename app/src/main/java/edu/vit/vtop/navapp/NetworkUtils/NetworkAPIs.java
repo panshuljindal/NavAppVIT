@@ -6,6 +6,7 @@ import edu.vit.vtop.navapp.Utils.DataModel;
 import edu.vit.vtop.navapp.Utils.VersionModel;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface NetworkAPIs {
@@ -15,4 +16,7 @@ public interface NetworkAPIs {
 
     @GET("api/search")
     Call<List<VersionModel>> getVersion(@Query("sk") String sj);
+
+    @GET("api/getByCategory/{id}")
+    Call<List<DataModel>> getCategory(@Path("id") String category);
 }
