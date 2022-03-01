@@ -361,6 +361,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         // vector drawable in canvas.
         vectorDrawable.draw(canvas);
 
+
+
         // after generating our bitmap we are returning our bitmap.
         return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
