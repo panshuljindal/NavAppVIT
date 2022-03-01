@@ -15,7 +15,6 @@
         android:layout_marginLeft="27dp"
         android:layout_marginTop="30dp"
         android:fontFamily="@font/medium"
-        android:text="Coffee Shops"
         android:textColor="@color/boldHeading"
         android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
