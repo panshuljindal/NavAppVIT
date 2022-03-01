@@ -1,9 +1,11 @@
 package edu.vit.vtop.navapp.Activity;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,7 +26,7 @@ import edu.vit.vtop.navapp.R;
 import edu.vit.vtop.navapp.Utils.DataModel;
 import edu.vit.vtop.navapp.databinding.ActivityNavigationBinding;
 
-public class NavigationActivity extends FragmentActivity implements OnMapReadyCallback {
+public class NavigationActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private ActivityNavigationBinding binding;
@@ -53,8 +55,8 @@ public class NavigationActivity extends FragmentActivity implements OnMapReadyCa
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(NavigationActivity.this,HomeActivity.class);
-                startActivity(i);
+//                Intent i = new Intent(NavigationActivity.this,HomeActivity.class);
+//                startActivity(i);
                 finish();
             }
         });
@@ -81,7 +83,15 @@ public class NavigationActivity extends FragmentActivity implements OnMapReadyCa
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getApplicationContext(), R.raw.map_style));
-
+        SharedPreferences mPrefs = getSharedPreferences("THEME", 0);
+        String theme=mPrefs.getString("theme","");
+        if (theme.equals("dark")) {
+            mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getApplicationContext(), R.raw.map_style_night));
+            // Set theme to white
+        } else if(theme.equals("light")) {
+            mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getApplicationContext(), R.raw.map_style));
+            // Set theme to black
+        }
         // Create a LatLngBounds that includes the VIT Campus bounds
         LatLngBounds vitBounds = new LatLngBounds(
                 new LatLng(12.967077, 79.152291), // SW bounds

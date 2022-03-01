@@ -4,14 +4,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.vit.vtop.navapp.NetworkUtils.NetworkUtil;
 import edu.vit.vtop.navapp.R;
 import edu.vit.vtop.navapp.Utils.DataHandling;
 import edu.vit.vtop.navapp.Utils.DataModel;
+import edu.vit.vtop.navapp.Utils.VersionModel;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,25 +29,88 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String themeChosen = getSharedPreferences("Appearance_shared_pref", MODE_PRIVATE)
-                .getString("theme", "sys_def");
-        if(themeChosen.equals("dark")){
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        SharedPreferences sharedPreferences = getSharedPreferences("Version", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+//        int version = -1;
+        int version = sharedPreferences.getInt("version", -1);
+        Call<List<VersionModel>> versionCall = NetworkUtil.networkAPI.getVersion("sj");
+        versionCall.enqueue(new Callback<List<VersionModel>>() {
 
-        }
-        else if(themeChosen.equals("light")){
+            @Override
+            public void onResponse(Call<List<VersionModel>> call, Response<List<VersionModel>> response) {
+                if (!response.isSuccessful()) {
+                    Log.i("Version: ", "Not Successfull");
+//                    Toast.makeText(getApplicationContext(), "Version not success", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(response.body().get(0).get__v() > version){
+                    editor.putInt("version",response.body().get(0).get__v());
+                    editor.apply();
+//                    Toast.makeText(getApplicationContext(), "Version success", Toast.LENGTH_SHORT).show();
+                    Log.i("Version: ", "Successfull");
+
+                        Call<List<DataModel>> dataCall = NetworkUtil.networkAPI.getIndependent();
+
+                        dataCall.enqueue(new Callback<List<DataModel>>() {
+                            @Override
+                            public void onResponse(Call<List<DataModel>> call, Response<List<DataModel>> response) {
+                                if (!response.isSuccessful()) {
+                                    Log.i("Datamodel: ", "Not Successfull");
+//                                    Toast.makeText(getApplicationContext(), "DataModel not success", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                                DataHandling.saveList(response.body(),getApplicationContext());
+                                Log.i("DataModel: ", "Successfull");
+//                                Toast.makeText(getApplicationContext(), "DataModel Success", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                                finish();
+                            }
+
+                            @Override
+                            public void onFailure(Call<List<DataModel>> call, Throwable t) {
+                                Log.i("DataModel: ", "error");
+//                                Toast.makeText(getApplicationContext(), "DataModel error", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+
+
+
+                }
+                else{
+
+                    startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                    finish();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<VersionModel>> call, Throwable t) {
+                Log.i("Version: ", "fail");
+                Toast.makeText(getApplicationContext(), "Version error", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        SharedPreferences mPrefs = getSharedPreferences("THEME", 0);
+        String theme=mPrefs.getString("theme","");
+        if (theme.equals("dark")) {
+            // Set theme to white
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else if(theme.equals("light")) {
+            // Set theme to black
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
-        List<DataModel> list = new ArrayList<>();
-        list.add(new DataModel("Silver Jubliee Tower","SJT",10.00,11.00,"Academic Blocks"));
-        list.add(new DataModel("Technology Tower","TT",10.00,11.00,"Academic Blocks"));
-        list.add(new DataModel("Food Court","FC",10.00,11.00,"Restaurants"));
-        list.add(new DataModel("Cafe Coffee Day","CCD",10.00,11.00,"Coffee Shops"));
-        list.add(new DataModel("HOD Scope","SJT",10.00,11.00,"Admin Offices"));
-        list.add(new DataModel("Silver Jubliee Tower","SJT",10.00,11.00,"Academic Blocks"));
-        list.add(new DataModel("Silver Jubliee Tower","SJT",10.00,11.00,"Academic Blocks"));
-        DataHandling.saveList(list,MainActivity.this);
-        startActivity(new Intent(MainActivity.this,HomeActivity.class));
-        finish();
+
+
+
+
+
+
+
     }
+
+
+
 }

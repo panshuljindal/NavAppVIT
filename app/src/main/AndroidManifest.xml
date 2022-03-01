@@ -40,8 +40,7 @@
 
         <activity
             android:name=".Activity.NavigationActivity"
-            android:exported="false"
-            android:label="@string/title_activity_navigation" />
+            android:exported="false"/>
         <activity
             android:name=".Activity.CategoryActivity"
             android:exported="false" />

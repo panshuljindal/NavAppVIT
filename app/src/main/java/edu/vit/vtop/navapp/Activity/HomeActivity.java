@@ -34,6 +34,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -164,21 +165,22 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         binding.changeTheme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SharedPreferences mPrefs = getSharedPreferences("THEME", 0);
+                SharedPreferences.Editor mEditor = mPrefs.edit();
 
-                SharedPreferences.Editor editor = getSharedPreferences("Appearance_shared_pref", MODE_PRIVATE).edit();
 
                 switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
                     case Configuration.UI_MODE_NIGHT_YES:
-                        editor.putString("theme", "dark");
-                        editor.apply();
+
+                        mEditor.putString("theme", "light").apply();
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                         break;
                     case Configuration.UI_MODE_NIGHT_NO:
-                        editor.putString("theme", "light");
-                        editor.apply();
+                        mEditor.putString("theme", "dark").apply();
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                         break;
                 }
+
 
 
 
@@ -214,8 +216,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                         return;
                     }
-//                    mMap.setMyLocationEnabled(true);
-                    mMap.getUiSettings().setMyLocationButtonEnabled(true);
+                    mMap.setMyLocationEnabled(true);
+                    mMap.getUiSettings().setMyLocationButtonEnabled(false);
                     mMap.getUiSettings().setAllGesturesEnabled(true);
                     //delay is for after map loaded animation starts
                     Handler handler = new Handler();
@@ -250,7 +252,25 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getApplicationContext(), R.raw.map_style));
+
+//        SharedPreferences mPrefs = getSharedPreferences("THEME", 0);
+//        String theme=mPrefs.getString("theme","");
+//        if (theme.equals("dark")) {
+//            mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getApplicationContext(), R.raw.map_style_night));
+//            // Set theme to white
+//        } else if(theme.equals("light")) {
+//            mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getApplicationContext(), R.raw.map_style));
+//            // Set theme to black
+//        }
+        switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
+            case Configuration.UI_MODE_NIGHT_YES:
+
+                mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getApplicationContext(), R.raw.map_style_night));
+                break;
+            case Configuration.UI_MODE_NIGHT_NO:
+                mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getApplicationContext(), R.raw.map_style));
+                break;
+        }
 
         // Create a LatLngBounds that includes the VIT Campus bounds
         LatLngBounds vitBounds = new LatLngBounds(
@@ -265,15 +285,61 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
         // Add a marker in VIT and move the camera
-        LatLng vit = new LatLng(12.974714, 79.164227);
-        mMap.addMarker(new MarkerOptions().position(vit).title("Admin")
-                .icon(BitmapFromVector(getApplicationContext(), R.drawable.ic_marker_admin)));
-         mMap.addMarker(new MarkerOptions().position(new LatLng(12.974512,79.164327)).title("Academic")
-                .icon(BitmapFromVector(getApplicationContext(), R.drawable.ic_marker_academic)));
-         mMap.addMarker(new MarkerOptions().position(new LatLng(12.974912,79.164127)).title("Coffee")
-                .icon(BitmapFromVector(getApplicationContext(), R.drawable.ic_marker_coffee)));
-         mMap.addMarker(new MarkerOptions().position(new LatLng(12.974522,79.164357)).title("Hostel")
-                .icon(BitmapFromVector(getApplicationContext(), R.drawable.ic_marker_hostel)));
+//        LatLng vit = new LatLng(12.974714, 79.164227);
+//        mMap.addMarker(new MarkerOptions().position(vit).title("Admin")
+//                .icon(BitmapFromVector(getApplicationContext(), R.drawable.ic_marker_admin)));
+
+        List<DataModel> markers = DataHandling.getList(getApplicationContext());
+        Log.i("HomeAct",Integer.toString(markers.size()));
+        for(DataModel e: markers) {
+
+            int vector = 0;
+            switch (e.getCategory()) {
+                case "Academic Blocks":
+                    vector = R.drawable.ic_marker_academic;
+                    break;
+
+                case "Hostel Blocks":
+                    vector = R.drawable.ic_marker_hostel;
+                    break;
+                case "Shops":
+                    vector = R.drawable.ic_marker_shop;
+                    break;
+                case "Coffee Shops":
+                    vector = R.drawable.ic_marker_coffee;
+                    break;
+                case "Halls":
+                    // change to hall
+                    vector = R.drawable.ic_marker_academic;
+                    break;
+                case "Sports":
+                    // change to sports
+                    vector = R.drawable.ic_marker_academic;
+                    break;
+                case "Gates":
+                    // change to gate
+                    vector = R.drawable.ic_marker_academic;
+                    break;
+
+                case "Utilities":
+                    vector = R.drawable.ic_marker_academic;
+                    break;
+                case "Restaurants":
+                    vector = R.drawable.ic_marker_food;
+                    break;
+                case "Administrative Offices":
+                    vector = R.drawable.ic_marker_admin;
+                    break;
+                default:
+                    vector = R.drawable.ic_marker_food;
+                    break;
+
+
+            }
+            mMap.addMarker(new MarkerOptions().position(new LatLng(e.getLat(), e.getLon())).title(e.getName())
+                    .icon(BitmapFromVector(getApplicationContext(), vector)));
+        }
+
          mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
              @Override
              public boolean onMarkerClick(@NonNull Marker marker) {
@@ -284,7 +350,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                  return true;
              }
          });
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(vit, 15f));
+//        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(vit, 15f));
     }
 
 
@@ -306,6 +372,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         // vector drawable in canvas.
         vectorDrawable.draw(canvas);
 
+
         // after generating our bitmap we are returning our bitmap.
         return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
@@ -318,16 +385,16 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         categoriesList.add(new CategoriesModel("Admin Offices",R.color.admin,R.drawable.ic_admin));
         categoriesList.add(new CategoriesModel("Academic Blocks",R.color.academic,R.drawable.ic_academics));
         Collections.reverse(categoriesList);
-        CategoriesAdapter categoriesAdapter = new CategoriesAdapter(categoriesList,getApplicationContext());
-        LinearLayoutManager manager = new LinearLayoutManager(getApplicationContext());
+        CategoriesAdapter categoriesAdapter = new CategoriesAdapter(categoriesList,HomeActivity.this);
+        LinearLayoutManager manager = new LinearLayoutManager(HomeActivity.this);
         manager.setOrientation(RecyclerView.HORIZONTAL);
         categories.setAdapter(categoriesAdapter);
         categories.setLayoutManager(manager);
     }
     void addPlaces(){
         placesList= DataHandling.getList(HomeActivity.this);
-        PlacesAdapter adapter = new PlacesAdapter(placesList,getApplicationContext());
-        LinearLayoutManager manager1 = new LinearLayoutManager(getApplicationContext());
+        PlacesAdapter adapter = new PlacesAdapter(placesList,HomeActivity.this);
+        LinearLayoutManager manager1 = new LinearLayoutManager(HomeActivity.this);
         manager1.setOrientation(RecyclerView.VERTICAL);
         places.setAdapter(adapter);
         places.setLayoutManager(manager1);
