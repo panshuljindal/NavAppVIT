@@ -323,6 +323,10 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 case "Food":
                     vector = R.drawable.ic_marker_food;
                     break;
+                default:
+                    vector = R.drawable.ic_marker_food;
+                    break;
+
 
             }
             mMap.addMarker(new MarkerOptions().position(new LatLng(e.getLat(), e.getLon())).title(e.getName())
