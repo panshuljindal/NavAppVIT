@@ -295,20 +295,20 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             int vector = 0;
             switch (e.getCategory()) {
-                case "Academic":
+                case "Academic Blocks":
                     vector = R.drawable.ic_marker_academic;
                     break;
 
-                case "Hostel":
+                case "Hostel Blocks":
                     vector = R.drawable.ic_marker_hostel;
                     break;
-                case "Shop":
+                case "Shops":
                     vector = R.drawable.ic_marker_shop;
                     break;
-                case "Coffee":
+                case "Coffee Shops":
                     vector = R.drawable.ic_marker_coffee;
                     break;
-                case "Hall":
+                case "Halls":
                     // change to hall
                     vector = R.drawable.ic_marker_academic;
                     break;
@@ -316,12 +316,19 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     // change to sports
                     vector = R.drawable.ic_marker_academic;
                     break;
-                case "Gate":
+                case "Gates":
                     // change to gate
                     vector = R.drawable.ic_marker_academic;
                     break;
-                case "Food":
+
+                case "Utilities":
+                    vector = R.drawable.ic_marker_academic;
+                    break;
+                case "Restaurants":
                     vector = R.drawable.ic_marker_food;
+                    break;
+                case "Administrative Offices":
+                    vector = R.drawable.ic_marker_admin;
                     break;
                 default:
                     vector = R.drawable.ic_marker_food;
@@ -364,7 +371,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         // below line is use to draw our
         // vector drawable in canvas.
         vectorDrawable.draw(canvas);
-
 
 
         // after generating our bitmap we are returning our bitmap.
