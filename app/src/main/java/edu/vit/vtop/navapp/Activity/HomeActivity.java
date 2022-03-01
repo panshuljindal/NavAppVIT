@@ -34,6 +34,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -252,14 +253,23 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        SharedPreferences mPrefs = getSharedPreferences("THEME", 0);
-        String theme=mPrefs.getString("theme","");
-        if (theme.equals("dark")) {
-            mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getApplicationContext(), R.raw.map_style_night));
-            // Set theme to white
-        } else if(theme.equals("light")) {
-            mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getApplicationContext(), R.raw.map_style));
-            // Set theme to black
+//        SharedPreferences mPrefs = getSharedPreferences("THEME", 0);
+//        String theme=mPrefs.getString("theme","");
+//        if (theme.equals("dark")) {
+//            mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getApplicationContext(), R.raw.map_style_night));
+//            // Set theme to white
+//        } else if(theme.equals("light")) {
+//            mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getApplicationContext(), R.raw.map_style));
+//            // Set theme to black
+//        }
+        switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
+            case Configuration.UI_MODE_NIGHT_YES:
+
+                mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getApplicationContext(), R.raw.map_style_night));
+                break;
+            case Configuration.UI_MODE_NIGHT_NO:
+                mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getApplicationContext(), R.raw.map_style));
+                break;
         }
 
         // Create a LatLngBounds that includes the VIT Campus bounds
@@ -275,15 +285,47 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
         // Add a marker in VIT and move the camera
-        LatLng vit = new LatLng(12.974714, 79.164227);
-        mMap.addMarker(new MarkerOptions().position(vit).title("Admin")
-                .icon(BitmapFromVector(getApplicationContext(), R.drawable.ic_marker_admin)));
-         mMap.addMarker(new MarkerOptions().position(new LatLng(12.974512,79.164327)).title("Academic")
-                .icon(BitmapFromVector(getApplicationContext(), R.drawable.ic_marker_academic)));
-         mMap.addMarker(new MarkerOptions().position(new LatLng(12.974912,79.164127)).title("Coffee")
-                .icon(BitmapFromVector(getApplicationContext(), R.drawable.ic_marker_coffee)));
-         mMap.addMarker(new MarkerOptions().position(new LatLng(12.974522,79.164357)).title("Hostel")
-                .icon(BitmapFromVector(getApplicationContext(), R.drawable.ic_marker_hostel)));
+//        LatLng vit = new LatLng(12.974714, 79.164227);
+//        mMap.addMarker(new MarkerOptions().position(vit).title("Admin")
+//                .icon(BitmapFromVector(getApplicationContext(), R.drawable.ic_marker_admin)));
+
+        List<DataModel> markers = DataHandling.getList(getApplicationContext());
+        Log.i("HomeAct",Integer.toString(markers.size()));
+        for(DataModel e: markers) {
+
+            int vector = 0;
+            switch (e.getCategory()) {
+                case "Academic":
+                    vector = R.drawable.ic_marker_academic;
+                    break;
+
+                case "Hostel":
+                    vector = R.drawable.ic_marker_hostel;
+                    break;
+                case "Shop":
+                    vector = R.drawable.ic_marker_shop;
+                    break;
+                case "Coffee":
+                    vector = R.drawable.ic_marker_coffee;
+                    break;
+                case "Hall":
+
+                    break;
+                case "Sports":
+
+                    break;
+                case "Gate":
+
+                    break;
+                case "Food":
+                    vector = R.drawable.ic_marker_food;
+                    break;
+
+            }
+            mMap.addMarker(new MarkerOptions().position(new LatLng(e.getLat(), e.getLon())).title(e.getName())
+                    .icon(BitmapFromVector(getApplicationContext(), vector)));
+        }
+
          mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
              @Override
              public boolean onMarkerClick(@NonNull Marker marker) {
@@ -294,7 +336,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                  return true;
              }
          });
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(vit, 15f));
+//        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(vit, 15f));
     }
 
 
