@@ -309,13 +309,16 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     vector = R.drawable.ic_marker_coffee;
                     break;
                 case "Hall":
-
+                    // change to hall
+                    vector = R.drawable.ic_marker_academic;
                     break;
                 case "Sports":
-
+                    // change to sports
+                    vector = R.drawable.ic_marker_academic;
                     break;
                 case "Gate":
-
+                    // change to gate
+                    vector = R.drawable.ic_marker_academic;
                     break;
                 case "Food":
                     vector = R.drawable.ic_marker_food;
