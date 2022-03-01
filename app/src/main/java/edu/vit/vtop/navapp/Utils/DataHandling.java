@@ -38,7 +38,7 @@ public class DataHandling {
     public static void addPlace(DataModel model, Context context){
         Gson gson = new Gson();
         List<DataModel> list = getPlaces(context);
-        if(list.size()>5){
+        if(list.size()>=5){
             list.remove(list.get(0));
             list.add(model);
         }else{
