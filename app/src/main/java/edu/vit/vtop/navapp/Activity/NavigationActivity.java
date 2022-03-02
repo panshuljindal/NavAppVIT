@@ -182,6 +182,8 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
 // Constrain the camera target to the VIT Campus bounds.
         mMap.setLatLngBoundsForCameraTarget(vitBounds);
         mMap.setMinZoomPreference(16.0f); // Set a preference for minimum zoom (Zoom out).
+
+
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(lat, lng);
         LatLng user = new LatLng(ulat,ulng);
