@@ -466,10 +466,10 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                                 if(location!=null)
                                 {
-//                                    if (!mMap.getProjection().getVisibleRegion().latLngBounds.contains(new LatLng(location.getLatitude(),location.getLongitude()))) {
-//                                        Toast.makeText(getApplicationContext(), "This app is only for inside VIT Vellore Campus", Toast.LENGTH_LONG).show();
-//                                    }
-//                                    else {
+                                    if (!mMap.getProjection().getVisibleRegion().latLngBounds.contains(new LatLng(location.getLatitude(),location.getLongitude()))) {
+                                        Toast.makeText(getApplicationContext(), "This app is only for inside VIT Vellore Campus", Toast.LENGTH_LONG).show();
+                                    }
+                                    else {
                                         marker.hideInfoWindow();
                                         e.setInfoShown(false);
 
@@ -480,7 +480,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                                         i.putExtra("ulon", location.getLongitude());
                                         i.putExtra("marker_object", e);
                                         startActivity(i);
-//                                    }
+                                    }
                                 }
                                 else
                                 {
