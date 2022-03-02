@@ -344,6 +344,10 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             mMap.addMarker(new MarkerOptions().position(new LatLng(e.getLat(), e.getLon())).title(e.getName())
                     .icon(BitmapFromVector(getApplicationContext(), vector)));
         }
+        Location lkl = getLastKnownLocation();
+        if (!mMap.getProjection().getVisibleRegion().latLngBounds.contains(new LatLng(lkl.getLatitude(),lkl.getLongitude()))) {
+            Toast.makeText(this, "This app is only for inside VIT Vellore Campus", Toast.LENGTH_LONG).show();
+        }
 
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
@@ -414,6 +418,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 //        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(vit, 15f));
+
     }
 
 
