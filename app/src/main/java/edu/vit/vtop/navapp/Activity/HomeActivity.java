@@ -448,8 +448,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         categoriesList.add(new CategoriesModel("Utilities",R.color.utilities,R.drawable.ic_academic));
 
 
-        categoriesList.add(new CategoriesModel("Courier",R.color.courier,R.drawable.ic_courier));
-        categoriesList.add(new CategoriesModel("Bank",R.color.bank,R.drawable.ic_bank));
+        categoriesList.add(new CategoriesModel("Pickup Points",R.color.courier,R.drawable.ic_courier));
+        categoriesList.add(new CategoriesModel("ATMs",R.color.bank,R.drawable.ic_bank));
         categoriesList.add(new CategoriesModel("Restaurants",R.color.restaurant,R.drawable.ic_restaurant));
 
         categoriesList.add(new CategoriesModel("Hostel Blocks",R.color.hostel,R.drawable.ic_hostel));

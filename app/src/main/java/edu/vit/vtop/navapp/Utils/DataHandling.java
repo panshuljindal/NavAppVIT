@@ -45,9 +45,14 @@ public class DataHandling {
         Gson gson = new Gson();
         List<DataModel> list = getPlaces(context);
         if(list.size()>=5){
-            list.remove(list.get(0));
-            list.add(model);
+            if (list.contains(model)){
+
+            }else {
+                list.remove(list.get(0));
+                list.add(model);
+            }
         }else{
+
             list.add(model);
         }
         String json = gson.toJson(list);

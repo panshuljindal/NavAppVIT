@@ -78,13 +78,13 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.MyViewHold
             holder.categories.setCardBackgroundColor(ContextCompat.getColor(context,R.color.restaurant));
             holder.iconCategory.setCardBackgroundColor(ContextCompat.getColor(context,R.color.restaurant));
 
-        }if(model.getCategory().equals("Bank")){
+        }if(model.getCategory().equals("ATMs")){
             holder.categoryName.setTextColor(ContextCompat.getColor(context,R.color.bank));
             holder.icon.setImageResource(R.drawable.ic_bank);
             holder.categories.setCardBackgroundColor(ContextCompat.getColor(context,R.color.bank));
             holder.iconCategory.setCardBackgroundColor(ContextCompat.getColor(context,R.color.bank));
 
-        }if(model.getCategory().equals("Courier")){
+        }if(model.getCategory().equals("Pickup Points")){
             holder.categoryName.setTextColor(ContextCompat.getColor(context,R.color.courier));
             holder.icon.setImageResource(R.drawable.ic_courier);
             holder.categories.setCardBackgroundColor(ContextCompat.getColor(context,R.color.courier));
