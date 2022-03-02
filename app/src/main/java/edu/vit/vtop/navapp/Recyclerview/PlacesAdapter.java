@@ -2,7 +2,6 @@ package edu.vit.vtop.navapp.Recyclerview;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import edu.vit.vtop.navapp.Activity.CategoryActivity;
 import edu.vit.vtop.navapp.Activity.NavigationActivity;
 import edu.vit.vtop.navapp.R;
 import edu.vit.vtop.navapp.Utils.DataModel;
@@ -43,7 +41,7 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.MyViewHold
         holder.categoryName.setText(model.getCategory());
         if(model.getCategory().contains("Academic")){
             holder.categoryName.setTextColor(ContextCompat.getColor(context,R.color.academic));
-            holder.icon.setImageResource(R.drawable.ic_academics);
+            holder.icon.setImageResource(R.drawable.ic_building);
             holder.categories.setCardBackgroundColor(ContextCompat.getColor(context,R.color.academic));
             holder.iconCategory.setCardBackgroundColor(ContextCompat.getColor(context,R.color.academic));
 
