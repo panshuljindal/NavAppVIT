@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -27,11 +28,15 @@ public class CategoryActivity extends AppCompatActivity {
 
     List<DataModel> list,sortedList;
     ImageView back,cancel;
+    private ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
+
+        progressDialog = new ProgressDialog(getApplicationContext());
         try {
+            progressDialog.show();
             Intent i = getIntent();
             String category = i.getStringExtra("category");
             RecyclerView categories = findViewById(R.id.cRecyclerView);
@@ -41,6 +46,7 @@ public class CategoryActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<List<DataModel>> call, Response<List<DataModel>> response) {
                     if(!response.isSuccessful()){
+                        progressDialog.dismiss();
                         return;
                     }
                     try {
@@ -52,19 +58,20 @@ public class CategoryActivity extends AppCompatActivity {
                         categories.setAdapter(adapter);
                         TextView text = findViewById(R.id.cTextView);
                         text.setText(category);
+                        progressDialog.dismiss();
                     }catch (Exception e){
-
+                        progressDialog.dismiss();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<List<DataModel>> call, Throwable t) {
-
+                    progressDialog.dismiss();
                 }
             });
 
         }catch (Exception e){
-
+            progressDialog.dismiss();
         }
         setOnclick();
     }
