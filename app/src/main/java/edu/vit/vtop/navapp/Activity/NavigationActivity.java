@@ -42,10 +42,14 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
         binding = ActivityNavigationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         Intent i = getIntent();
-        lat = i.getDoubleExtra("lat", 0.0);
-        lng = i.getDoubleExtra("long", 0.0);
-        Log.i("lat",Double.toString(lat));
-        Log.i("long",Double.toString(lng));
+        DataModel marker_model = (DataModel) i.getSerializableExtra("marker_object");
+        lat = marker_model.getLat();
+        lng = marker_model.getLon();
+//        Log.i("lat",Double.toString(lat));
+//        Log.i("long",Double.toString(lng));
+
+        binding.navDestination.setText(marker_model.getName());
+        binding.navAddress.setText(marker_model.getAddress());
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()

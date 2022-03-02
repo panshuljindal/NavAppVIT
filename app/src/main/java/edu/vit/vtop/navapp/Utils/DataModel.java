@@ -5,7 +5,9 @@ package edu.vit.vtop.navapp.Utils;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class DataModel {
+import java.io.Serializable;
+
+public class DataModel implements Serializable {
 
     @SerializedName("_id")
     private String id;
