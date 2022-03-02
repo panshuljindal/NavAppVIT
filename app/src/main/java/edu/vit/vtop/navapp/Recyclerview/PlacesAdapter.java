@@ -115,10 +115,10 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.MyViewHold
             holder.iconCategory.setCardBackgroundColor(ContextCompat.getColor(context,R.color.hall));
 
         }
-        if(position==0){
+        if(position==0 && list.size()!=1){
             holder.cl.setBackground(ContextCompat.getDrawable(context,R.drawable.places_first));
         }
-        if(position==list.size()-1){
+        if(position==list.size()-1 && list.size()!=1){
             holder.cl.setBackground(ContextCompat.getDrawable(context,R.drawable.places_end));
 //            Log.i("Position",model.getPlaceName());
         }
