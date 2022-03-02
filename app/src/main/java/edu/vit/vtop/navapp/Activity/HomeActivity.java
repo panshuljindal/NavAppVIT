@@ -454,16 +454,12 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                                         }
                                         list=new ArrayList<>();
                                         list=response.body();
-                                        for (DataModel model: list){
-                                            Log.i("list",model.getName());
-                                        }
                                         PlacesAdapter adapter = new PlacesAdapter(list,getApplicationContext());
                                         LinearLayoutManager manager1 = new LinearLayoutManager(getApplicationContext());
                                         manager1.setOrientation(RecyclerView.VERTICAL);
                                         searchRecyclerview.setAdapter(adapter);
                                         searchRecyclerview.setLayoutManager(manager1);
                                     }
-
                                     @Override
                                     public void onFailure(Call<List<DataModel>> call, Throwable t) {
 
@@ -471,7 +467,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 });
                             }
                         }
-                    },400);
+                    },300);
 
                 }
             }
