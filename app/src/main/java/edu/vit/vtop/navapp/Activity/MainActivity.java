@@ -76,9 +76,6 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
 
-
-
-
                 }
                 else{
 
@@ -105,11 +102,6 @@ public class MainActivity extends AppCompatActivity {
             // Set theme to black
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
-
-
-
-
-
 
 
     }

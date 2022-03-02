@@ -89,6 +89,17 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 //        Objects.requireNonNull(getSupportActionBar()).hide();
         progressDialog = new ProgressDialog(this);
         progressDialog.show();
+
+//        try {
+//            ApplicationInfo ai = getPackageManager().getApplicationInfo(activity.getPackageName(), PackageManager.GET_META_DATA);
+//            Bundle bundle = ai.metaData;
+//            String myApiKey = bundle.getString("my_api_key");
+//        } catch (NameNotFoundException e) {
+//            Log.e(TAG, "Failed to load meta-data, NameNotFound: " + e.getMessage());
+//        } catch (NullPointerException e) {
+//            Log.e(TAG, "Failed to load meta-data, NullPointer: " + e.getMessage());
+//        }
+
         try
         {
 
@@ -233,7 +244,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 if (location != null) {
 
                     if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
                         return;
                     }
                     mMap.setMyLocationEnabled(true);
@@ -272,8 +282,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        double ulat = 12.969845;
-        double ulng = 79.158639;
 
         mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             public void onMapLoaded() {
@@ -281,7 +289,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
-        LatLng user = new LatLng(ulat,ulng);
 //        if (!mMap.getProjection().getVisibleRegion().latLngBounds.contains(locationToLatLng(lastKnownLocation))) {
 //            mMap.moveCamera(CameraUpdateFactory.newCameraPosition(getCameraPositionFromLocationWithZoom(lastKnown, getCurrentZoom())));
 //        }
@@ -316,8 +323,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
 // Constrain the camera target to the VIT Campus bounds.
-        mMap.setLatLngBoundsForCameraTarget(vitBounds);
-        mMap.setMinZoomPreference(16.0f); // Set a preference for minimum zoom (Zoom out).
+//        mMap.setLatLngBoundsForCameraTarget(vitBounds);
+//        mMap.setMinZoomPreference(16.0f); // Set a preference for minimum zoom (Zoom out).
 
 
         // Add a marker in VIT and move the camera
@@ -327,6 +334,23 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
+        double ulat = 0.0;
+        double ulng = 0.0;
+
+        if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+        {
+            Location lkl = getLastKnownLocation();
+            if (!mMap.getProjection().getVisibleRegion().latLngBounds.contains(new LatLng(lkl.getLatitude(),lkl.getLongitude()))) {
+                Toast.makeText(this, "This app is only for inside VIT Vellore Campus", Toast.LENGTH_LONG).show();
+            }
+            else
+            {
+                ulat = lkl.getLatitude();
+                ulng = lkl.getLongitude();
+                LatLng user = new LatLng(ulat,ulng);
+                mMap.addMarker(new MarkerOptions().position(user).title("User"));
+            }
+        }
 
         List<DataModel> markers = DataHandling.getList(getApplicationContext());
         Log.i("HomeAct",Integer.toString(markers.size()));
@@ -394,18 +418,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
 
         mMap.animateCamera(cu);
-
-        if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
-        {
-            Location lkl = getLastKnownLocation();
-            if (!mMap.getProjection().getVisibleRegion().latLngBounds.contains(new LatLng(lkl.getLatitude(),lkl.getLongitude()))) {
-                Toast.makeText(this, "This app is only for inside VIT Vellore Campus", Toast.LENGTH_LONG).show();
-            }
-            else
-            {
-                mMap.addMarker(new MarkerOptions().position(user).title("User"));
-            }
-        }
 
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override

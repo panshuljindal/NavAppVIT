@@ -75,11 +75,11 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
         lat = marker_model.getLat();
         lng = marker_model.getLon();
 
-//        ulat =i.getDoubleExtra("ulat",0.0);
-//        ulng =i.getDoubleExtra("ulon",0.0);
+        ulat =i.getDoubleExtra("ulat",0.0);
+        ulng =i.getDoubleExtra("ulon",0.0);
 
-            ulat = 12.969845;
-            ulng = 79.158639;
+//            ulat = 12.969845;
+//            ulng = 79.158639;
 
 
 //        Log.i("lat",Double.toString(lat));
