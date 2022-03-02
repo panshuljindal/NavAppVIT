@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,11 +26,18 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Dash;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PatternItem;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
+
+import java.util.Arrays;
+import java.util.List;
 
 import edu.vit.vtop.navapp.R;
 import edu.vit.vtop.navapp.Utils.DataHandling;
@@ -182,6 +190,19 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
 //        mMap.addMarker(new MarkerOptions().position(sydney).title("Sydney"));
         mMap.addMarker(new MarkerOptions().position(user).title("User"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(marker_model.getLat(),marker_model.getLon())));
+
+
+        PolylineOptions options = new PolylineOptions().width(5).color(Color.BLUE).geodesic(true);
+
+        LatLng point = new LatLng(user.latitude, user.longitude);
+        LatLng point1 = new LatLng(marker_model.getLat(),marker_model.getLon());
+        options.add(point);
+        options.add(point1);
+        Polyline line = mMap.addPolyline(options);
+        List<PatternItem> pattern = Arrays.asList(
+                  new Dash(50));
+        line.setPattern(pattern);
+        mMap.addPolyline(options);
     }
     private BitmapDescriptor BitmapFromVector(Context context, int vectorResId) {
         // below line is use to generate a drawable.
