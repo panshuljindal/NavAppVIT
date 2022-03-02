@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import edu.vit.vtop.navapp.Activity.HomeActivity;
 import edu.vit.vtop.navapp.Activity.NavigationActivity;
 import edu.vit.vtop.navapp.R;
 import edu.vit.vtop.navapp.Utils.DataModel;
@@ -85,9 +86,10 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.MyViewHold
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 Intent i = new Intent(context, NavigationActivity.class);
-                i.putExtra("category",list.get(position).getName());
-                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                i.putExtra("marker_object",list.get(position));
                 context.startActivity(i);
             }
         });
