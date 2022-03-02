@@ -17,6 +17,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -92,8 +94,6 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
             mapFragment.getMapAsync(this);
             findID();
 
-            binding.animationLayout.setVisibility(View.INVISIBLE);
-
 //            progressDialog.dismiss();
 
 //        }
@@ -133,6 +133,13 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
+        mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+            public void onMapLoaded() {
+                binding.animationLayout.setVisibility(View.INVISIBLE);
+            }
+        });
+
 //        mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getApplicationContext(), R.raw.map_style));
         switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
             case Configuration.UI_MODE_NIGHT_YES:
@@ -143,6 +150,24 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
                 mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getApplicationContext(), R.raw.map_style));
                 break;
         }
+
+        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+
+        //the include method will calculate the min and max bound.
+        LatLng loc = new LatLng(marker_model.getLat(),marker_model.getLon());
+        LatLng loc1 = new LatLng(ulat,ulng);
+        builder.include(loc);
+        builder.include(loc1);
+
+        LatLngBounds bounds = builder.build();
+
+        int width = getResources().getDisplayMetrics().widthPixels;
+        int height = getResources().getDisplayMetrics().heightPixels;
+        int padding = (int) (width * 0.10); // offset from edges of the map 10% of screen
+
+        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
+
+        mMap.animateCamera(cu);
 
         SharedPreferences mPrefs = getSharedPreferences("THEME", 0);
         String theme=mPrefs.getString("theme","");

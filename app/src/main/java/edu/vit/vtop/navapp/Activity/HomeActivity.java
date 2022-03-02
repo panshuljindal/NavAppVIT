@@ -36,6 +36,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -274,6 +275,12 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         double ulat = 12.969845;
         double ulng = 79.158639;
 
+        mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+            public void onMapLoaded() {
+                progressDialog.dismiss();
+            }
+        });
+
         LatLng user = new LatLng(ulat,ulng);
 //        if (!mMap.getProjection().getVisibleRegion().latLngBounds.contains(locationToLatLng(lastKnownLocation))) {
 //            mMap.moveCamera(CameraUpdateFactory.newCameraPosition(getCameraPositionFromLocationWithZoom(lastKnown, getCurrentZoom())));
@@ -317,6 +324,9 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 //        LatLng vit = new LatLng(12.974714, 79.164227);
 //        mMap.addMarker(new MarkerOptions().position(vit).title("Admin")
 //                .icon(BitmapFromVector(getApplicationContext(), R.drawable.ic_marker_admin)));
+
+        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+
 
         List<DataModel> markers = DataHandling.getList(getApplicationContext());
         Log.i("HomeAct",Integer.toString(markers.size()));
@@ -367,7 +377,23 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
             mMap.addMarker(new MarkerOptions().position(new LatLng(e.getLat(), e.getLon())).title(e.getName())
                     .icon(BitmapFromVector(getApplicationContext(), vector)));
+            //the include method will calculate the min and max bound.
+            LatLng loc = new LatLng(e.getLat(),e.getLon());
+
+            builder.include(loc);
         }
+        LatLng loc1 = new LatLng(ulat,ulng);
+        builder.include(loc1);
+
+        LatLngBounds bounds = builder.build();
+
+        int width = getResources().getDisplayMetrics().widthPixels;
+        int height = getResources().getDisplayMetrics().heightPixels;
+        int padding = (int) (width * 0.10); // offset from edges of the map 10% of screen
+
+        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
+
+        mMap.animateCamera(cu);
 
         if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
         {
@@ -552,6 +578,9 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     categories.setVisibility(View.VISIBLE);
                     searchRecyclerview.setVisibility(View.INVISIBLE);
                 }else{
+                    progressDialog.show();
+
+
                     cat.setVisibility(View.GONE);
                     plac.setText("Results");
                     places.setVisibility(View.GONE);
@@ -567,6 +596,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                                     @Override
                                     public void onResponse(Call<List<DataModel>> call, Response<List<DataModel>> response) {
                                         if(!response.isSuccessful()){
+                                            progressDialog.dismiss();
                                             return ;
                                         }
                                         list=new ArrayList<>();
@@ -576,10 +606,11 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                                         manager1.setOrientation(RecyclerView.VERTICAL);
                                         searchRecyclerview.setAdapter(adapter);
                                         searchRecyclerview.setLayoutManager(manager1);
+                                        progressDialog.dismiss();
                                     }
                                     @Override
                                     public void onFailure(Call<List<DataModel>> call, Throwable t) {
-
+                                        progressDialog.dismiss();
                                     }
                                 });
                             }
