@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -51,6 +52,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import edu.vit.vtop.navapp.NetworkUtils.NetworkUtil;
 import edu.vit.vtop.navapp.R;
@@ -77,10 +79,17 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     List<DataModel> list;
     ConstraintLayout bottomSheetLayout;
     ActivityResultLauncher<String[]> locationPermissionRequest;
+    private ProgressDialog progressDialog;
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+//        Objects.requireNonNull(getSupportActionBar()).hide();
+        progressDialog = new ProgressDialog(this);
+        progressDialog.show();
+        try
+        {
 
         locationPermissionRequest =
                 registerForActivityResult(new ActivityResultContracts
@@ -167,6 +176,15 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        progressDialog.dismiss();
+
+        }
+        catch (Exception e)
+        {
+            progressDialog.dismiss();
+            Toast.makeText(this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
 
         binding.changeTheme.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -257,7 +275,13 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         double ulng = 79.158639;
 
         LatLng user = new LatLng(ulat,ulng);
-        mMap.addMarker(new MarkerOptions().position(user).title("User"));
+//        if (!mMap.getProjection().getVisibleRegion().latLngBounds.contains(locationToLatLng(lastKnownLocation))) {
+//            mMap.moveCamera(CameraUpdateFactory.newCameraPosition(getCameraPositionFromLocationWithZoom(lastKnown, getCurrentZoom())));
+//        }
+//        else
+//        {
+            mMap.addMarker(new MarkerOptions().position(user).title("User"));
+//        }
 //        SharedPreferences mPrefs = getSharedPreferences("THEME", 0);
 //        String theme=mPrefs.getString("theme","");
 //        if (theme.equals("dark")) {

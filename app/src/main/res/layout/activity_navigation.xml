@@ -136,4 +136,84 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/animationLayout"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        map:layout_constraintStart_toStartOf="parent"
+        map:layout_constraintEnd_toEndOf="parent"
+        map:layout_constraintBottom_toBottomOf="parent"
+        map:layout_constraintTop_toTopOf="parent"
+        android:background="@color/anim_background">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_rawRes="@raw/animation"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"/>
+
+        <TextView
+            android:id="@+id/please_wait_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please Wait"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/anim_please_wait"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/animationView"/>
+
+        <TextView
+            android:id="@+id/we_are_routing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="We're getting your route as soon as possible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/please_wait_text"
+            android:textStyle="bold"
+            android:textColor="@color/anim_please_wait"
+            android:textSize="18sp"
+            />
+
+        <TextView
+            android:id="@+id/did_you_know"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Did you know?"
+            android:textColor="@color/anim_did_you_know"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/we_are_routing"
+            android:layout_marginTop="173dp"/>
+
+        <TextView
+            android:id="@+id/fact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="VIT has 35,000 students from 54 different countries and from all the states of India"
+            android:textColor="@color/anim_did_you_know"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:layout_marginStart="75dp"
+            android:layout_marginEnd="74dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/did_you_know"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

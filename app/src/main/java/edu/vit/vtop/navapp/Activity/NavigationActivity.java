@@ -4,15 +4,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -37,38 +40,54 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
     private ImageView cancel;
     private CardView go;
     double lat,lng,ulat,ulng;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = ActivityNavigationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        Intent i = getIntent();
-        DataModel marker_model = (DataModel) i.getSerializableExtra("marker_object");
-        DataHandling.addPlace(marker_model,NavigationActivity.this);
-        lat = marker_model.getLat();
-        lng = marker_model.getLon();
+
+//        progressDialog = new ProgressDialog(this);
+//        progressDialog.show();
+//        try {
+
+            Intent i = getIntent();
+            DataModel marker_model = (DataModel) i.getSerializableExtra("marker_object");
+            DataHandling.addPlace(marker_model, NavigationActivity.this);
+            lat = marker_model.getLat();
+            lng = marker_model.getLon();
 
 //        ulat =i.getDoubleExtra("ulat",0.0);
 //        ulng =i.getDoubleExtra("ulon",0.0);
 
-        ulat = 12.969845;
-        ulng = 79.158639;
-
+            ulat = 12.969845;
+            ulng = 79.158639;
 
 
 //        Log.i("lat",Double.toString(lat));
 //        Log.i("long",Double.toString(lng));
 
-        binding.navDestination.setText(marker_model.getName());
-        binding.navAddress.setText(marker_model.getAddress());
+            binding.navDestination.setText(marker_model.getName());
+            binding.navAddress.setText(marker_model.getAddress());
 
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-        findID();
+            // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                    .findFragmentById(R.id.map);
+            mapFragment.getMapAsync(this);
+            findID();
+
+//            binding.animationLayout.setVisibility(View.INVISIBLE);
+
+//            progressDialog.dismiss();
+
+//        }
+//        catch (Exception e)
+//        {
+//            progressDialog.dismiss();
+//            Toast.makeText(this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+//        }
+
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -111,15 +130,6 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
         }
         SharedPreferences mPrefs = getSharedPreferences("THEME", 0);
         String theme=mPrefs.getString("theme","");
-        switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
-            case Configuration.UI_MODE_NIGHT_YES:
-
-                mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getApplicationContext(), R.raw.map_style_night));
-                break;
-            case Configuration.UI_MODE_NIGHT_NO:
-                mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getApplicationContext(), R.raw.map_style));
-                break;
-        }
         // Create a LatLngBounds that includes the VIT Campus bounds
         LatLngBounds vitBounds = new LatLngBounds(
                 new LatLng(12.967077, 79.152291), // SW bounds
