@@ -2,12 +2,21 @@ package edu.vit.vtop.navapp.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,11 +30,20 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Dash;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PatternItem;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
+
+import java.util.Arrays;
+import java.util.List;
 
 import edu.vit.vtop.navapp.R;
 import edu.vit.vtop.navapp.Utils.DataHandling;
@@ -38,6 +56,7 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
     private ActivityNavigationBinding binding;
     private TextView name,address;
     private ImageView cancel;
+    DataModel marker_model;
     private CardView go;
     double lat,lng,ulat,ulng;
     private ProgressDialog progressDialog;
@@ -48,15 +67,11 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
         binding = ActivityNavigationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-//        progressDialog = new ProgressDialog(this);
-//        progressDialog.show();
-//        try {
-
-            Intent i = getIntent();
-            DataModel marker_model = (DataModel) i.getSerializableExtra("marker_object");
-            DataHandling.addPlace(marker_model, NavigationActivity.this);
-            lat = marker_model.getLat();
-            lng = marker_model.getLon();
+        Intent i = getIntent();
+        marker_model = (DataModel) i.getSerializableExtra("marker_object");
+        DataHandling.addPlace(marker_model,NavigationActivity.this);
+        lat = marker_model.getLat();
+        lng = marker_model.getLon();
 
 //        ulat =i.getDoubleExtra("ulat",0.0);
 //        ulng =i.getDoubleExtra("ulon",0.0);
@@ -77,7 +92,7 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
             mapFragment.getMapAsync(this);
             findID();
 
-//            binding.animationLayout.setVisibility(View.INVISIBLE);
+            binding.animationLayout.setVisibility(View.INVISIBLE);
 
 //            progressDialog.dismiss();
 
@@ -128,8 +143,10 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
                 mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getApplicationContext(), R.raw.map_style));
                 break;
         }
+
         SharedPreferences mPrefs = getSharedPreferences("THEME", 0);
         String theme=mPrefs.getString("theme","");
+
         // Create a LatLngBounds that includes the VIT Campus bounds
         LatLngBounds vitBounds = new LatLngBounds(
                 new LatLng(12.967077, 79.152291), // SW bounds
@@ -143,8 +160,108 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(lat, lng);
         LatLng user = new LatLng(ulat,ulng);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.addMarker(new MarkerOptions().position(user).title("User"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        int vector = 0;
+        switch (marker_model.getCategory()) {
+            case "Academic Blocks":
+                vector = R.drawable.ic_marker_academic;
+                break;
+
+            case "Hostel Blocks":
+                vector = R.drawable.ic_marker_hostel;
+                break;
+            case "Shops":
+                vector = R.drawable.ic_marker_shop;
+                break;
+            case "Coffee Shops":
+                vector = R.drawable.ic_marker_coffee;
+                break;
+            case "Halls":
+                // change to hall
+                vector = R.drawable.ic_marker_academic;
+                break;
+            case "Sports":
+                // change to sports
+                vector = R.drawable.ic_marker_academic;
+                break;
+            case "Gates":
+                // change to gate
+                vector = R.drawable.ic_marker_academic;
+                break;
+
+            case "Utilities":
+                vector = R.drawable.ic_marker_academic;
+                break;
+            case "Restaurants":
+                vector = R.drawable.ic_marker_food;
+                break;
+            case "Administrative Offices":
+                vector = R.drawable.ic_marker_admin;
+                break;
+            default:
+                vector = R.drawable.ic_marker_food;
+                break;
+
+
+        }
+        mMap.addMarker(new MarkerOptions().position(new LatLng(marker_model.getLat(), marker_model.getLon()))
+                .title(marker_model.getName())
+                .icon(BitmapFromVector(getApplicationContext(), vector)));
+
+//        mMap.addMarker(new MarkerOptions().position(sydney).title("Sydney"));
+
+        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            return;
+        }
+        mMap.setMyLocationEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(false);
+        mMap.getUiSettings().setAllGesturesEnabled(true);
+        //delay is for after map loaded animation starts
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(ulat, ulng), 16));
+
+            }
+        }, 2000);
+
+//        mMap.addMarker(new MarkerOptions().position(user).title("User"));
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(marker_model.getLat(),marker_model.getLon())));
+
+
+        PolylineOptions options = new PolylineOptions().width(5).color(Color.BLUE).geodesic(true);
+
+        LatLng point = new LatLng(user.latitude, user.longitude);
+        LatLng point1 = new LatLng(marker_model.getLat(),marker_model.getLon());
+        options.add(point);
+        options.add(point1);
+        Polyline line = mMap.addPolyline(options);
+        List<PatternItem> pattern = Arrays.asList(
+                  new Dash(50));
+        line.setPattern(pattern);
+        mMap.addPolyline(options);
+    }
+    private BitmapDescriptor BitmapFromVector(Context context, int vectorResId) {
+        // below line is use to generate a drawable.
+        Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResId);
+
+        // below line is use to set bounds to our vector drawable.
+        vectorDrawable.setBounds(0, 0, vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight());
+
+        // below line is use to create a bitmap for our
+        // drawable which we have added.
+        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+
+        // below line is use to add bitmap in our canvas.
+        Canvas canvas = new Canvas(bitmap);
+
+        // below line is use to draw our
+        // vector drawable in canvas.
+        vectorDrawable.draw(canvas);
+
+
+        // after generating our bitmap we are returning our bitmap.
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 }

@@ -138,82 +138,91 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/animationLayout"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/anim_background"
         android:visibility="visible"
-        map:layout_constraintStart_toStartOf="parent"
-        map:layout_constraintEnd_toEndOf="parent"
         map:layout_constraintBottom_toBottomOf="parent"
+        map:layout_constraintEnd_toEndOf="parent"
+        map:layout_constraintHorizontal_bias="1.0"
+        map:layout_constraintStart_toStartOf="parent"
         map:layout_constraintTop_toTopOf="parent"
-        android:background="@color/anim_background">
+        map:layout_constraintVertical_bias="0.0">
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animationView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:lottie_rawRes="@raw/animation"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"/>
+            map:layout_constraintBottom_toBottomOf="parent"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintStart_toStartOf="parent"
+            map:layout_constraintTop_toTopOf="parent"
+            map:lottie_autoPlay="true"
+            map:lottie_loop="true"
+            map:lottie_rawRes="@raw/animation" />
 
         <TextView
             android:id="@+id/please_wait_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/bold"
             android:text="Please Wait"
+            android:textColor="@color/anim_please_wait"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="@color/anim_please_wait"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/animationView"/>
+            android:layout_marginTop="-30dp"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintStart_toStartOf="parent"
+            map:layout_constraintTop_toBottomOf="@id/animationView" />
 
         <TextView
             android:id="@+id/we_are_routing"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/bold"
             android:text="We're getting your route as soon as possible"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/please_wait_text"
-            android:textStyle="bold"
             android:textColor="@color/anim_please_wait"
+            android:textAlignment="center"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
             android:textSize="18sp"
-            />
+            android:textStyle="bold"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintStart_toStartOf="parent"
+            map:layout_constraintTop_toBottomOf="@id/please_wait_text" />
 
         <TextView
             android:id="@+id/did_you_know"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Did you know?"
-            android:textColor="@color/anim_did_you_know"
+            android:layout_marginTop="173dp"
             android:gravity="center"
+            android:text="Did you know?"
+            android:fontFamily="@font/book"
+            android:textColor="@color/anim_did_you_know"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/we_are_routing"
-            android:layout_marginTop="173dp"/>
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintStart_toStartOf="parent"
+            map:layout_constraintTop_toTopOf="@id/we_are_routing" />
 
         <TextView
             android:id="@+id/fact"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="VIT has 35,000 students from 54 different countries and from all the states of India"
-            android:textColor="@color/anim_did_you_know"
-            android:gravity="center"
-            android:textSize="16sp"
             android:layout_marginStart="75dp"
             android:layout_marginEnd="74dp"
+            android:gravity="center"
+            android:text="VIT has 35,000 students from 54 different countries and from all the states of India"
+            android:textColor="@color/anim_did_you_know"
+            android:fontFamily="@font/book"
+            android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/did_you_know"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            android:layout_marginTop="-40dp"
+            map:layout_constraintBottom_toBottomOf="parent"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintStart_toStartOf="parent"
+            map:layout_constraintTop_toTopOf="@id/did_you_know" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

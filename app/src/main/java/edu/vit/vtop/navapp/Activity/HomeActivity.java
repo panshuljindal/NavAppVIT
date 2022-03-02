@@ -218,8 +218,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 });
                 LatLng center = mMap.getCameraPosition().target;
-                String sLatitude = String.format("%.6f", center.latitude);
-                String sLongitude = String.format("%.6f", center.longitude);
+                String sLatitude = String.format("%.10f", center.latitude);
+                String sLongitude = String.format("%.10f", center.longitude);
                 StringBuilder mLatLng = new StringBuilder();
                 mLatLng.append(sLatitude);
                 mLatLng.append("°");
@@ -280,7 +280,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 //        }
 //        else
 //        {
-            mMap.addMarker(new MarkerOptions().position(user).title("User"));
+
 //        }
 //        SharedPreferences mPrefs = getSharedPreferences("THEME", 0);
 //        String theme=mPrefs.getString("theme","");
@@ -369,6 +369,18 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     .icon(BitmapFromVector(getApplicationContext(), vector)));
         }
 
+        if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+        {
+            Location lkl = getLastKnownLocation();
+            if (!mMap.getProjection().getVisibleRegion().latLngBounds.contains(new LatLng(lkl.getLatitude(),lkl.getLongitude()))) {
+                Toast.makeText(this, "This app is only for inside VIT Vellore Campus", Toast.LENGTH_LONG).show();
+            }
+            else
+            {
+                mMap.addMarker(new MarkerOptions().position(user).title("User"));
+            }
+        }
+
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(@NonNull Marker marker) {
@@ -406,16 +418,21 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                                 if(location!=null)
                                 {
-                                    marker.hideInfoWindow();
-                                    e.setInfoShown(false);
+//                                    if (!mMap.getProjection().getVisibleRegion().latLngBounds.contains(new LatLng(location.getLatitude(),location.getLongitude()))) {
+//                                        Toast.makeText(getApplicationContext(), "This app is only for inside VIT Vellore Campus", Toast.LENGTH_LONG).show();
+//                                    }
+//                                    else {
+                                        marker.hideInfoWindow();
+                                        e.setInfoShown(false);
 
 //                                    Toast.makeText(HomeActivity.this, location.getLatitude() + " " + location.getLongitude(), Toast.LENGTH_SHORT).show();
 
-                                    Intent i = new Intent(HomeActivity.this, NavigationActivity.class);
-                                    i.putExtra("ulat",location.getLatitude());
-                                    i.putExtra("ulon",location.getLongitude());
-                                    i.putExtra("marker_object",e);
-                                    startActivity(i);
+                                        Intent i = new Intent(HomeActivity.this, NavigationActivity.class);
+                                        i.putExtra("ulat", location.getLatitude());
+                                        i.putExtra("ulon", location.getLongitude());
+                                        i.putExtra("marker_object", e);
+                                        startActivity(i);
+//                                    }
                                 }
                                 else
                                 {
@@ -438,6 +455,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 //        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(vit, 15f));
+
     }
 
 
