@@ -8,9 +8,15 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="academic">#007AFF</color>
-    <color name="admin">#1411AF</color>
-    <color name="coffee">#48484A</color>
-    <color name="hostel">#5856D6</color>
+    <color name="admin">#2D05A0</color>
+    <color name="coffee">#5B5B5B</color>
+    <color name="hostel">#7B61FF</color>
     <color name="shopping">#FF9500</color>
-    <color name="restaurant">#1411AF</color>
+    <color name="restaurant">#34C759</color>
+    <color name="bank">#652CDF</color>
+    <color name="utilities">#FFCC00</color>
+    <color name="hall">#5AC8FA</color>
+    <color name="gates">#AF52DE</color>
+    <color name="sports">#FF2D55</color>
+    <color name="courier">#5D5FEF</color>
 </resources>

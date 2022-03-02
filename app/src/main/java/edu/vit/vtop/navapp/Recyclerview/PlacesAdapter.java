@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import edu.vit.vtop.navapp.Activity.HomeActivity;
 import edu.vit.vtop.navapp.Activity.NavigationActivity;
 import edu.vit.vtop.navapp.R;
 import edu.vit.vtop.navapp.Utils.DataModel;
@@ -39,54 +40,95 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.MyViewHold
         DataModel model = list.get(position);
         holder.placeName.setText(model.getName());
         holder.categoryName.setText(model.getCategory());
-        if(model.getCategory().contains("Academic")){
+        if(model.getCategory().equals("Academic Blocks")){
             holder.categoryName.setTextColor(ContextCompat.getColor(context,R.color.academic));
-            holder.icon.setImageResource(R.drawable.ic_building);
+            holder.icon.setImageResource(R.drawable.ic_academic);
             holder.categories.setCardBackgroundColor(ContextCompat.getColor(context,R.color.academic));
             holder.iconCategory.setCardBackgroundColor(ContextCompat.getColor(context,R.color.academic));
 
-        }if(model.getCategory().contains("Hostel")){
-            holder.categoryName.setTextColor(ContextCompat.getColor(context,R.color.hostel));
-            holder.icon.setImageResource(R.drawable.ic_hostel);
-            holder.categories.setCardBackgroundColor(ContextCompat.getColor(context,R.color.hostel));
-            holder.iconCategory.setCardBackgroundColor(ContextCompat.getColor(context,R.color.hostel));
-
-        }if(model.getCategory().contains("Shopping")){
-            holder.categoryName.setTextColor(ContextCompat.getColor(context,R.color.shopping));
-            holder.icon.setImageResource(R.drawable.ic_shopping);
-            holder.categories.setCardBackgroundColor(ContextCompat.getColor(context,R.color.shopping));
-            holder.iconCategory.setCardBackgroundColor(ContextCompat.getColor(context,R.color.shopping));
-        }if(model.getCategory().contains("Admin")){
+        }
+        if(model.getCategory().equals("Administrative Offices")){
             holder.categoryName.setTextColor(ContextCompat.getColor(context,R.color.admin));
             holder.icon.setImageResource(R.drawable.ic_admin);
             holder.categories.setCardBackgroundColor(ContextCompat.getColor(context,R.color.admin));
             holder.iconCategory.setCardBackgroundColor(ContextCompat.getColor(context,R.color.admin));
 
-        }if(model.getCategory().contains("Coffee")){
+        }
+        if(model.getCategory().equals("Shops")){
+            holder.categoryName.setTextColor(ContextCompat.getColor(context,R.color.shopping));
+            holder.icon.setImageResource(R.drawable.ic_shopping);
+            holder.categories.setCardBackgroundColor(ContextCompat.getColor(context,R.color.shopping));
+            holder.iconCategory.setCardBackgroundColor(ContextCompat.getColor(context,R.color.shopping));
+
+        }if(model.getCategory().equals("Coffee Shops")){
             holder.categoryName.setTextColor(ContextCompat.getColor(context,R.color.coffee));
             holder.icon.setImageResource(R.drawable.ic_coffee);
             holder.categories.setCardBackgroundColor(ContextCompat.getColor(context,R.color.coffee));
             holder.iconCategory.setCardBackgroundColor(ContextCompat.getColor(context,R.color.coffee));
 
-        }if(model.getCategory().contains("Restaurant")){
+        }if(model.getCategory().equals("Hostel Blocks")){
+            holder.categoryName.setTextColor(ContextCompat.getColor(context,R.color.hostel));
+            holder.icon.setImageResource(R.drawable.ic_hostel);
+            holder.categories.setCardBackgroundColor(ContextCompat.getColor(context,R.color.hostel));
+            holder.iconCategory.setCardBackgroundColor(ContextCompat.getColor(context,R.color.hostel));
+
+        }if(model.getCategory().equals("Restaurants")){
             holder.categoryName.setTextColor(ContextCompat.getColor(context,R.color.restaurant));
             holder.icon.setImageResource(R.drawable.ic_restaurant);
             holder.categories.setCardBackgroundColor(ContextCompat.getColor(context,R.color.restaurant));
             holder.iconCategory.setCardBackgroundColor(ContextCompat.getColor(context,R.color.restaurant));
 
+        }if(model.getCategory().equals("Bank")){
+            holder.categoryName.setTextColor(ContextCompat.getColor(context,R.color.bank));
+            holder.icon.setImageResource(R.drawable.ic_bank);
+            holder.categories.setCardBackgroundColor(ContextCompat.getColor(context,R.color.bank));
+            holder.iconCategory.setCardBackgroundColor(ContextCompat.getColor(context,R.color.bank));
+
+        }if(model.getCategory().equals("Courier")){
+            holder.categoryName.setTextColor(ContextCompat.getColor(context,R.color.courier));
+            holder.icon.setImageResource(R.drawable.ic_courier);
+            holder.categories.setCardBackgroundColor(ContextCompat.getColor(context,R.color.courier));
+            holder.iconCategory.setCardBackgroundColor(ContextCompat.getColor(context,R.color.courier));
+
+        }if(model.getCategory().equals("Utilities")){
+            holder.categoryName.setTextColor(ContextCompat.getColor(context,R.color.utilities));
+//            holder.icon.setImageResource(R.drawable.ic_utilities);
+            holder.categories.setCardBackgroundColor(ContextCompat.getColor(context,R.color.utilities));
+            holder.iconCategory.setCardBackgroundColor(ContextCompat.getColor(context,R.color.utilities));
+
+        }if(model.getCategory().equals("Sports")){
+            holder.categoryName.setTextColor(ContextCompat.getColor(context,R.color.sports));
+//            holder.icon.setImageResource(R.drawable.ic_sports);
+            holder.categories.setCardBackgroundColor(ContextCompat.getColor(context,R.color.sports));
+            holder.iconCategory.setCardBackgroundColor(ContextCompat.getColor(context,R.color.sports));
+
+        }if(model.getCategory().equals("Gates")){
+            holder.categoryName.setTextColor(ContextCompat.getColor(context,R.color.gates));
+//            holder.icon.setImageResource(R.drawable.ic_gates);
+            holder.categories.setCardBackgroundColor(ContextCompat.getColor(context,R.color.gates));
+            holder.iconCategory.setCardBackgroundColor(ContextCompat.getColor(context,R.color.gates));
+
+        }if(model.getCategory().equals("Halls")){
+            holder.categoryName.setTextColor(ContextCompat.getColor(context,R.color.hall));
+//            holder.icon.setImageResource(R.drawable.ic_hall);
+            holder.categories.setCardBackgroundColor(ContextCompat.getColor(context,R.color.hall));
+            holder.iconCategory.setCardBackgroundColor(ContextCompat.getColor(context,R.color.hall));
+
         }
-        if(position==0){
+        if(position==0 && list.size()!=1){
             holder.cl.setBackground(ContextCompat.getDrawable(context,R.drawable.places_first));
         }
-        if(position==list.size()-1){
+        if(position==list.size()-1 && list.size()!=1){
             holder.cl.setBackground(ContextCompat.getDrawable(context,R.drawable.places_end));
 //            Log.i("Position",model.getPlaceName());
         }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 Intent i = new Intent(context, NavigationActivity.class);
-                i.putExtra("category",list.get(position).getName());
+                i.putExtra("marker_object",list.get(position));
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(i);
             }

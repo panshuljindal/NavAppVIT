@@ -55,12 +55,15 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<List<DataModel>> call, Response<List<DataModel>> response) {
                                 if (!response.isSuccessful()) {
-                                    Log.i("Datamodel: ", "Not Successfull");
+//                                    Log.i("Datamodel: ", "Not Successfull");
 //                                    Toast.makeText(getApplicationContext(), "DataModel not success", Toast.LENGTH_SHORT).show();
                                     return;
                                 }
-                                DataHandling.saveList(response.body(),getApplicationContext());
-                                Log.i("DataModel: ", "Successfull");
+                                for(int i=0;i<=5;i++){
+                                    DataHandling.addPlace(response.body().get(i),MainActivity.this);
+                                }
+                                DataHandling.saveList(response.body(),MainActivity.this);
+//                                Log.i("DataModel: ", "Successfull");
 //                                Toast.makeText(getApplicationContext(), "DataModel Success", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(MainActivity.this, HomeActivity.class));
                                 finish();

@@ -386,12 +386,22 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     void addCategories(){
+
+        categoriesList.add(new CategoriesModel("Halls",R.color.hall,R.drawable.ic_academic));
+        categoriesList.add(new CategoriesModel("Gates",R.color.gates,R.drawable.ic_academic));
+        categoriesList.add(new CategoriesModel("Sports",R.color.sports,R.drawable.ic_academic));
+        categoriesList.add(new CategoriesModel("Utilities",R.color.utilities,R.drawable.ic_academic));
+
+
+        categoriesList.add(new CategoriesModel("Courier",R.color.courier,R.drawable.ic_courier));
+        categoriesList.add(new CategoriesModel("Bank",R.color.bank,R.drawable.ic_bank));
         categoriesList.add(new CategoriesModel("Restaurants",R.color.restaurant,R.drawable.ic_restaurant));
-        categoriesList.add(new CategoriesModel("Shopping",R.color.shopping,R.drawable.ic_shopping));
+
         categoriesList.add(new CategoriesModel("Hostel Blocks",R.color.hostel,R.drawable.ic_hostel));
         categoriesList.add(new CategoriesModel("Coffee Shops",R.color.coffee,R.drawable.ic_coffee));
-        categoriesList.add(new CategoriesModel("Admin Offices",R.color.admin,R.drawable.ic_admin));
-        categoriesList.add(new CategoriesModel("Academic Blocks",R.color.academic,R.drawable.ic_building));
+        categoriesList.add(new CategoriesModel("Shops",R.color.shopping,R.drawable.ic_shopping));
+        categoriesList.add(new CategoriesModel("Administrative Offices",R.color.admin,R.drawable.ic_admin));
+        categoriesList.add(new CategoriesModel("Academic Blocks",R.color.academic,R.drawable.ic_academic));
         Collections.reverse(categoriesList);
         CategoriesAdapter categoriesAdapter = new CategoriesAdapter(categoriesList,HomeActivity.this);
         LinearLayoutManager manager = new LinearLayoutManager(HomeActivity.this);
@@ -400,7 +410,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         categories.setLayoutManager(manager);
     }
     void addPlaces(){
-        placesList= DataHandling.getList(HomeActivity.this);
+        placesList= DataHandling.getPlaces(HomeActivity.this);
         PlacesAdapter adapter = new PlacesAdapter(placesList,HomeActivity.this);
         LinearLayoutManager manager1 = new LinearLayoutManager(HomeActivity.this);
         manager1.setOrientation(RecyclerView.VERTICAL);
