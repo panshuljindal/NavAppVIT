@@ -180,10 +180,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                         break;
                 }
 
-
-
-
-
             }
         });
         binding.userLocationButton.setOnClickListener(new View.OnClickListener() {
@@ -339,25 +335,44 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     .icon(BitmapFromVector(getApplicationContext(), vector)));
         }
 
-         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-             @Override
-             public boolean onMarkerClick(@NonNull Marker marker) {
-                 Intent i = new Intent(HomeActivity.this, NavigationActivity.class);
-                 for(DataModel e : markers)
-                 {
-                     if(marker.getPosition().longitude == e.getLon() && marker.getPosition().latitude == e.getLat())
-                     {
-//                         Toast.makeText(getApplicationContext(), marker.getPosition().longitude + " " + e.getLon(), Toast.LENGTH_SHORT).show();
-//                         System.out.println(marker.getPosition().longitude + " " + e.getLon());
-                         i.putExtra("marker_object",e);
-                     }
-                 }
-//                 i.putExtra("lat", marker.getPosition().latitude);
-//                 i.putExtra("long", marker.getPosition().longitude);
-                 startActivity(i);
-                 return true;
-             }
-         });
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(@NonNull Marker marker) {
+                for(DataModel e : markers)
+                {
+                    // The case when, we click on one marker to show the info window, and then click on another. This would keep the e.getInfoShown() to true.
+                    if((marker.getPosition().longitude != e.getLon() || marker.getPosition().latitude != e.getLat()) && e.getInfoShown())
+                    {
+                        e.setInfoShown(false);
+                    }
+                }
+                for(DataModel e : markers)
+                {
+                    if(marker.getPosition().longitude == e.getLon() && marker.getPosition().latitude == e.getLat())
+                    {
+                        if(!e.getInfoShown())
+                        {
+                            marker.showInfoWindow();
+                            e.setInfoShown(true);
+                            //When we return false in onMarkerClick(), it performs its default function of showingInfoWindow and centering the map into the marker
+                            return false;
+//                                LatLng coordinate = new LatLng(e.getLon(), e.getLat());
+//                                CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(coordinate, 11.0f);
+//                                mMap.animateCamera(yourLocation);
+                        }
+                        else
+                        {
+                            marker.hideInfoWindow();
+                            e.setInfoShown(false);
+                            Intent i = new Intent(HomeActivity.this, NavigationActivity.class);
+                            i.putExtra("marker_object",e);
+                            startActivity(i);
+                        }
+                    }
+                }
+                return true;
+            }
+        });
 //        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(vit, 15f));
     }
 

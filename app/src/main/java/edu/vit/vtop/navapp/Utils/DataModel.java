@@ -33,6 +33,12 @@ public class DataModel implements Serializable {
     @SerializedName("address")
     private String address;
 
+    private Boolean isInfoShown = false;
+
+    public boolean getInfoShown(){return isInfoShown;}
+
+    public void setInfoShown(boolean isInfoShown){this.isInfoShown = isInfoShown;}
+
     public String getId() {
         return id;
     }
