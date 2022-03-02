@@ -2,15 +2,15 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="100dp"
 
-    android:theme="@style/Theme.NavApp"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:theme="@style/Theme.NavApp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingRight="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -20,28 +20,28 @@
             android:layout_height="65dp"
             app:cardBackgroundColor="@color/academic"
             app:cardCornerRadius="100dp"
-            app:layout_constraintEnd_toEndOf="@+id/categoriesName"
-            app:layout_constraintStart_toStartOf="@+id/categoriesName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/categorieImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="20dp"
-                app:srcCompat="@drawable/ic_building" />
+                android:padding="17dp"
+                app:srcCompat="@drawable/ic_academic" />
         </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/categoriesName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="9dp"
             android:fontFamily="@font/medium"
             android:text="Academic Blocks"
-
-            android:theme="@style/Theme.NavApp"
+            android:textAlignment="center"
             android:textColor="@color/subHeading"
+            android:theme="@style/Theme.NavApp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +24,7 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import edu.vit.vtop.navapp.R;
+import edu.vit.vtop.navapp.Utils.DataHandling;
 import edu.vit.vtop.navapp.Utils.DataModel;
 import edu.vit.vtop.navapp.databinding.ActivityNavigationBinding;
 
@@ -43,6 +45,7 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
         setContentView(binding.getRoot());
         Intent i = getIntent();
         DataModel marker_model = (DataModel) i.getSerializableExtra("marker_object");
+        DataHandling.addPlace(marker_model,NavigationActivity.this);
         lat = marker_model.getLat();
         lng = marker_model.getLon();
 //        Log.i("lat",Double.toString(lat));
@@ -89,12 +92,14 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
         mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getApplicationContext(), R.raw.map_style));
         SharedPreferences mPrefs = getSharedPreferences("THEME", 0);
         String theme=mPrefs.getString("theme","");
-        if (theme.equals("dark")) {
-            mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getApplicationContext(), R.raw.map_style_night));
-            // Set theme to white
-        } else if(theme.equals("light")) {
-            mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getApplicationContext(), R.raw.map_style));
-            // Set theme to black
+        switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
+            case Configuration.UI_MODE_NIGHT_YES:
+
+                mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getApplicationContext(), R.raw.map_style_night));
+                break;
+            case Configuration.UI_MODE_NIGHT_NO:
+                mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getApplicationContext(), R.raw.map_style));
+                break;
         }
         // Create a LatLngBounds that includes the VIT Campus bounds
         LatLngBounds vitBounds = new LatLngBounds(
