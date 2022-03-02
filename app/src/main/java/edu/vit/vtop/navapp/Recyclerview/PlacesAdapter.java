@@ -1,5 +1,6 @@
 package edu.vit.vtop.navapp.Recyclerview;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -36,7 +37,7 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.MyViewHold
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         DataModel model = list.get(position);
         holder.placeName.setText(model.getName());
         holder.categoryName.setText(model.getCategory());
