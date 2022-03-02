@@ -21,6 +21,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import edu.vit.vtop.navapp.R;
@@ -35,7 +36,7 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
     private TextView name,address;
     private ImageView cancel;
     private CardView go;
-    double lat,lng;
+    double lat,lng,ulat,ulng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,15 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
         DataHandling.addPlace(marker_model,NavigationActivity.this);
         lat = marker_model.getLat();
         lng = marker_model.getLon();
+
+//        ulat =i.getDoubleExtra("ulat",0.0);
+//        ulng =i.getDoubleExtra("ulon",0.0);
+
+        ulat = 12.969845;
+        ulng = 79.158639;
+
+
+
 //        Log.i("lat",Double.toString(lat));
 //        Log.i("long",Double.toString(lng));
 
@@ -122,7 +132,9 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
         mMap.setMinZoomPreference(16.0f); // Set a preference for minimum zoom (Zoom out).
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(lat, lng);
+        LatLng user = new LatLng(ulat,ulng);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        mMap.addMarker(new MarkerOptions().position(user).title("User"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 }

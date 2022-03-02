@@ -76,12 +76,13 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     private TextView cat,plac;
     List<DataModel> list;
     ConstraintLayout bottomSheetLayout;
+    ActivityResultLauncher<String[]> locationPermissionRequest;
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ActivityResultLauncher<String[]> locationPermissionRequest =
+        locationPermissionRequest =
                 registerForActivityResult(new ActivityResultContracts
                                 .RequestMultiplePermissions(), result -> {
                             Boolean fineLocationGranted = result.getOrDefault(
@@ -99,6 +100,12 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 );
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        locationPermissionRequest.launch(new String[]{
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+
+        });
 
         // get the bottom sheet view
         bottomSheetLayout = findViewById(R.id.bottom_sheet);
@@ -187,7 +194,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View view) {
 
-
                 locationPermissionRequest.launch(new String[]{
                         Manifest.permission.ACCESS_FINE_LOCATION,
                         Manifest.permission.ACCESS_COARSE_LOCATION
@@ -247,7 +253,11 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        double ulat = 12.969845;
+        double ulng = 79.158639;
 
+        LatLng user = new LatLng(ulat,ulng);
+        mMap.addMarker(new MarkerOptions().position(user).title("User"));
 //        SharedPreferences mPrefs = getSharedPreferences("THEME", 0);
 //        String theme=mPrefs.getString("theme","");
 //        if (theme.equals("dark")) {
@@ -362,11 +372,41 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                         }
                         else
                         {
-                            marker.hideInfoWindow();
-                            e.setInfoShown(false);
-                            Intent i = new Intent(HomeActivity.this, NavigationActivity.class);
-                            i.putExtra("marker_object",e);
-                            startActivity(i);
+                            locationPermissionRequest.launch(new String[]{
+                                    Manifest.permission.ACCESS_FINE_LOCATION,
+                                    Manifest.permission.ACCESS_COARSE_LOCATION
+
+                            });
+                            if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                                Location location = getLastKnownLocation();
+
+                                if(location!=null)
+                                {
+                                    marker.hideInfoWindow();
+                                    e.setInfoShown(false);
+
+//                                    Toast.makeText(HomeActivity.this, location.getLatitude() + " " + location.getLongitude(), Toast.LENGTH_SHORT).show();
+
+                                    Intent i = new Intent(HomeActivity.this, NavigationActivity.class);
+                                    i.putExtra("ulat",location.getLatitude());
+                                    i.putExtra("ulon",location.getLongitude());
+                                    i.putExtra("marker_object",e);
+                                    startActivity(i);
+                                }
+                                else
+                                {
+                                    Toast.makeText(HomeActivity.this, "Unable to access your location", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                            else
+                            {
+                                Toast.makeText(HomeActivity.this, "Please accept the location permissions", Toast.LENGTH_SHORT).show();
+                                locationPermissionRequest.launch(new String[]{
+                                        Manifest.permission.ACCESS_FINE_LOCATION,
+                                        Manifest.permission.ACCESS_COARSE_LOCATION
+
+                                });
+                            }
                         }
                     }
                 }
