@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.vit.vtop.navapp.NetworkUtils.NetworkUtil;
+import edu.vit.vtop.navapp.NoNetworkActivity;
 import edu.vit.vtop.navapp.R;
 import edu.vit.vtop.navapp.Utils.DataHandling;
 import edu.vit.vtop.navapp.Utils.DataModel;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
 //        int version = -1;
         int version = sharedPreferences.getInt("version", -1);
+
         Call<List<VersionModel>> versionCall = NetworkUtil.networkAPI.getVersion("sj");
         versionCall.enqueue(new Callback<List<VersionModel>>() {
 
@@ -72,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onFailure(Call<List<DataModel>> call, Throwable t) {
                                 Log.i("DataModel: ", "error");
+                                Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
+                                startActivity(intent);
 //                                Toast.makeText(getApplicationContext(), "DataModel error", Toast.LENGTH_SHORT).show();
                             }
                         });
@@ -88,6 +92,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<VersionModel>> call, Throwable t) {
                 Log.i("Version: ", "fail");
+                Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
+                startActivity(intent);
                 Toast.makeText(getApplicationContext(), "Version error", Toast.LENGTH_SHORT).show();
             }
         });

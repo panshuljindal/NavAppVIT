@@ -1,14 +1,19 @@
 package edu.vit.vtop.navapp.Activity;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.google.android.gms.maps.GoogleMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,45 +32,60 @@ public class CategoryActivity extends AppCompatActivity {
 
     List<DataModel> list, sortedList;
     ImageView back, cancel;
+    ActivityResultLauncher<String[]> locationPermissionRequest;
+    Location lkl;
+    GoogleMap mMap;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
+
+        progressBar = findViewById(R.id.progressBar1);
         try {
+            progressBar.setVisibility(View.VISIBLE);
             Intent i = getIntent();
             String category = i.getStringExtra("category");
             RecyclerView categories = findViewById(R.id.cRecyclerView);
             list = new ArrayList<>();
+//            locationPermissionRequest = (ActivityResultLauncher<String[]>) i.getSerializableExtra("locationPermission");
+//            lkl = (Location) i.getSerializableExtra("location");;
+//            mMap = (GoogleMap) i.getSerializableExtra("map");
+            locationPermissionRequest = null;
+            lkl = null;
+            mMap = null;
             Call<List<DataModel>> call = NetworkUtil.networkAPI.getCategory(category);
             call.enqueue(new Callback<List<DataModel>>() {
                 @Override
                 public void onResponse(Call<List<DataModel>> call, Response<List<DataModel>> response) {
                     if (!response.isSuccessful()) {
+                        progressBar.setVisibility(View.INVISIBLE);
                         return;
                     }
                     try {
                         list = response.body();
-                        PlacesAdapter adapter = new PlacesAdapter(list, CategoryActivity.this);
+                        PlacesAdapter adapter = new PlacesAdapter(list, CategoryActivity.this,lkl,mMap,locationPermissionRequest);
                         LinearLayoutManager manager = new LinearLayoutManager(CategoryActivity.this);
                         manager.setOrientation(RecyclerView.VERTICAL);
                         categories.setLayoutManager(manager);
                         categories.setAdapter(adapter);
                         TextView text = findViewById(R.id.cTextView);
                         text.setText(category);
+                        progressBar.setVisibility(View.INVISIBLE);
                     } catch (Exception e) {
-
+                        progressBar.setVisibility(View.INVISIBLE);
                     }
                 }
 
                 @Override
                 public void onFailure(Call<List<DataModel>> call, Throwable t) {
-
+                    progressBar.setVisibility(View.INVISIBLE);
                 }
             });
 
         } catch (Exception e) {
-
+            progressBar.setVisibility(View.INVISIBLE);
         }
         setOnclick();
     }

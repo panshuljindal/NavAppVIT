@@ -251,21 +251,26 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 Location location = getLastKnownLocation();
                 if (location != null) {
 
-                    if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                        return;
+                    if (!mMap.getProjection().getVisibleRegion().latLngBounds.contains(new LatLng(location.getLatitude(),location.getLongitude()))) {
+                        Toast.makeText(getApplicationContext(), "This app is only for inside VIT Vellore Campus", Toast.LENGTH_LONG).show();
                     }
-                    mMap.setMyLocationEnabled(true);
-                    mMap.getUiSettings().setMyLocationButtonEnabled(false);
-                    mMap.getUiSettings().setAllGesturesEnabled(true);
-                    //delay is for after map loaded animation starts
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 15));
-
+                    else {
+                        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                            return;
                         }
-                    }, 2000);
+                        mMap.setMyLocationEnabled(true);
+                        mMap.getUiSettings().setMyLocationButtonEnabled(false);
+                        mMap.getUiSettings().setAllGesturesEnabled(true);
+                        //delay is for after map loaded animation starts
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 15));
+
+                            }
+                        }, 2000);
+                    }
                 }
             }
         });
@@ -348,28 +353,28 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         LatLng user;
 
-        if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
-        {
-            Location lkl = getLastKnownLocation();
-
-            if(lkl!=null)
-            {
-                if (!mMap.getProjection().getVisibleRegion().latLngBounds.contains(new LatLng(lkl.getLatitude(),lkl.getLongitude()))) {
+//        if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+//        {
+//            Location lkl = getLastKnownLocation();
+//
+//            if(lkl!=null)
+//            {
+//                if (!mMap.getProjection().getVisibleRegion().latLngBounds.contains(new LatLng(lkl.getLatitude(),lkl.getLongitude()))) {
 //                    Toast.makeText(this, "This app is only for inside VIT Vellore Campus", Toast.LENGTH_LONG).show();
-                }
-                else
-                {
-                    mMap.setMyLocationEnabled(true);
-                    mMap.getUiSettings().setMyLocationButtonEnabled(false);
-                    mMap.getUiSettings().setAllGesturesEnabled(true);
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lkl.getLatitude(), lkl.getLongitude()), 15));
-                    //delay is for after map loaded animation starts
-                    ulat = lkl.getLatitude();
-                    ulng = lkl.getLongitude();
-                    user = new LatLng(ulat,ulng);
-                }
-            }
-        }
+//                }
+//                else
+//                {
+//                    mMap.setMyLocationEnabled(true);
+//                    mMap.getUiSettings().setMyLocationButtonEnabled(false);
+//                    mMap.getUiSettings().setAllGesturesEnabled(true);
+//                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lkl.getLatitude(), lkl.getLongitude()), 15));
+//                    //delay is for after map loaded animation starts
+//                    ulat = lkl.getLatitude();
+//                    ulng = lkl.getLongitude();
+//                    user = new LatLng(ulat,ulng);
+//                }
+//            }
+//        }
 
         List<DataModel> markers = DataHandling.getList(getApplicationContext());
         Log.i("HomeAct",Integer.toString(markers.size()));
@@ -563,19 +568,33 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         categoriesList.add(new CategoriesModel("Administrative Offices",R.color.admin,R.drawable.ic_admin));
         categoriesList.add(new CategoriesModel("Academic Blocks",R.color.academic,R.drawable.ic_academic));
         Collections.reverse(categoriesList);
-        CategoriesAdapter categoriesAdapter = new CategoriesAdapter(categoriesList,HomeActivity.this);
+
+        Location lkl = getLastKnownLocation();
+
+
+        CategoriesAdapter categoriesAdapter = new CategoriesAdapter(categoriesList,HomeActivity.this,lkl,mMap,locationPermissionRequest);
         LinearLayoutManager manager = new LinearLayoutManager(HomeActivity.this);
         manager.setOrientation(RecyclerView.HORIZONTAL);
         categories.setAdapter(categoriesAdapter);
         categories.setLayoutManager(manager);
     }
     void addPlaces(){
-        placesList= DataHandling.getPlaces(HomeActivity.this);
-        PlacesAdapter adapter = new PlacesAdapter(placesList,HomeActivity.this);
-        LinearLayoutManager manager1 = new LinearLayoutManager(HomeActivity.this);
-        manager1.setOrientation(RecyclerView.VERTICAL);
-        places.setAdapter(adapter);
-        places.setLayoutManager(manager1);
+        Location lkl = getLastKnownLocation();
+
+        placesList = DataHandling.getPlaces(HomeActivity.this);
+        if(lkl != null)
+        {
+            PlacesAdapter adapter = new PlacesAdapter(placesList, HomeActivity.this,lkl,mMap,locationPermissionRequest);
+            LinearLayoutManager manager1 = new LinearLayoutManager(HomeActivity.this);
+            manager1.setOrientation(RecyclerView.VERTICAL);
+            places.setAdapter(adapter);
+            places.setLayoutManager(manager1);
+        }
+        else
+        {
+            Toast.makeText(getApplicationContext(), "Unable to access your location", Toast.LENGTH_SHORT).show();
+        }
+
     }
     void Search(){
         search.addTextChangedListener(new TextWatcher() {
@@ -628,6 +647,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     places.setVisibility(View.GONE);
                     categories.setVisibility(View.GONE);
                     searchRecyclerview.setVisibility(View.VISIBLE);
+
+                    Location lkl = getLastKnownLocation();
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -644,11 +665,19 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                                         }
                                         list=new ArrayList<>();
                                         list=response.body();
-                                        PlacesAdapter adapter = new PlacesAdapter(list,getApplicationContext());
-                                        LinearLayoutManager manager1 = new LinearLayoutManager(getApplicationContext());
-                                        manager1.setOrientation(RecyclerView.VERTICAL);
-                                        searchRecyclerview.setAdapter(adapter);
-                                        searchRecyclerview.setLayoutManager(manager1);
+                                        if(lkl!=null)
+                                        {
+                                            PlacesAdapter adapter = new PlacesAdapter(placesList, HomeActivity.this,lkl,mMap,locationPermissionRequest);
+                                            LinearLayoutManager manager1 = new LinearLayoutManager(getApplicationContext());
+                                            manager1.setOrientation(RecyclerView.VERTICAL);
+                                            searchRecyclerview.setAdapter(adapter);
+                                            searchRecyclerview.setLayoutManager(manager1);
+                                        }
+                                        else
+                                        {
+                                            Toast.makeText(getApplicationContext(), "Unable to access your location", Toast.LENGTH_SHORT).show();
+                                        }
+
 //                                        progressDialog.dismiss();
                                         progressBar.setVisibility(View.GONE);
                                     }

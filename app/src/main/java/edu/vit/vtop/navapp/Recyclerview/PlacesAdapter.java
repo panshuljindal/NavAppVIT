@@ -1,18 +1,27 @@
 package edu.vit.vtop.navapp.Recyclerview;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
 
@@ -24,10 +33,17 @@ import edu.vit.vtop.navapp.Utils.DataModel;
 public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.MyViewHolder> {
     List<DataModel> list;
     Context context;
+    Location location;
+    GoogleMap mMap;
+    ActivityResultLauncher<String[]> locationPermissionRequest;
 
-    public PlacesAdapter(List<DataModel> list, Context context) {
+    public PlacesAdapter(List<DataModel> list, Context context, Location location, GoogleMap mMap, ActivityResultLauncher<String[]> locationPermissionRequest) {
         this.list = list;
         this.context = context;
+        this.location = location;
+        this.mMap = mMap;
+        this.locationPermissionRequest = locationPermissionRequest;
+
     }
 
     @Override
@@ -126,12 +142,29 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.MyViewHold
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    if (location != null) {
+                        if (!mMap.getProjection().getVisibleRegion().latLngBounds.contains(new LatLng(location.getLatitude(), location.getLongitude()))) {
+                            Toast.makeText(context, "This app is only for inside VIT Vellore Campus", Toast.LENGTH_LONG).show();
+                        } else {
+                            Intent i = new Intent(context, NavigationActivity.class);
+                            i.putExtra("marker_object", list.get(position));
+                            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            context.startActivity(i);
+                        }
+                    } else {
+                        Toast.makeText(context, "Unable to access your location", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else
+                {
+                    Toast.makeText(context, "Please accept the location permissions", Toast.LENGTH_SHORT).show();
+                    locationPermissionRequest.launch(new String[]{
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION
 
-
-                Intent i = new Intent(context, NavigationActivity.class);
-                i.putExtra("marker_object",list.get(position));
-                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(i);
+                    });
+                }
             }
         });
     }
