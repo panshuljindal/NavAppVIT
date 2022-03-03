@@ -228,6 +228,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 //                        break;
 //                }
                 startActivity(new Intent(HomeActivity.this,Settings.class));
+                finish();
 
             }
         });

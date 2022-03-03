@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import edu.vit.vtop.navapp.Activity.Appearance;
 import edu.vit.vtop.navapp.R;
 import edu.vit.vtop.navapp.RecyclerviewModels.SettingsModel;
 
@@ -41,9 +42,11 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.Settin
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (list.get(position).getText().equals("Appeareacnes")){
-//                    Intent i = new Intent(context, Notifications.class);
-//                    context.startActivity(i);
+                if (list.get(position).getText().equals("Appearance")){
+                    Intent i = new Intent(context, Appearance.class);
+
+                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(i);
                 }
 
                 if (list.get(position).getText().equals("Contact Us")){

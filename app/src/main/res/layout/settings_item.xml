@@ -29,7 +29,7 @@
             android:fontFamily="@font/book"
             android:textColor="@color/boldHeading"
             android:textFontWeight="400"
-            android:textSize="14dp"
+            android:textSize="17dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/img_settings_card"
             app:layout_constraintTop_toTopOf="parent" />
