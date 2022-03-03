@@ -44,17 +44,22 @@ public class DataHandling {
     public static void addPlace(DataModel model, Context context){
         Gson gson = new Gson();
         List<DataModel> list = getPlaces(context);
-        if(list.size()>=5){
-            if (list.contains(model)){
-
-            }else {
+        boolean flag=false;
+        if (list.size()>=5){
+            for(int i=0;i<list.size();i++){
+                if(list.get(i).getId().equals(model.getId())){
+                    flag=true;
+                    break;
+                }
+            }
+            if(!flag){
                 list.remove(list.get(0));
                 list.add(model);
             }
-        }else{
-
+        }else {
             list.add(model);
         }
+
         String json = gson.toJson(list);
         SharedPreferences pref = context.getSharedPreferences("edu.vit.vtop.navapp", MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();

@@ -16,7 +16,7 @@ public class NoNetworkActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_no_network);
 
-        tryagain = findViewById(R.id.tryagainbtn);
+        tryagain = findViewById(R.id.clubTryAgain);
         tryagain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

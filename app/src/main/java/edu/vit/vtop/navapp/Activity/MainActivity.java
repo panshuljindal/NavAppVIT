@@ -41,15 +41,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<VersionModel>> call, Response<List<VersionModel>> response) {
                 if (!response.isSuccessful()) {
-                    Log.i("Version: ", "Not Successfull");
 //                    Toast.makeText(getApplicationContext(), "Version not success", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(MainActivity.this, NoNetworkActivity.class));
+                    finish();
                     return;
                 }
                 if(response.body().get(0).get__v() > version){
                     editor.putInt("version",response.body().get(0).get__v());
                     editor.apply();
 //                    Toast.makeText(getApplicationContext(), "Version success", Toast.LENGTH_SHORT).show();
-                    Log.i("Version: ", "Successfull");
 
                         Call<List<DataModel>> dataCall = NetworkUtil.networkAPI.getIndependent();
 
@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
                                 Log.i("DataModel: ", "error");
                                 Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
                                 startActivity(intent);
+                                finish();
 //                                Toast.makeText(getApplicationContext(), "DataModel error", Toast.LENGTH_SHORT).show();
                             }
                         });
@@ -94,7 +95,8 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("Version: ", "fail");
                 Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
                 startActivity(intent);
-                Toast.makeText(getApplicationContext(), "Version error", Toast.LENGTH_SHORT).show();
+                finish();
+//                Toast.makeText(getApplicationContext(), "Version error", Toast.LENGTH_SHORT).show();
             }
         });
 
