@@ -87,8 +87,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
 
 //        Objects.requireNonNull(getSupportActionBar()).hide();
-        progressDialog = new ProgressDialog(this);
-        progressDialog.show();
+//        progressDialog = new ProgressDialog(this);
+//        progressDialog.show();
 
 //        try {
 //            ApplicationInfo ai = getPackageManager().getApplicationInfo(activity.getPackageName(), PackageManager.GET_META_DATA);
@@ -189,13 +189,13 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        progressDialog.dismiss();
+//        progressDialog.dismiss();
 
         }
         catch (Exception e)
         {
-            progressDialog.dismiss();
-            Toast.makeText(this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+//            progressDialog.dismiss();
+//            Toast.makeText(this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
         binding.changeTheme.setOnClickListener(new View.OnClickListener() {
@@ -286,7 +286,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             public void onMapLoaded() {
-                progressDialog.dismiss();
+//                progressDialog.dismiss();
             }
         });
 
@@ -607,7 +607,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     categories.setVisibility(View.VISIBLE);
                     searchRecyclerview.setVisibility(View.INVISIBLE);
                 }else{
-                    progressDialog.show();
+//                    progressDialog.show();
 
 
                     cat.setVisibility(View.GONE);
@@ -625,7 +625,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                                     @Override
                                     public void onResponse(Call<List<DataModel>> call, Response<List<DataModel>> response) {
                                         if(!response.isSuccessful()){
-                                            progressDialog.dismiss();
+//                                            progressDialog.dismiss();
                                             return ;
                                         }
                                         list=new ArrayList<>();
@@ -635,11 +635,11 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                                         manager1.setOrientation(RecyclerView.VERTICAL);
                                         searchRecyclerview.setAdapter(adapter);
                                         searchRecyclerview.setLayoutManager(manager1);
-                                        progressDialog.dismiss();
+//                                        progressDialog.dismiss();
                                     }
                                     @Override
                                     public void onFailure(Call<List<DataModel>> call, Throwable t) {
-                                        progressDialog.dismiss();
+//                                        progressDialog.dismiss();
                                     }
                                 });
                             }
