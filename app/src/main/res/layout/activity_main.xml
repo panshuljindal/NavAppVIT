@@ -11,7 +11,7 @@
         android:id="@+id/animationWalking"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:translationY="50dp"
+        android:layout_marginTop="30dp"
         app:lottie_loop="true"
         app:lottie_autoPlay="true"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"

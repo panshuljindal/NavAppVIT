@@ -674,7 +674,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     categories.setVisibility(View.GONE);
                     searchRecyclerview.setVisibility(View.VISIBLE);
 
-                    Location lkl = getLastKnownLocation();
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -692,19 +691,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                                         list=new ArrayList<>();
                                         list=response.body();
 
-//                                        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-//                                            Location location = getLastKnownLocation();
-//
-//                                            if (location != null) {
-//                                                if (!mMap.getProjection().getVisibleRegion().latLngBounds.contains(new LatLng(location.getLatitude(), location.getLongitude()))) {
-//                                                    editor.putBoolean("isOnCampus", false);
-//                                                } else {
-//                                                    editor.putBoolean("isOnCampus", true);
-//                                                }
-//                                            }
-//                                        }
-
-                                            PlacesAdapter adapter = new PlacesAdapter(placesList, HomeActivity.this);
+                                            PlacesAdapter adapter = new PlacesAdapter(list, HomeActivity.this);
                                             LinearLayoutManager manager1 = new LinearLayoutManager(getApplicationContext());
                                             manager1.setOrientation(RecyclerView.VERTICAL);
                                             searchRecyclerview.setAdapter(adapter);
