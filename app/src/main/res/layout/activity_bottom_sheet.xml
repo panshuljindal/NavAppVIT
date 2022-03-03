@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:elevation="50dp"
     app:behavior_hideable="false"
-    app:behavior_peekHeight="100dp"
+    app:behavior_peekHeight="200dp"
     android:theme="@style/Theme.NavApp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
     android:background="@drawable/bottom_sheet_background"
@@ -24,6 +24,30 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+                <EditText
+                    android:id="@+id/searchEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/search_background"
+                    android:ems="10"
+                    android:fontFamily="@font/book"
+                    android:hint="Search"
+                    android:imeOptions="actionDone"
+                    android:inputType="textCapSentences"
+                    android:paddingLeft="33dp"
+                    android:paddingTop="13dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="13dp"
+                    android:textColor="@color/subHeading"
+                    android:textColorHint="@color/searchText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/notchawa" />
+
                 <ImageView
                     android:id="@+id/imageView"
                     android:layout_width="wrap_content"
@@ -34,29 +58,17 @@
                     app:layout_constraintBottom_toBottomOf="@+id/searchEditText"
                     app:layout_constraintStart_toStartOf="@+id/searchEditText"
                     app:layout_constraintTop_toTopOf="@+id/searchEditText" />
-
-                <EditText
-                    android:id="@+id/searchEditText"
-                    android:layout_width="0dp"
+                <ImageView
+                    android:id="@+id/cancelSearch"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@drawable/search_background"
-                    android:ems="10"
-                    android:fontFamily="@font/book"
-                    android:hint="Search"
-                    android:inputType="textCapSentences"
-                    android:paddingLeft="33dp"
-                    android:paddingTop="13dp"
-                    android:paddingRight="10dp"
-                    android:paddingBottom="13dp"
-                    android:imeOptions="actionDone"
-                    android:textColor="@color/subHeading"
-                    android:textColorHint="@color/searchText"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/notchawa" />
+                    android:layout_marginRight="10dp"
+                    android:padding="5dp"
+                    android:visibility="gone"
+                    android:src="@drawable/ic_searchcancel"
+                    app:layout_constraintBottom_toBottomOf="@+id/searchEditText"
+                    app:layout_constraintEnd_toEndOf="@+id/searchEditText"
+                    app:layout_constraintTop_toTopOf="@+id/searchEditText" />
 
                 <ImageView
                     android:id="@+id/notchawa"
@@ -120,9 +132,38 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/searchRecyclerView"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:layout_marginTop="13dp"
                     android:overScrollMode="never"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/placesTextView" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true"
+                    android:indeterminateTint="#2D05A0"
+                    android:layout_marginTop="90dp"
+                    android:indeterminateTintMode="src_atop"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/placesTextView" />
+
+                <TextView
+                    android:id="@+id/no_Search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="90dp"
+                    android:text="No results found!"
+                    android:visibility="gone"
+                    android:fontFamily="@font/bold"
+                    android:textColor="@color/subHeading"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/placesTextView" />

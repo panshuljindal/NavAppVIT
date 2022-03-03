@@ -21,7 +21,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="280dp"
+        android:layout_height="300dp"
         map:layout_constraintBottom_toBottomOf="parent"
         map:layout_constraintEnd_toEndOf="parent"
         map:layout_constraintStart_toStartOf="parent"
@@ -73,6 +73,7 @@
             android:layout_marginRight="40dp"
             android:fontFamily="@font/book"
             android:text="TextView"
+            android:lineSpacingExtra="3dp"
             android:textColor="@color/subHeading"
             map:layout_constraintEnd_toEndOf="@+id/navDestination"
             map:layout_constraintStart_toStartOf="parent"
@@ -134,6 +135,82 @@
             map:layout_constraintEnd_toEndOf="parent"
             map:layout_constraintTop_toBottomOf="@+id/notchawa2" />
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/animationLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/anim_background"
+        map:layout_constraintBottom_toBottomOf="parent"
+        map:layout_constraintEnd_toEndOf="parent"
+        map:layout_constraintHorizontal_bias="1.0"
+        map:layout_constraintStart_toStartOf="parent"
+        map:layout_constraintTop_toTopOf="parent"
+        map:layout_constraintVertical_bias="0.0">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationView"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_marginBottom="140dp"
+            map:layout_constraintBottom_toBottomOf="parent"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintStart_toStartOf="parent"
+            map:layout_constraintTop_toTopOf="parent"
+            map:lottie_autoPlay="true"
+            map:lottie_loop="true"
+            map:lottie_rawRes="@raw/animation" />
+
+        <TextView
+            android:id="@+id/please_wait_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="32sp"
+            android:fontFamily="@font/bold"
+            android:lineSpacingExtra="3dp"
+            android:text="Please Wait"
+            android:textAlignment="center"
+            android:textColor="@color/anim_please_wait"
+            android:textSize="17sp"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintStart_toStartOf="parent"
+            map:layout_constraintTop_toBottomOf="@id/animationView" />
+
+
+        <TextView
+            android:id="@+id/did_you_know"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
+            android:fontFamily="@font/bold"
+            android:gravity="center"
+            android:text="Did you know?"
+            android:textColor="@color/anim_did_you_know"
+            android:textSize="18dp"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintStart_toStartOf="parent"
+            map:layout_constraintTop_toTopOf="@id/please_wait_text" />
+
+        <TextView
+            android:id="@+id/fact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="70dp"
+            android:fontFamily="@font/book"
+            android:gravity="center"
+            android:lineSpacingExtra="3dp"
+            android:text="VIT has 35,000 students from 54 different countries and from all the states of India"
+            android:textColor="@color/anim_did_you_know"
+
+            android:textSize="14sp"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintStart_toStartOf="parent"
+            map:layout_constraintTop_toBottomOf="@+id/did_you_know" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

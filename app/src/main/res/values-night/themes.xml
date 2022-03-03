@@ -6,7 +6,7 @@
         <item name="colorPrimaryVariant">@color/bottomSheetBack</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondary">@color/white</item>
         <item name="colorSecondaryVariant">@color/teal_200</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
@@ -28,6 +28,9 @@
     <color name="settings">#888888</color>
     <color name="nav_button">#131118</color>
     <color name="nav_button_icon">#888888</color>
+    <color name="anim_background">#131118</color>
+    <color name="anim_please_wait">#FFFFFF</color>
+    <color name="anim_did_you_know">#888888</color>
 
 
 

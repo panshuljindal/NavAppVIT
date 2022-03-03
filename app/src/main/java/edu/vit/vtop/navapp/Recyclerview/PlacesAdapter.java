@@ -1,17 +1,29 @@
 package edu.vit.vtop.navapp.Recyclerview;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
 
@@ -23,10 +35,12 @@ import edu.vit.vtop.navapp.Utils.DataModel;
 public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.MyViewHolder> {
     List<DataModel> list;
     Context context;
+    SharedPreferences sharedPreferences;
 
     public PlacesAdapter(List<DataModel> list, Context context) {
         this.list = list;
         this.context = context;
+        sharedPreferences = context.getSharedPreferences("edu.vit.vtop.navapp", Context.MODE_PRIVATE);
     }
 
     @Override
@@ -36,7 +50,7 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.MyViewHold
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         DataModel model = list.get(position);
         holder.placeName.setText(model.getName());
         holder.categoryName.setText(model.getCategory());
@@ -78,13 +92,13 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.MyViewHold
             holder.categories.setCardBackgroundColor(ContextCompat.getColor(context,R.color.restaurant));
             holder.iconCategory.setCardBackgroundColor(ContextCompat.getColor(context,R.color.restaurant));
 
-        }if(model.getCategory().equals("Bank")){
+        }if(model.getCategory().equals("ATMs")){
             holder.categoryName.setTextColor(ContextCompat.getColor(context,R.color.bank));
             holder.icon.setImageResource(R.drawable.ic_bank);
             holder.categories.setCardBackgroundColor(ContextCompat.getColor(context,R.color.bank));
             holder.iconCategory.setCardBackgroundColor(ContextCompat.getColor(context,R.color.bank));
 
-        }if(model.getCategory().equals("Courier")){
+        }if(model.getCategory().equals("Pickup Points")){
             holder.categoryName.setTextColor(ContextCompat.getColor(context,R.color.courier));
             holder.icon.setImageResource(R.drawable.ic_courier);
             holder.categories.setCardBackgroundColor(ContextCompat.getColor(context,R.color.courier));
@@ -92,45 +106,53 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.MyViewHold
 
         }if(model.getCategory().equals("Utilities")){
             holder.categoryName.setTextColor(ContextCompat.getColor(context,R.color.utilities));
-//            holder.icon.setImageResource(R.drawable.ic_utilities);
+            holder.icon.setImageResource(R.drawable.ic_utilities);
             holder.categories.setCardBackgroundColor(ContextCompat.getColor(context,R.color.utilities));
             holder.iconCategory.setCardBackgroundColor(ContextCompat.getColor(context,R.color.utilities));
 
         }if(model.getCategory().equals("Sports")){
             holder.categoryName.setTextColor(ContextCompat.getColor(context,R.color.sports));
-//            holder.icon.setImageResource(R.drawable.ic_sports);
+            holder.icon.setImageResource(R.drawable.ic_sports);
             holder.categories.setCardBackgroundColor(ContextCompat.getColor(context,R.color.sports));
             holder.iconCategory.setCardBackgroundColor(ContextCompat.getColor(context,R.color.sports));
 
         }if(model.getCategory().equals("Gates")){
             holder.categoryName.setTextColor(ContextCompat.getColor(context,R.color.gates));
-//            holder.icon.setImageResource(R.drawable.ic_gates);
+            holder.icon.setImageResource(R.drawable.ic_gates);
             holder.categories.setCardBackgroundColor(ContextCompat.getColor(context,R.color.gates));
             holder.iconCategory.setCardBackgroundColor(ContextCompat.getColor(context,R.color.gates));
 
         }if(model.getCategory().equals("Halls")){
             holder.categoryName.setTextColor(ContextCompat.getColor(context,R.color.hall));
-//            holder.icon.setImageResource(R.drawable.ic_hall);
+            holder.icon.setImageResource(R.drawable.ic_hall);
             holder.categories.setCardBackgroundColor(ContextCompat.getColor(context,R.color.hall));
             holder.iconCategory.setCardBackgroundColor(ContextCompat.getColor(context,R.color.hall));
 
         }
         if(position==0 && list.size()!=1){
             holder.cl.setBackground(ContextCompat.getDrawable(context,R.drawable.places_first));
+//            Log.i("position",String.valueOf(position));
         }
-        if(position==list.size()-1 && list.size()!=1){
+        else if(position==list.size()-1 && list.size()!=1){
             holder.cl.setBackground(ContextCompat.getDrawable(context,R.drawable.places_end));
 //            Log.i("Position",model.getPlaceName());
+//            Log.i("position",String.valueOf(position));
+
+        }else{
+            holder.cl.setBackground(ContextCompat.getDrawable(context,R.drawable.places_mid));
+
         }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
-                Intent i = new Intent(context, NavigationActivity.class);
-                i.putExtra("marker_object",list.get(position));
-                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(i);
+                if (sharedPreferences.getBoolean("isOnCampus", false) == false) {
+                    Toast.makeText(context, R.string.onlyVIT, Toast.LENGTH_LONG).show();
+                } else {
+                    Intent i = new Intent(context, NavigationActivity.class);
+                    i.putExtra("marker_object", list.get(position));
+                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(i);
+                }
             }
         });
     }

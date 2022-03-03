@@ -7,10 +7,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
-import android.widget.Toast;
 
-import java.util.ArrayList;
+import com.google.android.gms.maps.model.MapStyleOptions;
+
 import java.util.List;
 
 import edu.vit.vtop.navapp.NetworkUtils.NetworkUtil;
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("Version", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("edu.vit.vtop.navapp", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 //        int version = -1;
         int version = sharedPreferences.getInt("version", -1);
@@ -39,15 +40,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<VersionModel>> call, Response<List<VersionModel>> response) {
                 if (!response.isSuccessful()) {
-                    Log.i("Version: ", "Not Successfull");
 //                    Toast.makeText(getApplicationContext(), "Version not success", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(MainActivity.this, NoNetworkActivity.class));
+                    finish();
                     return;
                 }
                 if(response.body().get(0).get__v() > version){
                     editor.putInt("version",response.body().get(0).get__v());
                     editor.apply();
 //                    Toast.makeText(getApplicationContext(), "Version success", Toast.LENGTH_SHORT).show();
-                    Log.i("Version: ", "Successfull");
 
                         Call<List<DataModel>> dataCall = NetworkUtil.networkAPI.getIndependent();
 
@@ -65,25 +66,41 @@ public class MainActivity extends AppCompatActivity {
                                 DataHandling.saveList(response.body(),MainActivity.this);
 //                                Log.i("DataModel: ", "Successfull");
 //                                Toast.makeText(getApplicationContext(), "DataModel Success", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(MainActivity.this, HomeActivity.class));
-                                finish();
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                                        finish();
+                                    }
+                                },700);
                             }
 
                             @Override
                             public void onFailure(Call<List<DataModel>> call, Throwable t) {
                                 Log.i("DataModel: ", "error");
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+
+                                        Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                },700);
 //                                Toast.makeText(getApplicationContext(), "DataModel error", Toast.LENGTH_SHORT).show();
                             }
                         });
 
-
-
-
                 }
                 else{
 
-                    startActivity(new Intent(MainActivity.this, HomeActivity.class));
-                    finish();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                            finish();
+                        }
+                    },900);
 
                 }
             }
@@ -91,12 +108,33 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<VersionModel>> call, Throwable t) {
                 Log.i("Version: ", "fail");
-                Toast.makeText(getApplicationContext(), "Version error", Toast.LENGTH_SHORT).show();
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                },1100);
+
+//                Toast.makeText(getApplicationContext(), "Version error", Toast.LENGTH_SHORT).show();
             }
         });
 
 
-        SharedPreferences mPrefs = getSharedPreferences("THEME", 0);
+        SharedPreferences mPrefs = getSharedPreferences("edu.vit.vtop.navapp", MODE_PRIVATE);
+        SharedPreferences.Editor editor1 = mPrefs.edit();
+        switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
+            case Configuration.UI_MODE_NIGHT_YES:
+                editor1.putString("theme","dark");
+                editor1.apply();
+                break;
+            case Configuration.UI_MODE_NIGHT_NO:
+                editor1.putString("theme","light");
+                editor1.apply();
+                break;
+        }
         String theme=mPrefs.getString("theme","");
         if (theme.equals("dark")) {
             // Set theme to white
@@ -105,11 +143,6 @@ public class MainActivity extends AppCompatActivity {
             // Set theme to black
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
-
-
-
-
-
 
 
     }
