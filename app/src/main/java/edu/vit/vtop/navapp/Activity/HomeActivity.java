@@ -343,7 +343,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
 // Constrain the camera target to the VIT Campus bounds.
-//        mMap.setLatLngBoundsForCameraTarget(vitBounds);
+        mMap.setLatLngBoundsForCameraTarget(vitBounds);
         mMap.setMinZoomPreference(16.0f); // Set a preference for minimum zoom (Zoom out).
 
 
@@ -354,34 +354,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
-        double ulat = 0.0;
-        double ulng = 0.0;
 
-
-        if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
-        {
-            Location lkl = getLastKnownLocation();
-
-            if(lkl!=null)
-            {
-                if (!mMap.getProjection().getVisibleRegion().latLngBounds.contains(new LatLng(lkl.getLatitude(),lkl.getLongitude()))) {
-//                    Toast.makeText(this, "This app is only for inside VIT Vellore Campus", Toast.LENGTH_LONG).show();
-//                    editor.putBoolean("isOnCampus",true).commit();
-//                    editor.apply();
-                }
-
-                else
-                {
-                    mMap.setMyLocationEnabled(true);
-                    mMap.getUiSettings().setMyLocationButtonEnabled(false);
-                    mMap.getUiSettings().setAllGesturesEnabled(true);
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lkl.getLatitude(), lkl.getLongitude()), 15));
-                    //delay is for after map loaded animation starts
-                    ulat = lkl.getLatitude();
-                    ulng = lkl.getLongitude();
-                }
-            }
-        }
 
         List<DataModel> markers = DataHandling.getList(getApplicationContext());
         Log.i("HomeAct",Integer.toString(markers.size()));
@@ -443,8 +416,37 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             builder.include(loc);
         }
-        LatLng loc1 = new LatLng(ulat,ulng);
-        builder.include(loc1);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+                {
+                    Location lkl = getLastKnownLocation();
+
+                    if(lkl!=null)
+                    {
+                        if (!mMap.getProjection().getVisibleRegion().latLngBounds.contains(new LatLng(lkl.getLatitude(),lkl.getLongitude()))) {
+//                    Toast.makeText(this, "This app is only for inside VIT Vellore Campus", Toast.LENGTH_LONG).show();
+//                    editor.putBoolean("isOnCampus",true).commit();
+//                    editor.apply();
+                    }
+
+                        else
+                        {
+                            mMap.setMyLocationEnabled(true);
+                            mMap.getUiSettings().setMyLocationButtonEnabled(false);
+                            mMap.getUiSettings().setAllGesturesEnabled(true);
+                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lkl.getLatitude(), lkl.getLongitude()), 15));
+                            //delay is for after map loaded animation starts
+
+                        }
+                    }
+                }
+            }
+        },2000);
+//        LatLng loc1 = new LatLng(ulat,ulng);
+//        builder.include(loc1);
 
 //        LatLngBounds bounds = builder.build();
 //
@@ -529,6 +531,9 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 return true;
             }
         });
+        mMap.setMyLocationEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(false);
+        mMap.getUiSettings().setAllGesturesEnabled(true);
 //        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(vit, 15f));
 
     }
