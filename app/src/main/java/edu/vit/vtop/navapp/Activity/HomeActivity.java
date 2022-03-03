@@ -82,7 +82,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     List<DataModel> list;
     ConstraintLayout bottomSheetLayout;
     ActivityResultLauncher<String[]> locationPermissionRequest;
-    SharedPreferences sharedpreferences;
     //    SharedPreferences.Editor editor;
     private ProgressDialog progressDialog;
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -127,7 +126,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             binding = ActivityHomeBinding.inflate(getLayoutInflater());
             setContentView(binding.getRoot());
 
-            sharedpreferences = getSharedPreferences("checkUserLocation", Context.MODE_PRIVATE);
 
             progressBar = findViewById(R.id.progressBar);
 
@@ -430,12 +428,18 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     {
                         if (!mMap.getProjection().getVisibleRegion().latLngBounds.contains(new LatLng(lkl.getLatitude(),lkl.getLongitude()))) {
 //                    Toast.makeText(this, "This app is only for inside VIT Vellore Campus", Toast.LENGTH_LONG).show();
-//                    editor.putBoolean("isOnCampus",true).commit();
-//                    editor.apply();
+                            SharedPreferences pref = getSharedPreferences("edu.vit.vtop.navapp",MODE_PRIVATE);
+                            SharedPreferences.Editor editor = pref.edit();
+                            editor.putBoolean("isOnCampus",true).commit();
+                            editor.apply();
                         }
 
                         else
                         {
+                            SharedPreferences pref = getSharedPreferences("edu.vit.vtop.navapp",MODE_PRIVATE);
+                            SharedPreferences.Editor editor = pref.edit();
+                            editor.putBoolean("isOnCampus",false).commit();
+                            editor.apply();
                             mMap.setMyLocationEnabled(true);
                             mMap.getUiSettings().setMyLocationButtonEnabled(false);
                             mMap.getUiSettings().setAllGesturesEnabled(true);
@@ -739,10 +743,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 @Override
                 public void run() {
                     doubleback = false;
-                    //Log.i("doubleback", doubleback.toString());
                 }
             }, 2000);
-            //Log.i("doubleback", doubleback.toString());
         }
     }
 }

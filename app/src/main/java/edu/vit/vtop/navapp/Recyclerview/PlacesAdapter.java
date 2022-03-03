@@ -39,7 +39,7 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.MyViewHold
     public PlacesAdapter(List<DataModel> list, Context context) {
         this.list = list;
         this.context = context;
-        sharedPreferences = context.getSharedPreferences("checkUserLocation", Context.MODE_PRIVATE);
+        sharedPreferences = context.getSharedPreferences("edu.vit.vtop.navapp", Context.MODE_PRIVATE);
     }
 
     @Override
@@ -138,14 +138,14 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.MyViewHold
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                if (sharedPreferences.getBoolean("isOnCampus", false) == false) {
-//                    Toast.makeText(context, "This app is only for inside VIT Vellore Campus", Toast.LENGTH_LONG).show();
-//                } else {
-////                    Intent i = new Intent(context, NavigationActivity.class);
-////                    i.putExtra("marker_object", list.get(position));
-////                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-////                    context.startActivity(i);
-//                }
+                if (sharedPreferences.getBoolean("isOnCampus", false) == false) {
+                    Toast.makeText(context, "This app is only for inside VIT Vellore Campus", Toast.LENGTH_LONG).show();
+                } else {
+//                    Intent i = new Intent(context, NavigationActivity.class);
+//                    i.putExtra("marker_object", list.get(position));
+//                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                    context.startActivity(i);
+                }
                 Intent i = new Intent(context, NavigationActivity.class);
                 i.putExtra("marker_object", list.get(position));
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
