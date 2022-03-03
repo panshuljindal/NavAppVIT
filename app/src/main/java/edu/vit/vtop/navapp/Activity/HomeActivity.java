@@ -343,7 +343,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
 // Constrain the camera target to the VIT Campus bounds.
-        mMap.setLatLngBoundsForCameraTarget(vitBounds);
+//        mMap.setLatLngBoundsForCameraTarget(vitBounds);
         mMap.setMinZoomPreference(16.0f); // Set a preference for minimum zoom (Zoom out).
 
 
@@ -357,7 +357,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         double ulat = 0.0;
         double ulng = 0.0;
 
-        LatLng user;
 
         if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
         {
@@ -380,7 +379,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     //delay is for after map loaded animation starts
                     ulat = lkl.getLatitude();
                     ulng = lkl.getLongitude();
-                    user = new LatLng(ulat,ulng);
                 }
             }
         }
@@ -448,15 +446,15 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         LatLng loc1 = new LatLng(ulat,ulng);
         builder.include(loc1);
 
-        LatLngBounds bounds = builder.build();
-
-        int width = getResources().getDisplayMetrics().widthPixels;
-        int height = getResources().getDisplayMetrics().heightPixels;
-        int padding = (int) (width * 0.10); // offset from edges of the map 10% of screen
-
-        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
-
-        mMap.animateCamera(cu);
+//        LatLngBounds bounds = builder.build();
+//
+//        int width = getResources().getDisplayMetrics().widthPixels;
+//        int height = getResources().getDisplayMetrics().heightPixels;
+//        int padding = (int) (width * 0.10); // offset from edges of the map 10% of screen
+//
+//        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
+//
+//        mMap.animateCamera(cu);
 
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
