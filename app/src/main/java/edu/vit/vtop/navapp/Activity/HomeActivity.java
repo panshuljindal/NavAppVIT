@@ -82,6 +82,9 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     List<DataModel> list;
     ConstraintLayout bottomSheetLayout;
     ActivityResultLauncher<String[]> locationPermissionRequest;
+    SharedPreferences sharedpreferences;
+    // Create a LatLngBounds that includes the VIT Campus bounds
+    LatLngBounds vitBounds;
     //    SharedPreferences.Editor editor;
     private ProgressDialog progressDialog;
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -153,6 +156,11 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             // init the bottom sheet behavior
             bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
+
+            vitBounds = new LatLngBounds(
+                    new LatLng(12.967077, 79.152291), // SW bounds
+                    new LatLng(12.978755, 79.167387)  // NE bounds
+            );
 
 //        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 
@@ -255,7 +263,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 Location location = getLastKnownLocation();
                 if (location != null) {
 
-                    if (!mMap.getProjection().getVisibleRegion().latLngBounds.contains(new LatLng(location.getLatitude(),location.getLongitude()))) {
+                    if (!vitBounds.contains(new LatLng(location.getLatitude(),location.getLongitude()))) {
                         Toast.makeText(getApplicationContext(), "This app is only for inside VIT Vellore Campus", Toast.LENGTH_LONG).show();
 //                        editor.putBoolean("isOnCampus",true).commit();
 //                        editor.apply();
@@ -309,7 +317,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
-//        if (!mMap.getProjection().getVisibleRegion().latLngBounds.contains(locationToLatLng(lastKnownLocation))) {
+//        if (!vitBounds.contains(locationToLatLng(lastKnownLocation))) {
 //            mMap.moveCamera(CameraUpdateFactory.newCameraPosition(getCameraPositionFromLocationWithZoom(lastKnown, getCurrentZoom())));
 //        }
 //        else
@@ -334,12 +342,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getApplicationContext(), R.raw.map_style));
                 break;
         }
-
-        // Create a LatLngBounds that includes the VIT Campus bounds
-        LatLngBounds vitBounds = new LatLngBounds(
-                new LatLng(12.967077, 79.152291), // SW bounds
-                new LatLng(12.978755, 79.167387)  // NE bounds
-        );
 
 
 // Constrain the camera target to the VIT Campus bounds.
@@ -426,7 +428,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                     if(lkl!=null)
                     {
-                        if (!mMap.getProjection().getVisibleRegion().latLngBounds.contains(new LatLng(lkl.getLatitude(),lkl.getLongitude()))) {
+                        if (!vitBounds.contains(new LatLng(lkl.getLatitude(),lkl.getLongitude()))) {
 //                    Toast.makeText(this, "This app is only for inside VIT Vellore Campus", Toast.LENGTH_LONG).show();
                             SharedPreferences pref = getSharedPreferences("edu.vit.vtop.navapp",MODE_PRIVATE);
                             SharedPreferences.Editor editor = pref.edit();
@@ -503,7 +505,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                                 if(location!=null)
                                 {
-                                    if (!mMap.getProjection().getVisibleRegion().latLngBounds.contains(new LatLng(location.getLatitude(),location.getLongitude()))) {
+                                    if (!vitBounds.contains(new LatLng(location.getLatitude(),location.getLongitude()))) {
                                         Toast.makeText(getApplicationContext(), "This app is only for inside VIT Vellore Campus", Toast.LENGTH_LONG).show();
                                     }
                                     else {
@@ -599,7 +601,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 //            Location location = getLastKnownLocation();
 //
 //            if (location != null) {
-//                if (!mMap.getProjection().getVisibleRegion().latLngBounds.contains(new LatLng(location.getLatitude(), location.getLongitude()))) {
+//                if (!vitBounds.contains(new LatLng(location.getLatitude(), location.getLongitude()))) {
 //                    editor.putBoolean("isOnCampus", false);
 //                } else {
 //                    editor.putBoolean("isOnCampus", true);
@@ -623,7 +625,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 //            Location location = getLastKnownLocation();
 //
 //            if (location != null) {
-//                if (!mMap.getProjection().getVisibleRegion().latLngBounds.contains(new LatLng(location.getLatitude(), location.getLongitude()))) {
+//                if (!vitBounds.contains(new LatLng(location.getLatitude(), location.getLongitude()))) {
 //                    editor.putBoolean("isOnCampus", false);
 //                } else {
 //                    editor.putBoolean("isOnCampus", true);

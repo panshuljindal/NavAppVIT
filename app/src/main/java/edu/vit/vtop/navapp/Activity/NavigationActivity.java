@@ -62,12 +62,26 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
     private CardView go;
     double lat,lng,ulat,ulng;
     private ProgressDialog progressDialog;
+    private String jokes[];
+    String joke;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityNavigationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        jokes = new String[]{" Hot day ? You should try the cocoa coffee at FC ",
+                "The challenge with being faster than light, is you still have to wait on loading pages ",
+                "Get some shade while we locate your destination ",
+                "Did you know VIT has a sustainably designed building with natural ventilation ? ",
+                "Bored ? The nearest Nescafe could be your pitstop to find a friend ",
+                " You have been greeted by the loading page. Share this with 300 people for good fortune."};
+
+        int index = (int) (Math.random() * (jokes.length-1));
+        joke = jokes[index];
+
+        binding.pleaseWaitText.setText(joke);
 
         Intent i = getIntent();
         marker_model = (DataModel) i.getSerializableExtra("marker_object");

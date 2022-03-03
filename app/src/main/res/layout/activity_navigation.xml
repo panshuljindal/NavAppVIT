@@ -154,21 +154,23 @@
             android:id="@+id/animationView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="100dp"
-            map:layout_constraintBottom_toBottomOf="parent"
             map:layout_constraintEnd_toEndOf="parent"
             map:layout_constraintStart_toStartOf="parent"
             map:layout_constraintTop_toTopOf="parent"
+            map:layout_constraintBottom_toBottomOf="parent"
             map:lottie_autoPlay="true"
             map:lottie_loop="true"
             map:lottie_rawRes="@raw/animation" />
 
         <TextView
             android:id="@+id/please_wait_text"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginStart="32sp"
+            android:layout_marginEnd="32sp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/bold"
             android:text="Please Wait"
+            android:textAlignment="center"
             android:textColor="@color/anim_please_wait"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -177,21 +179,21 @@
             map:layout_constraintStart_toStartOf="parent"
             map:layout_constraintTop_toBottomOf="@id/animationView" />
 
-        <TextView
-            android:id="@+id/we_are_routing"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/bold"
-            android:text="We're getting your route as soon as possible"
-            android:textColor="@color/anim_please_wait"
-            android:textAlignment="center"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            map:layout_constraintEnd_toEndOf="parent"
-            map:layout_constraintStart_toStartOf="parent"
-            map:layout_constraintTop_toBottomOf="@id/please_wait_text" />
+<!--        <TextView-->
+<!--            android:id="@+id/we_are_routing"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:fontFamily="@font/bold"-->
+<!--            android:text="We're getting your route as soon as possible"-->
+<!--            android:textColor="@color/anim_please_wait"-->
+<!--            android:textAlignment="center"-->
+<!--            android:layout_marginStart="32dp"-->
+<!--            android:layout_marginEnd="32dp"-->
+<!--            android:textSize="18sp"-->
+<!--            android:textStyle="bold"-->
+<!--            map:layout_constraintEnd_toEndOf="parent"-->
+<!--            map:layout_constraintStart_toStartOf="parent"-->
+<!--            map:layout_constraintTop_toBottomOf="@id/please_wait_text" />-->
 
         <TextView
             android:id="@+id/did_you_know"
@@ -206,7 +208,7 @@
             android:textStyle="bold"
             map:layout_constraintEnd_toEndOf="parent"
             map:layout_constraintStart_toStartOf="parent"
-            map:layout_constraintTop_toTopOf="@id/we_are_routing" />
+            map:layout_constraintTop_toTopOf="@id/please_wait_text" />
 
         <TextView
             android:id="@+id/fact"
