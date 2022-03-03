@@ -147,7 +147,12 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
 
         mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             public void onMapLoaded() {
-                binding.animationLayout.setVisibility(View.INVISIBLE);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        binding.animationLayout.setVisibility(View.INVISIBLE);
+                    }
+                },2000);
             }
         });
 
