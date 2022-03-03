@@ -240,6 +240,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 mLatLng.append("°");
 
 
+
                 Location location = getLastKnownLocation();
                 if (location != null) {
 
@@ -346,7 +347,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             if(lkl!=null)
             {
                 if (!mMap.getProjection().getVisibleRegion().latLngBounds.contains(new LatLng(lkl.getLatitude(),lkl.getLongitude()))) {
-                    Toast.makeText(this, "This app is only for inside VIT Vellore Campus", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(this, "This app is only for inside VIT Vellore Campus", Toast.LENGTH_LONG).show();
                 }
                 else
                 {
@@ -396,6 +397,12 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 case "Utilities":
                     vector = R.drawable.ic_marker_academic;
+                    break;
+                case "ATMs":
+                    vector=R.drawable.ic_marker_academic;
+                    break;
+                case "Pickup Points":
+                    vector=R.drawable.ic_marker_academic;
                     break;
                 case "Restaurants":
                     vector = R.drawable.ic_marker_food;
@@ -532,10 +539,10 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     void addCategories(){
 
-        categoriesList.add(new CategoriesModel("Halls",R.color.hall,R.drawable.ic_academic));
-        categoriesList.add(new CategoriesModel("Gates",R.color.gates,R.drawable.ic_academic));
-        categoriesList.add(new CategoriesModel("Sports",R.color.sports,R.drawable.ic_academic));
-        categoriesList.add(new CategoriesModel("Utilities",R.color.utilities,R.drawable.ic_academic));
+        categoriesList.add(new CategoriesModel("Halls",R.color.hall,R.drawable.ic_hall));
+        categoriesList.add(new CategoriesModel("Gates",R.color.gates,R.drawable.ic_gates));
+        categoriesList.add(new CategoriesModel("Sports",R.color.sports,R.drawable.ic_sports));
+        categoriesList.add(new CategoriesModel("Utilities",R.color.utilities,R.drawable.ic_utilities));
 
 
         categoriesList.add(new CategoriesModel("Pickup Points",R.color.courier,R.drawable.ic_courier));

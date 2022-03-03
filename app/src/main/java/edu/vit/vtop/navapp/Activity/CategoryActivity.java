@@ -39,6 +39,9 @@ public class CategoryActivity extends AppCompatActivity {
             progressDialog.show();
             Intent i = getIntent();
             String category = i.getStringExtra("category");
+
+            TextView text = findViewById(R.id.cTextView);
+            text.setText(category);
             RecyclerView categories = findViewById(R.id.cRecyclerView);
             list=new ArrayList<>();
             Call<List<DataModel>> call = NetworkUtil.networkAPI.getCategory(category);
@@ -56,8 +59,6 @@ public class CategoryActivity extends AppCompatActivity {
                         manager.setOrientation(RecyclerView.VERTICAL);
                         categories.setLayoutManager(manager);
                         categories.setAdapter(adapter);
-                        TextView text = findViewById(R.id.cTextView);
-                        text.setText(category);
                         progressDialog.dismiss();
                     }catch (Exception e){
                         progressDialog.dismiss();

@@ -93,25 +93,25 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.MyViewHold
 
         }if(model.getCategory().equals("Utilities")){
             holder.categoryName.setTextColor(ContextCompat.getColor(context,R.color.utilities));
-//            holder.icon.setImageResource(R.drawable.ic_utilities);
+            holder.icon.setImageResource(R.drawable.ic_utilities);
             holder.categories.setCardBackgroundColor(ContextCompat.getColor(context,R.color.utilities));
             holder.iconCategory.setCardBackgroundColor(ContextCompat.getColor(context,R.color.utilities));
 
         }if(model.getCategory().equals("Sports")){
             holder.categoryName.setTextColor(ContextCompat.getColor(context,R.color.sports));
-//            holder.icon.setImageResource(R.drawable.ic_sports);
+            holder.icon.setImageResource(R.drawable.ic_sports);
             holder.categories.setCardBackgroundColor(ContextCompat.getColor(context,R.color.sports));
             holder.iconCategory.setCardBackgroundColor(ContextCompat.getColor(context,R.color.sports));
 
         }if(model.getCategory().equals("Gates")){
             holder.categoryName.setTextColor(ContextCompat.getColor(context,R.color.gates));
-//            holder.icon.setImageResource(R.drawable.ic_gates);
+            holder.icon.setImageResource(R.drawable.ic_gates);
             holder.categories.setCardBackgroundColor(ContextCompat.getColor(context,R.color.gates));
             holder.iconCategory.setCardBackgroundColor(ContextCompat.getColor(context,R.color.gates));
 
         }if(model.getCategory().equals("Halls")){
             holder.categoryName.setTextColor(ContextCompat.getColor(context,R.color.hall));
-//            holder.icon.setImageResource(R.drawable.ic_hall);
+            holder.icon.setImageResource(R.drawable.ic_hall);
             holder.categories.setCardBackgroundColor(ContextCompat.getColor(context,R.color.hall));
             holder.iconCategory.setCardBackgroundColor(ContextCompat.getColor(context,R.color.hall));
 
