@@ -33,6 +33,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -77,6 +78,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     private List<DataModel> placesList;
     private EditText search;
     private TextView cat,plac;
+    private ProgressBar progressBar;
     List<DataModel> list;
     ConstraintLayout bottomSheetLayout;
     ActivityResultLauncher<String[]> locationPermissionRequest;
@@ -100,6 +102,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 //            Log.e(TAG, "Failed to load meta-data, NullPointer: " + e.getMessage());
 //        }
 
+
         try
         {
 
@@ -121,6 +124,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 );
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
 
         locationPermissionRequest.launch(new String[]{
                 Manifest.permission.ACCESS_FINE_LOCATION,
@@ -190,11 +195,13 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapFragment.getMapAsync(this);
 
 //        progressDialog.dismiss();
+            progressBar.setVisibility(View.GONE);
 
         }
         catch (Exception e)
         {
 //            progressDialog.dismiss();
+            progressBar.setVisibility(View.GONE);
 //            Toast.makeText(this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
@@ -287,6 +294,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             public void onMapLoaded() {
 //                progressDialog.dismiss();
+                progressBar.setVisibility(View.GONE);
             }
         });
 
