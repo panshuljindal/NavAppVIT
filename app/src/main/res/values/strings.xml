@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Nav App</string>
+    <string name="app_name">VIT Nav</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_activity_navigation">NavigationActivity</string>
 </resources>
