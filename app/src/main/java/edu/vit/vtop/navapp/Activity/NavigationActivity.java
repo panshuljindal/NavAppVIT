@@ -183,7 +183,7 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
 
         mMap.animateCamera(cu);
 
-        SharedPreferences mPrefs = getSharedPreferences("THEME", 0);
+        SharedPreferences mPrefs = getSharedPreferences("edu.vit.vtop.navapp", 0);
         String theme=mPrefs.getString("theme","");
 
         // Create a LatLngBounds that includes the VIT Campus bounds

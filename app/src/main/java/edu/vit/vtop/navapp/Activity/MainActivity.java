@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
+
+import com.google.android.gms.maps.model.MapStyleOptions;
 
 import java.util.List;
 
@@ -26,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("Version", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("edu.vit.vtop.navapp", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 //        int version = -1;
         int version = sharedPreferences.getInt("version", -1);
@@ -96,7 +99,18 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        SharedPreferences mPrefs = getSharedPreferences("THEME", 0);
+        SharedPreferences mPrefs = getSharedPreferences("edu.vit.vtop.navapp", MODE_PRIVATE);
+        SharedPreferences.Editor editor1 = mPrefs.edit();
+        switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
+            case Configuration.UI_MODE_NIGHT_YES:
+                editor1.putString("theme","dark");
+                editor1.apply();
+                break;
+            case Configuration.UI_MODE_NIGHT_NO:
+                editor1.putString("theme","light");
+                editor1.apply();
+                break;
+        }
         String theme=mPrefs.getString("theme","");
         if (theme.equals("dark")) {
             // Set theme to white

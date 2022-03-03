@@ -141,15 +141,11 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.MyViewHold
                 if (sharedPreferences.getBoolean("isOnCampus", false) == false) {
                     Toast.makeText(context, "This app is only for inside VIT Vellore Campus", Toast.LENGTH_LONG).show();
                 } else {
-//                    Intent i = new Intent(context, NavigationActivity.class);
-//                    i.putExtra("marker_object", list.get(position));
-//                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                    context.startActivity(i);
+                    Intent i = new Intent(context, NavigationActivity.class);
+                    i.putExtra("marker_object", list.get(position));
+                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(i);
                 }
-                Intent i = new Intent(context, NavigationActivity.class);
-                i.putExtra("marker_object", list.get(position));
-                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(i);
             }
         });
     }

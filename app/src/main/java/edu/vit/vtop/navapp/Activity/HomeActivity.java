@@ -324,15 +324,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 //        {
 
 //        }
-//        SharedPreferences mPrefs = getSharedPreferences("THEME", 0);
-//        String theme=mPrefs.getString("theme","");
-//        if (theme.equals("dark")) {
-//            mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getApplicationContext(), R.raw.map_style_night));
-//            // Set theme to white
-//        } else if(theme.equals("light")) {
-//            mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getApplicationContext(), R.raw.map_style));
-//            // Set theme to black
-//        }
         switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
             case Configuration.UI_MODE_NIGHT_YES:
 
@@ -432,7 +423,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 //                    Toast.makeText(this, "This app is only for inside VIT Vellore Campus", Toast.LENGTH_LONG).show();
                             SharedPreferences pref = getSharedPreferences("edu.vit.vtop.navapp",MODE_PRIVATE);
                             SharedPreferences.Editor editor = pref.edit();
-                            editor.putBoolean("isOnCampus",true).commit();
+                            editor.putBoolean("isOnCampus",false).commit();
                             editor.apply();
                         }
 
@@ -440,7 +431,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                         {
                             SharedPreferences pref = getSharedPreferences("edu.vit.vtop.navapp",MODE_PRIVATE);
                             SharedPreferences.Editor editor = pref.edit();
-                            editor.putBoolean("isOnCampus",false).commit();
+                            editor.putBoolean("isOnCampus",true).commit();
                             editor.apply();
                             mMap.setMyLocationEnabled(true);
                             mMap.getUiSettings().setMyLocationButtonEnabled(false);

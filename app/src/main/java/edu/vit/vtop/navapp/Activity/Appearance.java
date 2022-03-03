@@ -23,12 +23,12 @@ public class Appearance extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_appearance);
-        SharedPreferences.Editor editor = getSharedPreferences("THEME", MODE_PRIVATE).edit();
+        SharedPreferences.Editor editor = getSharedPreferences("edu.vit.vtop.navapp", MODE_PRIVATE).edit();
         radioGroupThemeChanger = findViewById(R.id.radio_group_theme_changer);
         radioButtonLight = findViewById(R.id.rb_light_mode);
         radioButtonDark = findViewById(R.id.rb_dark_mode);
         back = findViewById(R.id.noti_back);
-        String themeChosen = getSharedPreferences("THEME", MODE_PRIVATE)
+        String themeChosen = getSharedPreferences("edu.vit.vtop.navapp", MODE_PRIVATE)
                 .getString("theme", "");
         if (themeChosen.equals("light")) {
             flag=1;
