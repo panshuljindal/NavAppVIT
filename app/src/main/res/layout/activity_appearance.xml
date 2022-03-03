@@ -40,7 +40,7 @@
         android:id="@+id/radio_group_theme_changer"
         android:layout_width="0dp"
         android:layout_height="300dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/notiText">
