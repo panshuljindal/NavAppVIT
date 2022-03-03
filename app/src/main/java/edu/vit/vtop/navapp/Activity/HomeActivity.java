@@ -343,8 +343,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
 // Constrain the camera target to the VIT Campus bounds.
-        mMap.setLatLngBoundsForCameraTarget(vitBounds);
-        mMap.setMinZoomPreference(16.0f); // Set a preference for minimum zoom (Zoom out).
+//        mMap.setLatLngBoundsForCameraTarget(vitBounds);
+//        mMap.setMinZoomPreference(16.0f); // Set a preference for minimum zoom (Zoom out).
 
 
         // Add a marker in VIT and move the camera
@@ -426,7 +426,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                     if(lkl!=null)
                     {
-                        if (!mMap.getProjection().getVisibleRegion().latLngBounds.contains(new LatLng(lkl.getLatitude(),lkl.getLongitude()))) {
+                        if (!vitBounds.contains(new LatLng(lkl.getLatitude(),lkl.getLongitude()))) {
 //                    Toast.makeText(this, "This app is only for inside VIT Vellore Campus", Toast.LENGTH_LONG).show();
 //                    editor.putBoolean("isOnCampus",true).commit();
 //                    editor.apply();
@@ -497,7 +497,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                                 if(location!=null)
                                 {
-                                    if (!mMap.getProjection().getVisibleRegion().latLngBounds.contains(new LatLng(location.getLatitude(),location.getLongitude()))) {
+                                    if (!vitBounds.contains(new LatLng(location.getLatitude(),location.getLongitude()))) {
                                         Toast.makeText(getApplicationContext(), "This app is only for inside VIT Vellore Campus", Toast.LENGTH_LONG).show();
                                     }
                                     else {
