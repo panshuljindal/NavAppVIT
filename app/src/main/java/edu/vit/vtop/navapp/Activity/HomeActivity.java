@@ -33,6 +33,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -81,6 +82,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     private TextView cat,plac;
     private ProgressBar progressBar;
     List<DataModel> list;
+    TextView noResult;
+    ImageView cancelSearch;
     ConstraintLayout bottomSheetLayout;
     ActivityResultLauncher<String[]> locationPermissionRequest;
     SharedPreferences sharedpreferences;
@@ -92,20 +95,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-//        Objects.requireNonNull(getSupportActionBar()).hide();
-//        progressDialog = new ProgressDialog(this);
-//        progressDialog.show();
-
-//        try {
-//            ApplicationInfo ai = getPackageManager().getApplicationInfo(activity.getPackageName(), PackageManager.GET_META_DATA);
-//            Bundle bundle = ai.metaData;
-//            String myApiKey = bundle.getString("my_api_key");
-//        } catch (NameNotFoundException e) {
-//            Log.e(TAG, "Failed to load meta-data, NameNotFound: " + e.getMessage());
-//        } catch (NullPointerException e) {
-//            Log.e(TAG, "Failed to load meta-data, NullPointer: " + e.getMessage());
-//        }
 
 
         try
@@ -148,6 +137,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             cat=findViewById(R.id.categoriesTextView);
             plac=findViewById(R.id.placesTextView);
             searchRecyclerview=findViewById(R.id.searchRecyclerView);
+            noResult=findViewById(R.id.no_Search);
+            cancelSearch=findViewById(R.id.cancelSearch);
             categoriesList=new ArrayList<>();
             placesList=new ArrayList<>();
 
@@ -162,8 +153,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     new LatLng(12.967077, 79.152291), // SW bounds
                     new LatLng(12.978755, 79.167387)  // NE bounds
             );
-
-//        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 
             bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
                 @Override
@@ -205,35 +194,14 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     .findFragmentById(R.id.map);
             mapFragment.getMapAsync(this);
 
-//        progressDialog.dismiss();
-//            progressBar.setVisibility(View.GONE);
-
         }
         catch (Exception e)
         {
-//            progressDialog.dismiss();
-//            progressBar.setVisibility(View.GONE);
-//            Toast.makeText(this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
         binding.changeTheme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                SharedPreferences mPrefs = getSharedPreferences("THEME", 0);
-//                SharedPreferences.Editor mEditor = mPrefs.edit();
-//
-//
-//                switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
-//                    case Configuration.UI_MODE_NIGHT_YES:
-//
-//                        mEditor.putString("theme", "light").apply();
-//                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-//                        break;
-//                    case Configuration.UI_MODE_NIGHT_NO:
-//                        mEditor.putString("theme", "dark").apply();
-//                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-//                        break;
-//                }
                 startActivity(new Intent(HomeActivity.this,Settings.class));
                 finish();
 
@@ -265,7 +233,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 if (location != null) {
 
                     if (!vitBounds.contains(new LatLng(location.getLatitude(),location.getLongitude()))) {
-                        Toast.makeText(getApplicationContext(), "This app is only for inside VIT Vellore Campus", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), R.string.onlyVIT, Toast.LENGTH_LONG).show();
 //                        editor.putBoolean("isOnCampus",true).commit();
 //                        editor.apply();
                     }
@@ -313,19 +281,9 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             public void onMapLoaded() {
-//                progressDialog.dismiss();
-//                progressBar.setVisibility(View.GONE);
             }
         });
 
-
-//        if (!vitBounds.contains(locationToLatLng(lastKnownLocation))) {
-//            mMap.moveCamera(CameraUpdateFactory.newCameraPosition(getCameraPositionFromLocationWithZoom(lastKnown, getCurrentZoom())));
-//        }
-//        else
-//        {
-
-//        }
         switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
             case Configuration.UI_MODE_NIGHT_YES:
 
@@ -342,10 +300,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.setMinZoomPreference(16.0f); // Set a preference for minimum zoom (Zoom out).
 
 
-        // Add a marker in VIT and move the camera
-//        LatLng vit = new LatLng(12.974714, 79.164227);
-//        mMap.addMarker(new MarkerOptions().position(vit).title("Admin")
-//                .icon(BitmapFromVector(getApplicationContext(), R.drawable.ic_marker_admin)));
 
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
@@ -357,7 +311,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         MarkerInfoWindowAdapter markerInfoWindowAdapter = new MarkerInfoWindowAdapter(getApplicationContext(),markers);
         mMap.setInfoWindowAdapter(markerInfoWindowAdapter);
 
-        Log.i("HomeAct",Integer.toString(markers.size()));
         for(DataModel e: markers) {
 
             int vector = 0;
@@ -427,7 +380,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     if(lkl!=null)
                     {
                         if (!vitBounds.contains(new LatLng(lkl.getLatitude(),lkl.getLongitude()))) {
-//                    Toast.makeText(this, "This app is only for inside VIT Vellore Campus", Toast.LENGTH_LONG).show();
                             SharedPreferences pref = getSharedPreferences("edu.vit.vtop.navapp",MODE_PRIVATE);
                             SharedPreferences.Editor editor = pref.edit();
                             editor.putBoolean("isOnCampus",false).commit();
@@ -451,18 +403,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
             }
         },2000);
-//        LatLng loc1 = new LatLng(ulat,ulng);
-//        builder.include(loc1);
 
-//        LatLngBounds bounds = builder.build();
-//
-//        int width = getResources().getDisplayMetrics().widthPixels;
-//        int height = getResources().getDisplayMetrics().heightPixels;
-//        int padding = (int) (width * 0.10); // offset from edges of the map 10% of screen
-//
-//        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
-//
-//        mMap.animateCamera(cu);
 
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
@@ -484,7 +425,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                             marker.showInfoWindow();
                             e.setInfoShown(true);
 //                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(e.getLat(), e.getLon()), 18f));
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(e.getLat(), e.getLon()), 18f));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(e.getLat(), e.getLon()), 16f));
                             //When we return false in onMarkerClick(), it performs its default function of showingInfoWindow and centering the map into the marker
                             return false;
 //                                LatLng coordinate = new LatLng(e.getLon(), e.getLat());
@@ -504,7 +445,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 if(location!=null)
                                 {
                                     if (!vitBounds.contains(new LatLng(location.getLatitude(),location.getLongitude()))) {
-                                        Toast.makeText(getApplicationContext(), "This app is only for inside VIT Vellore Campus", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getApplicationContext(), R.string.onlyVIT, Toast.LENGTH_LONG).show();
                                     }
                                     else {
                                         marker.hideInfoWindow();
@@ -639,6 +580,20 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
     void Search(){
+        cancelSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                progressBar.setVisibility(View.GONE);
+                cat.setVisibility(View.VISIBLE);
+                plac.setText("Places");
+                places.setVisibility(View.VISIBLE);
+                categories.setVisibility(View.VISIBLE);
+                noResult.setVisibility(View.INVISIBLE);
+                cancelSearch.setVisibility(View.GONE);
+                searchRecyclerview.setVisibility(View.INVISIBLE);
+                search.setText("");
+            }
+        });
         search.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -668,18 +623,25 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void afterTextChanged(Editable editable) {
                 if(!bottomSheetBehavior.equals(BottomSheetBehavior.STATE_EXPANDED)){
-                    bottomSheetLayout.setState(BottomSheetBehavior.STATE_EXPANDED,100,100);
+//                    bottomSheetLayout.setState(BottomSheetBehavior.STATE_EXPANDED,100,100);
+//                    Log.i("Pressed","Bottom");
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                     progressBar.setVisibility(View.GONE);
                 }
                 String searchString = search.getText().toString();
+                searchRecyclerview.setVisibility(View.GONE);
+                noResult.setVisibility(View.INVISIBLE);
                 if(searchString.equals("")){
                     progressBar.setVisibility(View.GONE);
                     cat.setVisibility(View.VISIBLE);
                     plac.setText("Places");
                     places.setVisibility(View.VISIBLE);
                     categories.setVisibility(View.VISIBLE);
+                    noResult.setVisibility(View.INVISIBLE);
+                    cancelSearch.setVisibility(View.GONE);
                     searchRecyclerview.setVisibility(View.INVISIBLE);
                 }else{
+                    cancelSearch.setVisibility(View.VISIBLE);
 //                    progressDialog.show();
                     progressBar.setVisibility(View.VISIBLE);
 
@@ -688,7 +650,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     plac.setText("Results");
                     places.setVisibility(View.GONE);
                     categories.setVisibility(View.GONE);
-                    searchRecyclerview.setVisibility(View.VISIBLE);
 
                     new Handler().postDelayed(new Runnable() {
                         @Override
@@ -704,15 +665,27 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                                             return ;
                                         }
                                         list=new ArrayList<>();
-                                        list=response.body();
+                                        try {
+                                            list=response.body().subList(0,8);
+                                        } catch (Exception e){
+                                            list=response.body();
+                                        }
+                                        if(list.size()==0){
+                                            progressBar.setVisibility(View.GONE);
+                                            noResult.setVisibility(View.VISIBLE);
+                                        }else{
+                                            PlacesAdapter adapter = new PlacesAdapter(list, HomeActivity.this);
+                                            LinearLayoutManager manager1 = new LinearLayoutManager(getApplicationContext());
+                                            manager1.setOrientation(RecyclerView.VERTICAL);
+                                            searchRecyclerview.setAdapter(adapter);
+                                            searchRecyclerview.setLayoutManager(manager1);
+                                            progressBar.setVisibility(View.GONE);
+                                            searchRecyclerview.setVisibility(View.VISIBLE);
+                                        }
 
-                                        PlacesAdapter adapter = new PlacesAdapter(list, HomeActivity.this);
-                                        LinearLayoutManager manager1 = new LinearLayoutManager(getApplicationContext());
-                                        manager1.setOrientation(RecyclerView.VERTICAL);
-                                        searchRecyclerview.setAdapter(adapter);
-                                        searchRecyclerview.setLayoutManager(manager1);
 
-                                        progressBar.setVisibility(View.GONE);
+
+
                                     }
                                     @Override
                                     public void onFailure(Call<List<DataModel>> call, Throwable t) {
@@ -730,21 +703,35 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     boolean doubleback;
     @Override
     public void onBackPressed() {
-        if (doubleback) {
-            //super.onBackPressed();
-            moveTaskToBack(true);
-            android.os.Process.killProcess(android.os.Process.myPid());
-            System.exit(0);
-            //Log.i("doubleback", doubleback.toString());
-        } else {
-            doubleback = true;
-            Toast.makeText(this, "Please once again BACK to exit", Toast.LENGTH_SHORT).show();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    doubleback = false;
-                }
-            }, 2000);
+        if (cancelSearch.getVisibility() == View.VISIBLE) {
+            progressBar.setVisibility(View.GONE);
+            cat.setVisibility(View.VISIBLE);
+            plac.setText("Places");
+            places.setVisibility(View.VISIBLE);
+            categories.setVisibility(View.VISIBLE);
+            noResult.setVisibility(View.INVISIBLE);
+            cancelSearch.setVisibility(View.GONE);
+            searchRecyclerview.setVisibility(View.INVISIBLE);
+            search.setText("");
+        }else {
+
+
+            if (doubleback) {
+                //super.onBackPressed();
+                moveTaskToBack(true);
+                android.os.Process.killProcess(android.os.Process.myPid());
+                System.exit(0);
+                //Log.i("doubleback", doubleback.toString());
+            } else {
+                doubleback = true;
+                Toast.makeText(this, "Please once again BACK to exit", Toast.LENGTH_SHORT).show();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        doubleback = false;
+                    }
+                }, 2000);
+            }
         }
     }
 }

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -130,16 +131,22 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.MyViewHold
         }
         if(position==0 && list.size()!=1){
             holder.cl.setBackground(ContextCompat.getDrawable(context,R.drawable.places_first));
+//            Log.i("position",String.valueOf(position));
         }
-        if(position==list.size()-1 && list.size()!=1){
+        else if(position==list.size()-1 && list.size()!=1){
             holder.cl.setBackground(ContextCompat.getDrawable(context,R.drawable.places_end));
 //            Log.i("Position",model.getPlaceName());
+//            Log.i("position",String.valueOf(position));
+
+        }else{
+            holder.cl.setBackground(ContextCompat.getDrawable(context,R.drawable.places_mid));
+
         }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (sharedPreferences.getBoolean("isOnCampus", false) == false) {
-                    Toast.makeText(context, "This app is only for inside VIT Vellore Campus", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, R.string.onlyVIT, Toast.LENGTH_LONG).show();
                 } else {
                     Intent i = new Intent(context, NavigationActivity.class);
                     i.putExtra("marker_object", list.get(position));
