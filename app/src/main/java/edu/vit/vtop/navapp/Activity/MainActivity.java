@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 
 import com.google.android.gms.maps.model.MapStyleOptions;
@@ -65,16 +66,27 @@ public class MainActivity extends AppCompatActivity {
                                 DataHandling.saveList(response.body(),MainActivity.this);
 //                                Log.i("DataModel: ", "Successfull");
 //                                Toast.makeText(getApplicationContext(), "DataModel Success", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(MainActivity.this, HomeActivity.class));
-                                finish();
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                                        finish();
+                                    }
+                                },700);
                             }
 
                             @Override
                             public void onFailure(Call<List<DataModel>> call, Throwable t) {
                                 Log.i("DataModel: ", "error");
-                                Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
-                                startActivity(intent);
-                                finish();
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+
+                                        Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                },700);
 //                                Toast.makeText(getApplicationContext(), "DataModel error", Toast.LENGTH_SHORT).show();
                             }
                         });
@@ -82,8 +94,13 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else{
 
-                    startActivity(new Intent(MainActivity.this, HomeActivity.class));
-                    finish();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                            finish();
+                        }
+                    },900);
 
                 }
             }
@@ -91,9 +108,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<VersionModel>> call, Throwable t) {
                 Log.i("Version: ", "fail");
-                Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
-                startActivity(intent);
-                finish();
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                },1100);
+
 //                Toast.makeText(getApplicationContext(), "Version error", Toast.LENGTH_SHORT).show();
             }
         });
