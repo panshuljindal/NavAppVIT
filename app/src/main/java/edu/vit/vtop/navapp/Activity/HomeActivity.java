@@ -723,5 +723,26 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
     }
-
+    boolean doubleback;
+    @Override
+    public void onBackPressed() {
+        if (doubleback) {
+            //super.onBackPressed();
+            moveTaskToBack(true);
+            android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(0);
+            //Log.i("doubleback", doubleback.toString());
+        } else {
+            doubleback = true;
+            Toast.makeText(this, "Please once again BACK to exit", Toast.LENGTH_SHORT).show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    doubleback = false;
+                    //Log.i("doubleback", doubleback.toString());
+                }
+            }, 2000);
+            //Log.i("doubleback", doubleback.toString());
+        }
+    }
 }

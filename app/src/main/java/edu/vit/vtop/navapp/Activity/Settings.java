@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import java.util.ArrayList;
@@ -44,5 +45,12 @@ public class Settings extends AppCompatActivity {
         lst3.add(new SettingsModel(R.drawable.ic_aboutus,"About Us"));
 
         recy3.setAdapter(new SettingsAdapter(context,lst3));
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(Settings.this,HomeActivity.class));
+        finish();
+
     }
 }
