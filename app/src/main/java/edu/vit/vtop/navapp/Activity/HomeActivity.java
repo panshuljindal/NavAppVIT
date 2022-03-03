@@ -684,7 +684,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                                     @Override
                                     public void onResponse(Call<List<DataModel>> call, Response<List<DataModel>> response) {
                                         if(!response.isSuccessful()){
-//                                            progressDialog.dismiss();
                                             progressBar.setVisibility(View.GONE);
                                             return ;
                                         }
@@ -697,12 +696,10 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                                             searchRecyclerview.setAdapter(adapter);
                                             searchRecyclerview.setLayoutManager(manager1);
 
-//                                        progressDialog.dismiss();
                                         progressBar.setVisibility(View.GONE);
                                     }
                                     @Override
                                     public void onFailure(Call<List<DataModel>> call, Throwable t) {
-//                                        progressDialog.dismiss();
                                          progressBar.setVisibility(View.GONE);
                                     }
                                 });
