@@ -58,12 +58,12 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
     private ActivityNavigationBinding binding;
     private TextView name,address;
     private ImageView cancel;
-    DataModel marker_model;
+    private DataModel marker_model;
     private CardView go;
     double lat,lng,ulat,ulng;
-    private ProgressDialog progressDialog;
+
     private String jokes[];
-    String joke;
+    private String joke;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +82,22 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
         joke = jokes[index];
 
         binding.pleaseWaitText.setText(joke);
+        int index2;
+        index2=(int) (Math.random() * (jokes.length-1));;
+        if(index==index2){
+            index2=(int) (Math.random() * (jokes.length-1));;
+            if(index==index2){
+                index2=(int) (Math.random() * (jokes.length-1));;
+                if(index==index2){
+                    index2=(int) (Math.random() * (jokes.length-1));;
+                    if(index==index2){
+                        index2=(int) (Math.random() * (jokes.length-1));;
+
+                    }
+                }
+            }
+        }
+        binding.fact.setText(jokes[index2]);
 
         Intent i = getIntent();
         marker_model = (DataModel) i.getSerializableExtra("marker_object");
@@ -92,13 +108,6 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
         ulat =i.getDoubleExtra("ulat",0.0);
         ulng =i.getDoubleExtra("ulon",0.0);
 
-//            ulat = 12.969845;
-//            ulng = 79.158639;
-
-
-//        Log.i("lat",Double.toString(lat));
-//        Log.i("long",Double.toString(lng));
-
             binding.navDestination.setText(marker_model.getName());
             binding.navAddress.setText(marker_model.getAddress());
 
@@ -107,21 +116,9 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
                     .findFragmentById(R.id.map);
             mapFragment.getMapAsync(this);
             findID();
-
-//            progressDialog.dismiss();
-
-//        }
-//        catch (Exception e)
-//        {
-//            progressDialog.dismiss();
-//            Toast.makeText(this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-//        }
-
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent i = new Intent(NavigationActivity.this,HomeActivity.class);
-//                startActivity(i);
                 finish();
             }
         });
@@ -154,7 +151,6 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
             }
         });
 
-//        mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getApplicationContext(), R.raw.map_style));
         switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
             case Configuration.UI_MODE_NIGHT_YES:
 
@@ -183,9 +179,6 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
 
         mMap.animateCamera(cu);
 
-        SharedPreferences mPrefs = getSharedPreferences("edu.vit.vtop.navapp", 0);
-        String theme=mPrefs.getString("theme","");
-
         // Create a LatLngBounds that includes the VIT Campus bounds
         LatLngBounds vitBounds = new LatLngBounds(
                 new LatLng(12.967077, 79.152291), // SW bounds
@@ -193,7 +186,7 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
         );
 
 
-// Constrain the camera target to the VIT Campus bounds.
+        // Constrain the camera target to the VIT Campus bounds.
         mMap.setLatLngBoundsForCameraTarget(vitBounds);
         mMap.setMinZoomPreference(16.0f); // Set a preference for minimum zoom (Zoom out).
 
@@ -276,8 +269,6 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
             }
         }, 2000);
 
-//        mMap.addMarker(new MarkerOptions().position(user).title("User"));
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(marker_model.getLat(),marker_model.getLon())));
 
 
         PolylineOptions options = new PolylineOptions().width(5).color(Color.BLUE).geodesic(true);
