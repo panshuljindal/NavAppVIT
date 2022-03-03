@@ -204,19 +204,25 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
                 break;
             case "Halls":
                 // change to hall
-                vector = R.drawable.ic_marker_academic;
+                vector = R.drawable.ic_marker_hall;
                 break;
             case "Sports":
                 // change to sports
-                vector = R.drawable.ic_marker_academic;
+                vector = R.drawable.ic_marker_sports;
                 break;
             case "Gates":
                 // change to gate
-                vector = R.drawable.ic_marker_academic;
+                vector = R.drawable.ic_marker_gates;
                 break;
 
             case "Utilities":
-                vector = R.drawable.ic_marker_academic;
+                vector = R.drawable.ic_marker_utilities;
+                break;
+            case "ATMs":
+                vector=R.drawable.ic_marker_atm;
+                break;
+            case "Pickup Points":
+                vector=R.drawable.ic_marker_courier;
                 break;
             case "Restaurants":
                 vector = R.drawable.ic_marker_food;
@@ -225,7 +231,7 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
                 vector = R.drawable.ic_marker_admin;
                 break;
             default:
-                vector = R.drawable.ic_marker_food;
+                vector = R.drawable.ic_marker_academic;
                 break;
 
 
