@@ -212,21 +212,22 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         binding.changeTheme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences mPrefs = getSharedPreferences("THEME", 0);
-                SharedPreferences.Editor mEditor = mPrefs.edit();
-
-
-                switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
-                    case Configuration.UI_MODE_NIGHT_YES:
-
-                        mEditor.putString("theme", "light").apply();
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                        break;
-                    case Configuration.UI_MODE_NIGHT_NO:
-                        mEditor.putString("theme", "dark").apply();
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                        break;
-                }
+//                SharedPreferences mPrefs = getSharedPreferences("THEME", 0);
+//                SharedPreferences.Editor mEditor = mPrefs.edit();
+//
+//
+//                switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
+//                    case Configuration.UI_MODE_NIGHT_YES:
+//
+//                        mEditor.putString("theme", "light").apply();
+//                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//                        break;
+//                    case Configuration.UI_MODE_NIGHT_NO:
+//                        mEditor.putString("theme", "dark").apply();
+//                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+//                        break;
+//                }
+                startActivity(new Intent(HomeActivity.this,Settings.class));
 
             }
         });
