@@ -29,11 +29,15 @@ public class Appearance extends AppCompatActivity {
         radioButtonDark = findViewById(R.id.rb_dark_mode);
         back = findViewById(R.id.noti_back);
         String themeChosen = getSharedPreferences("THEME", MODE_PRIVATE)
-                .getString("theme", "light");
-        if (themeChosen.equals("light"))
+                .getString("theme", "");
+        if (themeChosen.equals("light")) {
+            flag=1;
             radioButtonLight.setChecked(true);
-        else if (themeChosen.equals("dark"))
+        }
+        else if (themeChosen.equals("dark")) {
             radioButtonDark.setChecked(true);
+            flag=1;
+        }
         try{
             radioGroupThemeChanger.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
@@ -43,6 +47,7 @@ public class Appearance extends AppCompatActivity {
                         editor.putString("theme", "light");
                         editor.apply();
                         flag=1;
+
                         Intent intent = new Intent(Appearance.this,Appearance.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
@@ -56,6 +61,7 @@ public class Appearance extends AppCompatActivity {
                         editor.putString("theme", "dark");
                         editor.apply();
                         flag=1;
+
                         Intent intent = new Intent(Appearance.this,Appearance.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
@@ -86,6 +92,7 @@ public class Appearance extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        Log.i("flag",String.valueOf(flag));
         if(flag == 0){
             finish();
         }
