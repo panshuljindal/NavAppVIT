@@ -83,7 +83,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     ConstraintLayout bottomSheetLayout;
     ActivityResultLauncher<String[]> locationPermissionRequest;
     SharedPreferences sharedpreferences;
-//    SharedPreferences.Editor editor;
+    //    SharedPreferences.Editor editor;
     private ProgressDialog progressDialog;
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -108,95 +108,95 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         try
         {
 
-        locationPermissionRequest =
-                registerForActivityResult(new ActivityResultContracts
-                                .RequestMultiplePermissions(), result -> {
-                            Boolean fineLocationGranted = result.getOrDefault(
-                                    Manifest.permission.ACCESS_FINE_LOCATION, false);
-                            Boolean coarseLocationGranted = result.getOrDefault(
-                                    Manifest.permission.ACCESS_COARSE_LOCATION, false);
-                            if (fineLocationGranted != null && fineLocationGranted) {
-                                // Precise location access granted.
-                            } else if (coarseLocationGranted != null && coarseLocationGranted) {
-                                // Only approximate location access granted.
-                            } else {
-                                // No location access granted.
+            locationPermissionRequest =
+                    registerForActivityResult(new ActivityResultContracts
+                                    .RequestMultiplePermissions(), result -> {
+                                Boolean fineLocationGranted = result.getOrDefault(
+                                        Manifest.permission.ACCESS_FINE_LOCATION, false);
+                                Boolean coarseLocationGranted = result.getOrDefault(
+                                        Manifest.permission.ACCESS_COARSE_LOCATION, false);
+                                if (fineLocationGranted != null && fineLocationGranted) {
+                                    // Precise location access granted.
+                                } else if (coarseLocationGranted != null && coarseLocationGranted) {
+                                    // Only approximate location access granted.
+                                } else {
+                                    // No location access granted.
+                                }
                             }
-                        }
-                );
-        binding = ActivityHomeBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+                    );
+            binding = ActivityHomeBinding.inflate(getLayoutInflater());
+            setContentView(binding.getRoot());
 
-        sharedpreferences = getSharedPreferences("checkUserLocation", Context.MODE_PRIVATE);
+            sharedpreferences = getSharedPreferences("checkUserLocation", Context.MODE_PRIVATE);
 
-        progressBar = findViewById(R.id.progressBar);
+            progressBar = findViewById(R.id.progressBar);
 
-        locationPermissionRequest.launch(new String[]{
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION
+            locationPermissionRequest.launch(new String[]{
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
 
-        });
+            });
 
-        // get the bottom sheet view
-        bottomSheetLayout = findViewById(R.id.bottom_sheet);
+            // get the bottom sheet view
+            bottomSheetLayout = findViewById(R.id.bottom_sheet);
 
-        search=findViewById(R.id.searchEditText);
-        categories = findViewById(R.id.categoriesRecyclerView);
-        places=findViewById(R.id.placesRecyclerView);
-        cat=findViewById(R.id.categoriesTextView);
-        plac=findViewById(R.id.placesTextView);
-        searchRecyclerview=findViewById(R.id.searchRecyclerView);
-        categoriesList=new ArrayList<>();
-        placesList=new ArrayList<>();
+            search=findViewById(R.id.searchEditText);
+            categories = findViewById(R.id.categoriesRecyclerView);
+            places=findViewById(R.id.placesRecyclerView);
+            cat=findViewById(R.id.categoriesTextView);
+            plac=findViewById(R.id.placesTextView);
+            searchRecyclerview=findViewById(R.id.searchRecyclerView);
+            categoriesList=new ArrayList<>();
+            placesList=new ArrayList<>();
 
-        addCategories();
-        addPlaces();
-        Search();
+            addCategories();
+            addPlaces();
+            Search();
 
-        // init the bottom sheet behavior
-        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
+            // init the bottom sheet behavior
+            bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
 
 //        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 
-        bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-            @Override
-            public void onStateChanged(@NonNull View bottomSheet, int newState) {
-                switch (newState) {
-                    case BottomSheetBehavior.STATE_HIDDEN:
+            bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+                @Override
+                public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                    switch (newState) {
+                        case BottomSheetBehavior.STATE_HIDDEN:
 //                        Toast.makeText(getApplicationContext(),"STATE HIDDEN",Toast.LENGTH_LONG).show();
-                        break;
-                    case BottomSheetBehavior.STATE_EXPANDED:
+                            break;
+                        case BottomSheetBehavior.STATE_EXPANDED:
 //                        Toast.makeText(getApplicationContext(),"STATE EXPANDED",Toast.LENGTH_LONG).show();
-                        // update toggle button text
-                        bottomSheetLayout.setBackground(ContextCompat.getDrawable(HomeActivity.this,R.drawable.bottom_sheet_back));
-                        break;
-                    case BottomSheetBehavior.STATE_COLLAPSED:
+                            // update toggle button text
+                            bottomSheetLayout.setBackground(ContextCompat.getDrawable(HomeActivity.this,R.drawable.bottom_sheet_back));
+                            break;
+                        case BottomSheetBehavior.STATE_COLLAPSED:
 //                        Toast.makeText(getApplicationContext(),"STATE COLLAPSED",Toast.LENGTH_LONG).show();
-                        // update collapsed button text
-                        bottomSheetLayout.setBackground(ContextCompat.getDrawable(HomeActivity.this,R.drawable.bottom_sheet_background));
+                            // update collapsed button text
+                            bottomSheetLayout.setBackground(ContextCompat.getDrawable(HomeActivity.this,R.drawable.bottom_sheet_background));
 
-                        break;
-                    case BottomSheetBehavior.STATE_DRAGGING:
+                            break;
+                        case BottomSheetBehavior.STATE_DRAGGING:
 //                        Toast.makeText(getApplicationContext(),"STATE DRAGGING",Toast.LENGTH_LONG).show();
 
-                        break;
-                    case BottomSheetBehavior.STATE_SETTLING:
+                            break;
+                        case BottomSheetBehavior.STATE_SETTLING:
 //                        Toast.makeText(getApplicationContext(),"STATE SETTLING",Toast.LENGTH_LONG).show();
-                        break;
+                            break;
+                    }
                 }
-            }
 
-            @Override
-            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+                @Override
+                public void onSlide(@NonNull View bottomSheet, float slideOffset) {
 
-            }
-        });
+                }
+            });
 
 
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+            // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                    .findFragmentById(R.id.map);
+            mapFragment.getMapAsync(this);
 
 //        progressDialog.dismiss();
 //            progressBar.setVisibility(View.GONE);
@@ -430,7 +430,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 //                    Toast.makeText(this, "This app is only for inside VIT Vellore Campus", Toast.LENGTH_LONG).show();
 //                    editor.putBoolean("isOnCampus",true).commit();
 //                    editor.apply();
-                    }
+                        }
 
                         else
                         {
@@ -697,17 +697,17 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                                         list=new ArrayList<>();
                                         list=response.body();
 
-                                            PlacesAdapter adapter = new PlacesAdapter(list, HomeActivity.this);
-                                            LinearLayoutManager manager1 = new LinearLayoutManager(getApplicationContext());
-                                            manager1.setOrientation(RecyclerView.VERTICAL);
-                                            searchRecyclerview.setAdapter(adapter);
-                                            searchRecyclerview.setLayoutManager(manager1);
+                                        PlacesAdapter adapter = new PlacesAdapter(list, HomeActivity.this);
+                                        LinearLayoutManager manager1 = new LinearLayoutManager(getApplicationContext());
+                                        manager1.setOrientation(RecyclerView.VERTICAL);
+                                        searchRecyclerview.setAdapter(adapter);
+                                        searchRecyclerview.setLayoutManager(manager1);
 
                                         progressBar.setVisibility(View.GONE);
                                     }
                                     @Override
                                     public void onFailure(Call<List<DataModel>> call, Throwable t) {
-                                         progressBar.setVisibility(View.GONE);
+                                        progressBar.setVisibility(View.GONE);
                                     }
                                 });
                             }
