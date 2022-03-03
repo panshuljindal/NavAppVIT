@@ -56,6 +56,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+import edu.vit.vtop.navapp.Adapter.MarkerInfoWindowAdapter;
 import edu.vit.vtop.navapp.NetworkUtils.NetworkUtil;
 import edu.vit.vtop.navapp.R;
 import edu.vit.vtop.navapp.Recyclerview.CategoriesAdapter;
@@ -317,6 +318,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
+
 //        if (!vitBounds.contains(locationToLatLng(lastKnownLocation))) {
 //            mMap.moveCamera(CameraUpdateFactory.newCameraPosition(getCameraPositionFromLocationWithZoom(lastKnown, getCurrentZoom())));
 //        }
@@ -350,6 +352,11 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
         List<DataModel> markers = DataHandling.getList(getApplicationContext());
+
+        // Setting a custom info window adapter for the google map
+        MarkerInfoWindowAdapter markerInfoWindowAdapter = new MarkerInfoWindowAdapter(getApplicationContext(),markers);
+        mMap.setInfoWindowAdapter(markerInfoWindowAdapter);
+
         Log.i("HomeAct",Integer.toString(markers.size()));
         for(DataModel e: markers) {
 
