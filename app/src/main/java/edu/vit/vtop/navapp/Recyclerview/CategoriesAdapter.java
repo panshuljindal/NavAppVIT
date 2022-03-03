@@ -28,16 +28,10 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.My
 
     List<CategoriesModel> list;
     Context context;
-    Location location;
-    GoogleMap mMap;
-    ActivityResultLauncher<String[]> locationPermissionRequest;
 
-    public CategoriesAdapter(List<CategoriesModel> list, Context context,Location location, GoogleMap mMap, ActivityResultLauncher<String[]> locationPermissionRequest) {
+    public CategoriesAdapter(List<CategoriesModel> list, Context context) {
         this.list = list;
         this.context = context;
-        this.location = location;
-        this.mMap = mMap;
-        this.locationPermissionRequest = locationPermissionRequest;
     }
 
     @Override
@@ -56,9 +50,6 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.My
             public void onClick(View view) {
                 Intent i = new Intent(context, CategoryActivity.class);
                 i.putExtra("category",list.get(position).getName());
-//                i.putExtra("locationPermission", (Parcelable) locationPermissionRequest);
-//                i.putExtra("location",location);
-//                i.putExtra("map", (Parcelable) mMap);
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(i);
             }

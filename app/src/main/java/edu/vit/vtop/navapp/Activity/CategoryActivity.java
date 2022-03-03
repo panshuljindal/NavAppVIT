@@ -49,12 +49,6 @@ public class CategoryActivity extends AppCompatActivity {
             String category = i.getStringExtra("category");
             RecyclerView categories = findViewById(R.id.cRecyclerView);
             list = new ArrayList<>();
-//            locationPermissionRequest = (ActivityResultLauncher<String[]>) i.getSerializableExtra("locationPermission");
-//            lkl = (Location) i.getSerializableExtra("location");;
-//            mMap = (GoogleMap) i.getSerializableExtra("map");
-            locationPermissionRequest = null;
-            lkl = null;
-            mMap = null;
             Call<List<DataModel>> call = NetworkUtil.networkAPI.getCategory(category);
             call.enqueue(new Callback<List<DataModel>>() {
                 @Override
@@ -65,7 +59,7 @@ public class CategoryActivity extends AppCompatActivity {
                     }
                     try {
                         list = response.body();
-                        PlacesAdapter adapter = new PlacesAdapter(list, CategoryActivity.this,lkl,mMap,locationPermissionRequest);
+                        PlacesAdapter adapter = new PlacesAdapter(list, CategoryActivity.this);
                         LinearLayoutManager manager = new LinearLayoutManager(CategoryActivity.this);
                         manager.setOrientation(RecyclerView.VERTICAL);
                         categories.setLayoutManager(manager);

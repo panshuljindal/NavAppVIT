@@ -82,6 +82,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     List<DataModel> list;
     ConstraintLayout bottomSheetLayout;
     ActivityResultLauncher<String[]> locationPermissionRequest;
+    SharedPreferences sharedpreferences;
+    SharedPreferences.Editor editor;
     private ProgressDialog progressDialog;
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -124,6 +126,11 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 );
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+//        sharedpreferences = getSharedPreferences("checkUserLocation", Context.MODE_PRIVATE);
+//
+//        editor.putBoolean("isOnCampus", false);
+
         progressBar = findViewById(R.id.progressBar);
 //        progressBar.setVisibility(View.VISIBLE);
 
@@ -572,28 +579,47 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         Location lkl = getLastKnownLocation();
 
 
-        CategoriesAdapter categoriesAdapter = new CategoriesAdapter(categoriesList,HomeActivity.this,lkl,mMap,locationPermissionRequest);
+//        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+//            Location location = getLastKnownLocation();
+//
+//            if (location != null) {
+//                if (!mMap.getProjection().getVisibleRegion().latLngBounds.contains(new LatLng(location.getLatitude(), location.getLongitude()))) {
+//                    editor.putBoolean("isOnCampus", false);
+//                } else {
+//                    editor.putBoolean("isOnCampus", true);
+//                }
+//            }
+//        }
+
+        CategoriesAdapter categoriesAdapter = new CategoriesAdapter(categoriesList,HomeActivity.this);
         LinearLayoutManager manager = new LinearLayoutManager(HomeActivity.this);
         manager.setOrientation(RecyclerView.HORIZONTAL);
         categories.setAdapter(categoriesAdapter);
         categories.setLayoutManager(manager);
+
     }
     void addPlaces(){
         Location lkl = getLastKnownLocation();
 
         placesList = DataHandling.getPlaces(HomeActivity.this);
-        if(lkl != null)
-        {
-            PlacesAdapter adapter = new PlacesAdapter(placesList, HomeActivity.this,lkl,mMap,locationPermissionRequest);
-            LinearLayoutManager manager1 = new LinearLayoutManager(HomeActivity.this);
-            manager1.setOrientation(RecyclerView.VERTICAL);
-            places.setAdapter(adapter);
-            places.setLayoutManager(manager1);
-        }
-        else
-        {
-            Toast.makeText(getApplicationContext(), "Unable to access your location", Toast.LENGTH_SHORT).show();
-        }
+
+//        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+//            Location location = getLastKnownLocation();
+//
+//            if (location != null) {
+//                if (!mMap.getProjection().getVisibleRegion().latLngBounds.contains(new LatLng(location.getLatitude(), location.getLongitude()))) {
+//                    editor.putBoolean("isOnCampus", false);
+//                } else {
+//                    editor.putBoolean("isOnCampus", true);
+//                }
+//            }
+//        }
+
+        PlacesAdapter adapter = new PlacesAdapter(placesList, HomeActivity.this);
+        LinearLayoutManager manager1 = new LinearLayoutManager(HomeActivity.this);
+        manager1.setOrientation(RecyclerView.VERTICAL);
+        places.setAdapter(adapter);
+        places.setLayoutManager(manager1);
 
     }
     void Search(){
@@ -665,18 +691,24 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                                         }
                                         list=new ArrayList<>();
                                         list=response.body();
-                                        if(lkl!=null)
-                                        {
-                                            PlacesAdapter adapter = new PlacesAdapter(placesList, HomeActivity.this,lkl,mMap,locationPermissionRequest);
+
+//                                        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+//                                            Location location = getLastKnownLocation();
+//
+//                                            if (location != null) {
+//                                                if (!mMap.getProjection().getVisibleRegion().latLngBounds.contains(new LatLng(location.getLatitude(), location.getLongitude()))) {
+//                                                    editor.putBoolean("isOnCampus", false);
+//                                                } else {
+//                                                    editor.putBoolean("isOnCampus", true);
+//                                                }
+//                                            }
+//                                        }
+
+                                            PlacesAdapter adapter = new PlacesAdapter(placesList, HomeActivity.this);
                                             LinearLayoutManager manager1 = new LinearLayoutManager(getApplicationContext());
                                             manager1.setOrientation(RecyclerView.VERTICAL);
                                             searchRecyclerview.setAdapter(adapter);
                                             searchRecyclerview.setLayoutManager(manager1);
-                                        }
-                                        else
-                                        {
-                                            Toast.makeText(getApplicationContext(), "Unable to access your location", Toast.LENGTH_SHORT).show();
-                                        }
 
 //                                        progressDialog.dismiss();
                                         progressBar.setVisibility(View.GONE);
