@@ -533,9 +533,12 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 return true;
             }
         });
-        mMap.setMyLocationEnabled(true);
-        mMap.getUiSettings().setMyLocationButtonEnabled(false);
-        mMap.getUiSettings().setAllGesturesEnabled(true);
+        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            mMap.setMyLocationEnabled(true);
+            mMap.getUiSettings().setMyLocationButtonEnabled(false);
+            mMap.getUiSettings().setAllGesturesEnabled(true);
+
+        }
 //        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(vit, 15f));
 
     }
