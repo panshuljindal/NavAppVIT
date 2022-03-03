@@ -157,10 +157,10 @@
             map:layout_constraintEnd_toEndOf="parent"
             map:layout_constraintStart_toStartOf="parent"
             map:layout_constraintTop_toTopOf="parent"
-            map:layout_constraintBottom_toTopOf="@id/please_wait_text"
+            map:layout_constraintBottom_toBottomOf="parent"
             map:lottie_autoPlay="true"
             map:lottie_loop="true"
-            map:lottie_rawRes="@raw/nav_animation" />
+            map:lottie_rawRes="@raw/animation" />
 
         <TextView
             android:id="@+id/please_wait_text"

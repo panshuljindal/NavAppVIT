@@ -78,7 +78,7 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
                 "Bored ? The nearest Nescafe could be your pitstop to find a friend ",
                 " You have been greeted by the loading page. Share this with 300 people for good fortune."};
 
-        int index = (int) ((Math.random())%(jokes.length-1));
+        int index = (int) (Math.random() * (jokes.length-1));
         joke = jokes[index];
 
         binding.pleaseWaitText.setText(joke);

@@ -346,8 +346,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
 // Constrain the camera target to the VIT Campus bounds.
-//        mMap.setLatLngBoundsForCameraTarget(vitBounds);
-//        mMap.setMinZoomPreference(16.0f); // Set a preference for minimum zoom (Zoom out).
+        mMap.setLatLngBoundsForCameraTarget(vitBounds);
+        mMap.setMinZoomPreference(16.0f); // Set a preference for minimum zoom (Zoom out).
 
 
         // Add a marker in VIT and move the camera
