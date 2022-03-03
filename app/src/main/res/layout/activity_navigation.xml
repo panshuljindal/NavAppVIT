@@ -73,6 +73,7 @@
             android:layout_marginRight="40dp"
             android:fontFamily="@font/book"
             android:text="TextView"
+            android:lineSpacingExtra="2dp"
             android:textColor="@color/subHeading"
             map:layout_constraintEnd_toEndOf="@+id/navDestination"
             map:layout_constraintStart_toStartOf="parent"
