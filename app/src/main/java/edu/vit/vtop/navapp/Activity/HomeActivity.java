@@ -125,7 +125,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         progressBar = findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.VISIBLE);
+//        progressBar.setVisibility(View.VISIBLE);
 
         locationPermissionRequest.launch(new String[]{
                 Manifest.permission.ACCESS_FINE_LOCATION,
@@ -195,13 +195,13 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapFragment.getMapAsync(this);
 
 //        progressDialog.dismiss();
-            progressBar.setVisibility(View.GONE);
+//            progressBar.setVisibility(View.GONE);
 
         }
         catch (Exception e)
         {
 //            progressDialog.dismiss();
-            progressBar.setVisibility(View.GONE);
+//            progressBar.setVisibility(View.GONE);
 //            Toast.makeText(this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
@@ -294,7 +294,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             public void onMapLoaded() {
 //                progressDialog.dismiss();
-                progressBar.setVisibility(View.GONE);
+//                progressBar.setVisibility(View.GONE);
             }
         });
 
@@ -593,12 +593,14 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     places.setVisibility(View.VISIBLE);
                     categories.setVisibility(View.VISIBLE);
                     searchRecyclerview.setVisibility(View.INVISIBLE);
+                    progressBar.setVisibility(View.GONE);
                 }else {
                     cat.setVisibility(View.INVISIBLE);
                     plac.setText("Results");
                     places.setVisibility(View.INVISIBLE);
                     categories.setVisibility(View.INVISIBLE);
                     searchRecyclerview.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
                 }
             }
 
@@ -606,9 +608,11 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void afterTextChanged(Editable editable) {
                 if(!bottomSheetBehavior.equals(BottomSheetBehavior.STATE_EXPANDED)){
                     bottomSheetLayout.setState(BottomSheetBehavior.STATE_EXPANDED,100,100);
+                    progressBar.setVisibility(View.GONE);
                 }
                 String searchString = search.getText().toString();
                 if(searchString.equals("")){
+                    progressBar.setVisibility(View.GONE);
                     cat.setVisibility(View.VISIBLE);
                     plac.setText("Places");
                     places.setVisibility(View.VISIBLE);
@@ -616,6 +620,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     searchRecyclerview.setVisibility(View.INVISIBLE);
                 }else{
 //                    progressDialog.show();
+                    progressBar.setVisibility(View.VISIBLE);
 
 
                     cat.setVisibility(View.GONE);
@@ -634,6 +639,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                                     public void onResponse(Call<List<DataModel>> call, Response<List<DataModel>> response) {
                                         if(!response.isSuccessful()){
 //                                            progressDialog.dismiss();
+                                            progressBar.setVisibility(View.GONE);
                                             return ;
                                         }
                                         list=new ArrayList<>();
@@ -644,10 +650,12 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                                         searchRecyclerview.setAdapter(adapter);
                                         searchRecyclerview.setLayoutManager(manager1);
 //                                        progressDialog.dismiss();
+                                        progressBar.setVisibility(View.GONE);
                                     }
                                     @Override
                                     public void onFailure(Call<List<DataModel>> call, Throwable t) {
 //                                        progressDialog.dismiss();
+                                         progressBar.setVisibility(View.GONE);
                                     }
                                 });
                             }
