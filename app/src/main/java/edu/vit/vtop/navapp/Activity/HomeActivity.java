@@ -83,7 +83,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     ConstraintLayout bottomSheetLayout;
     ActivityResultLauncher<String[]> locationPermissionRequest;
     SharedPreferences sharedpreferences;
-    SharedPreferences.Editor editor;
+//    SharedPreferences.Editor editor;
     private ProgressDialog progressDialog;
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -127,12 +127,9 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-//        sharedpreferences = getSharedPreferences("checkUserLocation", Context.MODE_PRIVATE);
-//
-//        editor.putBoolean("isOnCampus", false);
+        sharedpreferences = getSharedPreferences("checkUserLocation", Context.MODE_PRIVATE);
 
         progressBar = findViewById(R.id.progressBar);
-//        progressBar.setVisibility(View.VISIBLE);
 
         locationPermissionRequest.launch(new String[]{
                 Manifest.permission.ACCESS_FINE_LOCATION,
@@ -260,6 +257,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                     if (!mMap.getProjection().getVisibleRegion().latLngBounds.contains(new LatLng(location.getLatitude(),location.getLongitude()))) {
                         Toast.makeText(getApplicationContext(), "This app is only for inside VIT Vellore Campus", Toast.LENGTH_LONG).show();
+//                        editor.putBoolean("isOnCampus",true).commit();
+//                        editor.apply();
                     }
                     else {
                         if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -360,28 +359,31 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         LatLng user;
 
-//        if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
-//        {
-//            Location lkl = getLastKnownLocation();
-//
-//            if(lkl!=null)
-//            {
-//                if (!mMap.getProjection().getVisibleRegion().latLngBounds.contains(new LatLng(lkl.getLatitude(),lkl.getLongitude()))) {
+        if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+        {
+            Location lkl = getLastKnownLocation();
+
+            if(lkl!=null)
+            {
+                if (!mMap.getProjection().getVisibleRegion().latLngBounds.contains(new LatLng(lkl.getLatitude(),lkl.getLongitude()))) {
 //                    Toast.makeText(this, "This app is only for inside VIT Vellore Campus", Toast.LENGTH_LONG).show();
-//                }
-//                else
-//                {
-//                    mMap.setMyLocationEnabled(true);
-//                    mMap.getUiSettings().setMyLocationButtonEnabled(false);
-//                    mMap.getUiSettings().setAllGesturesEnabled(true);
-//                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lkl.getLatitude(), lkl.getLongitude()), 15));
-//                    //delay is for after map loaded animation starts
-//                    ulat = lkl.getLatitude();
-//                    ulng = lkl.getLongitude();
-//                    user = new LatLng(ulat,ulng);
-//                }
-//            }
-//        }
+//                    editor.putBoolean("isOnCampus",true).commit();
+//                    editor.apply();
+                }
+
+                else
+                {
+                    mMap.setMyLocationEnabled(true);
+                    mMap.getUiSettings().setMyLocationButtonEnabled(false);
+                    mMap.getUiSettings().setAllGesturesEnabled(true);
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lkl.getLatitude(), lkl.getLongitude()), 15));
+                    //delay is for after map loaded animation starts
+                    ulat = lkl.getLatitude();
+                    ulng = lkl.getLongitude();
+                    user = new LatLng(ulat,ulng);
+                }
+            }
+        }
 
         List<DataModel> markers = DataHandling.getList(getApplicationContext());
         Log.i("HomeAct",Integer.toString(markers.size()));

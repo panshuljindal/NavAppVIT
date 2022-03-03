@@ -187,6 +187,7 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(lat, lng);
         LatLng user = new LatLng(ulat,ulng);
+
         int vector = 0;
         switch (marker_model.getCategory()) {
             case "Academic Blocks":
@@ -240,7 +241,9 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
                 .title(marker_model.getName())
                 .icon(BitmapFromVector(getApplicationContext(), vector)));
 
-//        mMap.addMarker(new MarkerOptions().position(sydney).title("Sydney"));
+        mMap.addMarker(new MarkerOptions().position(new LatLng(ulat, ulng))
+                .title("User")
+                .icon(BitmapFromVector(getApplicationContext(),R.drawable.ic_user)));
 
         if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
