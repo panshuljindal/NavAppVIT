@@ -153,6 +153,7 @@
             android:id="@+id/animationView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="100dp"
             map:layout_constraintBottom_toBottomOf="parent"
             map:layout_constraintEnd_toEndOf="parent"
             map:layout_constraintStart_toStartOf="parent"
@@ -196,9 +197,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="173dp"
+            android:fontFamily="@font/bold"
             android:gravity="center"
             android:text="Did you know?"
-            android:fontFamily="@font/bold"
             android:textColor="@color/anim_did_you_know"
             android:textSize="18dp"
             android:textStyle="bold"
@@ -210,19 +211,18 @@
             android:id="@+id/fact"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="75dp"
-            android:layout_marginEnd="74dp"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="70dp"
+            android:fontFamily="@font/book"
             android:gravity="center"
             android:text="VIT has 35,000 students from 54 different countries and from all the states of India"
             android:textColor="@color/anim_did_you_know"
-            android:fontFamily="@font/book"
             android:textSize="14sp"
             android:textStyle="bold"
-            android:layout_marginTop="-40dp"
-            map:layout_constraintBottom_toBottomOf="parent"
             map:layout_constraintEnd_toEndOf="parent"
             map:layout_constraintStart_toStartOf="parent"
-            map:layout_constraintTop_toTopOf="@id/did_you_know" />
+            map:layout_constraintTop_toBottomOf="@+id/did_you_know" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
