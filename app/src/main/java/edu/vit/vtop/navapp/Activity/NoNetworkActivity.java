@@ -1,4 +1,4 @@
-package edu.vit.vtop.navapp;
+package edu.vit.vtop.navapp.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import edu.vit.vtop.navapp.Activity.MainActivity;
+import edu.vit.vtop.navapp.R;
 
 public class NoNetworkActivity extends AppCompatActivity {
     Button tryagain;

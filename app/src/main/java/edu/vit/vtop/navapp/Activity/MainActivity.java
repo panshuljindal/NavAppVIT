@@ -5,16 +5,12 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import edu.vit.vtop.navapp.NetworkUtils.NetworkUtil;
-import edu.vit.vtop.navapp.NoNetworkActivity;
 import edu.vit.vtop.navapp.R;
 import edu.vit.vtop.navapp.Utils.DataHandling;
 import edu.vit.vtop.navapp.Utils.DataModel;
@@ -34,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
 //        int version = -1;
         int version = sharedPreferences.getInt("version", -1);
-
         Call<List<VersionModel>> versionCall = NetworkUtil.networkAPI.getVersion("sj");
         versionCall.enqueue(new Callback<List<VersionModel>>() {
 
