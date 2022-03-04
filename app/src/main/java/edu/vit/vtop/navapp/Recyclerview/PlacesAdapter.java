@@ -145,7 +145,7 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.MyViewHold
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (sharedPreferences.getBoolean("isOnCampus", false) == false) {
+                if (sharedPreferences.getBoolean("isOnCampus", false) == true) {
                     Toast.makeText(context, R.string.onlyVIT, Toast.LENGTH_LONG).show();
                 } else {
                     Intent i = new Intent(context, NavigationActivity.class);

@@ -51,7 +51,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.Settin
 
                 if (list.get(position).getText().equals("Contact Us")){
                     Intent intent = new Intent(Intent.ACTION_SEND);
-                    intent.putExtra(Intent.EXTRA_EMAIL,new String[] {"evoappin@gmail.com"});
+                    intent.putExtra(Intent.EXTRA_EMAIL,new String[] {"events.sw@vit.ac.in"});
                     intent.putExtra(Intent.EXTRA_SUBJECT,"");
                     intent.putExtra(Intent.EXTRA_TEXT,"");
                     intent.setType("message/rfc822");
@@ -64,10 +64,12 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.Settin
 
                 if (list.get(position).getText().equals("Share with Peers")){
 
-                    String app_url = " https://play.google.com/store/apps/details?id=com.panshul.evo";
+                    String app_url = " https://play.google.com/store/apps/details?id=edu.vit.vtop.navapp";
                     Intent shareIntent =   new Intent(android.content.Intent.ACTION_SEND);
                     shareIntent.setType("text/plain");
-                    String text = "Hey. I came across this brilliant app that could help you efficiently search through the clutter of events and find the best one that suits your need. Try it out. It is so easy to use.\n"
+                    String text = "We are conscientious about virtually everything concerned with your stay here at VIT. To facilitate a pleasant environment, we take care of various aspects of student welfare like clubs and chapters, housing, financial aid and scholarships, healthcare, games and sports, cultural and technical fests and student counselling. \n" +
+                            "Share this app with your peers who wish to avail all these features or are in need of our assistance. We will be happy to help!\n" +
+                            "After all, VIT is a home away from home.\n"
                             +"App Link: "+app_url;
                     shareIntent.putExtra(Intent.EXTRA_SUBJECT,"");
                     shareIntent.putExtra(android.content.Intent.EXTRA_TEXT,text);
@@ -82,30 +84,18 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.Settin
                 if (list.get(position).getText().equals("Our Instagram")){
                     Intent intent = new Intent(Intent.ACTION_VIEW);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.setData(Uri.parse("https://www.instagram.com/evoappin/"));
+                    intent.setData(Uri.parse("https://www.instagram.com/swcc_online/?utm_medium=copy_link"));
                     try {
                         context.startActivity(intent);
                     }catch (Exception e){
                         Toast.makeText(context, "Please try again!", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                if (list.get(position).getText().equals("Our Twitter")){
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.setData(Uri.parse("https://twitter.com/EvoAppIn"));
-                    try {
-                        context.startActivity(intent);
-                    }catch (Exception e){
-                        Toast.makeText(context, "Please try again!", Toast.LENGTH_SHORT).show();
-
                     }
                 }
 
                 if (list.get(position).getText().equals("Our Facebook")){
                     Intent intent = new Intent(Intent.ACTION_VIEW);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.setData(Uri.parse("https://www.facebook.com/Evo-App-261498562420388"));
+                    intent.setData(Uri.parse("https://www.facebook.com/VITstudentswelfare"));
                     try {
                         context.startActivity(intent);
                     }catch (Exception e){
@@ -114,22 +104,11 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.Settin
                     }
                 }
 
-                if (list.get(position).getText().equals("Our LinkedIn")){
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.setData(Uri.parse("https://www.linkedin.com/company/evoappin/"));
-                    try {
-                        context.startActivity(intent);
-                    }catch (Exception e){
-                        Toast.makeText(context, "Please try again!", Toast.LENGTH_SHORT).show();
-
-                    }
-                }
 
                 if (list.get(position).getText().equals("About Us")){
                     Intent intent = new Intent(Intent.ACTION_VIEW);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.setData(Uri.parse("https://evoevents.club/"));
+                    intent.setData(Uri.parse("https://vit.ac.in/campuslife/studentswelfare"));
                     try {
                         context.startActivity(intent);
                     }catch (Exception e){
@@ -141,32 +120,12 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.Settin
                 if (list.get(position).getText().equals("Privacy Policy")){
                     Intent intent = new Intent(Intent.ACTION_VIEW);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.setData(Uri.parse("https://privacy.evoevents.club/android"));
+                    intent.setData(Uri.parse("https://fakeyudi.notion.site/fakeyudi/VIT-Nav-87ef1ccf0fcc4dde9d8ed365c616a9f9"));
                     try {
                         context.startActivity(intent);
                     }catch (Exception e){
                         Toast.makeText(context, "Please try again!", Toast.LENGTH_SHORT).show();
 
-                    }
-                }if (list.get(position).getText().equals("Terms And Conditions")){
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.setData(Uri.parse("https://privacy.evoevents.club/tnc"));
-                    try {
-                        context.startActivity(intent);
-                    }catch (Exception e){
-                        Toast.makeText(context, "Please try again!", Toast.LENGTH_SHORT).show();
-
-                    }
-                }
-                if (list.get(position).getText().equals("FAQ")){
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.setData(Uri.parse("https://privacy.evoevents.club/faq"));
-                    try {
-                        context.startActivity(intent);
-                    }catch (Exception e){
-                        Toast.makeText(context, "Please try again!", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

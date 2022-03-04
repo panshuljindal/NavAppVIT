@@ -425,7 +425,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                             marker.showInfoWindow();
                             e.setInfoShown(true);
 //                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(e.getLat(), e.getLon()), 18f));
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(e.getLat(), e.getLon()), 16f));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(e.getLat(), e.getLon()), 17f));
                             //When we return false in onMarkerClick(), it performs its default function of showingInfoWindow and centering the map into the marker
                             return false;
 //                                LatLng coordinate = new LatLng(e.getLon(), e.getLat());
