@@ -127,18 +127,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         SharedPreferences mPrefs = getSharedPreferences("edu.vit.vtop.navapp", MODE_PRIVATE);
-        SharedPreferences.Editor editor1 = mPrefs.edit();
-        switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
-            case Configuration.UI_MODE_NIGHT_YES:
-                editor1.putString("theme","dark");
-                editor1.apply();
-                break;
-            case Configuration.UI_MODE_NIGHT_NO:
-                editor1.putString("theme","light");
-                editor1.apply();
-                break;
-        }
-        String theme=mPrefs.getString("theme","");
+        String theme=mPrefs.getString("theme","light");
+        Log.i("Theme",theme);
         if (theme.equals("dark")) {
             // Set theme to white
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
