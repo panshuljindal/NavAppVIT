@@ -17,9 +17,9 @@ import edu.vit.vtop.navapp.RecyclerviewModels.SettingsModel;
 
 public class Settings extends AppCompatActivity {
 
-    RecyclerView recy2,recy3;
-    List<SettingsModel> lst3,lst2;
-    Context context;
+    private RecyclerView recy2,recy3;
+    private List<SettingsModel> lst3,lst2;
+    private Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

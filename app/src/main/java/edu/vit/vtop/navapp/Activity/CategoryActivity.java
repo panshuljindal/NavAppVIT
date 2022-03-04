@@ -30,12 +30,9 @@ import retrofit2.Response;
 
 public class CategoryActivity extends AppCompatActivity {
 
-    List<DataModel> list, sortedList;
-    ImageView back, cancel;
-    ActivityResultLauncher<String[]> locationPermissionRequest;
-    Location lkl;
-    GoogleMap mMap;
-    ProgressBar progressBar;
+    private List<DataModel> list, sortedList;
+    private ImageView back, cancel;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
