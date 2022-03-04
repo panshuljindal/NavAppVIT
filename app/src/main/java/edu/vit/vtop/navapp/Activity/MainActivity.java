@@ -32,21 +32,24 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("edu.vit.vtop.navapp", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-//        int version = -1;
-        int version = sharedPreferences.getInt("version", -1);
-        Call<List<VersionModel>> versionCall = NetworkUtil.networkAPI.getVersion("sj");
-        versionCall.enqueue(new Callback<List<VersionModel>>() {
+        double version = Double.valueOf(sharedPreferences.getString("version", "-1"));
+        Log.i("version",String.valueOf(version));
+
+        Call<VersionModel> versionCall = NetworkUtil.networkAPI.getVersion();
+        versionCall.enqueue(new Callback<VersionModel>() {
 
             @Override
-            public void onResponse(Call<List<VersionModel>> call, Response<List<VersionModel>> response) {
+            public void onResponse(Call<VersionModel> call, Response<VersionModel> response) {
                 if (!response.isSuccessful()) {
 //                    Toast.makeText(getApplicationContext(), "Version not success", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(MainActivity.this, NoNetworkActivity.class));
                     finish();
                     return;
                 }
-                if(response.body().get(0).get__v() > version){
-                    editor.putInt("version",response.body().get(0).get__v());
+                if(response.body().getVersion() > version){
+                    editor.putString("version", String.valueOf(response.body().getVersion()));
+                    Log.i("version",String.valueOf(response.body().getVersion()));
+
                     editor.apply();
 //                    Toast.makeText(getApplicationContext(), "Version success", Toast.LENGTH_SHORT).show();
 
@@ -106,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<VersionModel>> call, Throwable t) {
+            public void onFailure(Call<VersionModel> call, Throwable t) {
                 Log.i("Version: ", "fail");
 
                 new Handler().postDelayed(new Runnable() {

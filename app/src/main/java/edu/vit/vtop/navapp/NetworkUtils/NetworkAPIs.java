@@ -16,9 +16,9 @@ public interface NetworkAPIs {
     @Headers({"auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NDYzMjg1NDN9.eoQ2xDM6InHlCyUtNeWvUD4YnqT7_8Df-LPWUqEmv6E"})
     Call<List<DataModel>> getIndependent();
 
-    @GET("api/search")
+    @GET("api/version")
     @Headers({"auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NDYzMjg1NDN9.eoQ2xDM6InHlCyUtNeWvUD4YnqT7_8Df-LPWUqEmv6E"})
-    Call<List<VersionModel>> getVersion(@Query("sk") String sj);
+    Call<VersionModel> getVersion();
 
     @GET("api/getByCategory/{id}")
     @Headers({"auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NDYzMjg1NDN9.eoQ2xDM6InHlCyUtNeWvUD4YnqT7_8Df-LPWUqEmv6E"})
