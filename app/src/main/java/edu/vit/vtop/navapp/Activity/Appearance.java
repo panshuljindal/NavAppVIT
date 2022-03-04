@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -28,6 +29,18 @@ public class Appearance extends AppCompatActivity {
         radioButtonLight = findViewById(R.id.rb_light_mode);
         radioButtonDark = findViewById(R.id.rb_dark_mode);
         back = findViewById(R.id.noti_back);
+
+        SharedPreferences.Editor edi = getSharedPreferences("edu.vit.vtop.navapp", MODE_PRIVATE).edit();
+        switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
+            case Configuration.UI_MODE_NIGHT_YES:
+                edi.putString("theme","dark");
+                edi.apply();
+                break;
+            case Configuration.UI_MODE_NIGHT_NO:
+                edi.putString("theme","light");
+                edi.apply();
+                break;
+        }
         String themeChosen = getSharedPreferences("edu.vit.vtop.navapp", MODE_PRIVATE)
                 .getString("theme", "");
         if (themeChosen.equals("light")) {
