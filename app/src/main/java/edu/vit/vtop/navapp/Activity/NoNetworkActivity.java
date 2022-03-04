@@ -11,7 +11,7 @@ import edu.vit.vtop.navapp.Activity.MainActivity;
 import edu.vit.vtop.navapp.R;
 
 public class NoNetworkActivity extends AppCompatActivity {
-    Button tryagain;
+    private Button tryagain;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

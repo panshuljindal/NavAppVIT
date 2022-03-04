@@ -81,14 +81,14 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     private EditText search;
     private TextView cat,plac;
     private ProgressBar progressBar;
-    List<DataModel> list;
-    TextView noResult;
-    ImageView cancelSearch;
-    ConstraintLayout bottomSheetLayout;
-    ActivityResultLauncher<String[]> locationPermissionRequest;
-    SharedPreferences sharedpreferences;
+    private List<DataModel> list;
+    private TextView noResult;
+    private ImageView cancelSearch;
+    private ConstraintLayout bottomSheetLayout;
+    private ActivityResultLauncher<String[]> locationPermissionRequest;
+    private SharedPreferences sharedpreferences;
     // Create a LatLngBounds that includes the VIT Campus bounds
-    LatLngBounds vitBounds;
+    private LatLngBounds vitBounds;
     //    SharedPreferences.Editor editor;
     private ProgressDialog progressDialog;
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -425,7 +425,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                             marker.showInfoWindow();
                             e.setInfoShown(true);
 //                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(e.getLat(), e.getLon()), 18f));
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(e.getLat(), e.getLon()), 17f));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(e.getLat(), e.getLon()), 16.5f));
                             //When we return false in onMarkerClick(), it performs its default function of showingInfoWindow and centering the map into the marker
                             return false;
 //                                LatLng coordinate = new LatLng(e.getLon(), e.getLat());
