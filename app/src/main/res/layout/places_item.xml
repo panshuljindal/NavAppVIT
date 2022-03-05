@@ -21,8 +21,8 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/placesCategoriesBackground"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="9dp"
             android:layout_marginBottom="9dp"
@@ -36,20 +36,23 @@
                 android:id="@+id/placesCategoriesImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="15dp"
+                android:padding="16dp"
                 app:srcCompat="@drawable/ic_academic" />
         </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/placesCategoriesBuildingName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:layout_marginRight="30dp"
             android:fontFamily="@font/medium"
             android:text="Technology Tower"
             android:textColor="@color/boldHeading"
             android:textSize="14dp"
+            android:lineSpacingExtra="3dp"
             app:layout_constraintBottom_toTopOf="@+id/placesCategoriesTextview"
+            app:layout_constraintEnd_toStartOf="@+id/imageView2"
             app:layout_constraintStart_toEndOf="@+id/placesCategoriesBackground"
             app:layout_constraintTop_toTopOf="@+id/placesCategoriesBackground" />
 
@@ -58,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="5dp"
             android:fontFamily="@font/medium"
             android:paddingLeft="10dp"
             android:paddingTop="3dp"
