@@ -198,6 +198,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         catch (Exception e)
         {
             Log.i("Exception",e.getLocalizedMessage());
+//            Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
             startActivity(intent);
             finish();
@@ -235,16 +236,15 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 Location location = getLastKnownLocation();
                 if (location != null) {
-
+                    if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        return;
+                    }
                     if (!vitBounds.contains(new LatLng(location.getLatitude(),location.getLongitude()))) {
                         Toast.makeText(getApplicationContext(), R.string.onlyVIT, Toast.LENGTH_LONG).show();
 //                        editor.putBoolean("isOnCampus",true).commit();
 //                        editor.apply();
                     }
                     else {
-                        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                            return;
-                        }
                         mMap.setMyLocationEnabled(true);
                         mMap.getUiSettings().setMyLocationButtonEnabled(false);
                         mMap.getUiSettings().setAllGesturesEnabled(true);
@@ -553,8 +553,12 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 //        }
 
         boolean isUserLocationNull = false;
+        double ulat1 = 0.0;
+        double ulng1 = 0.0;
         if(lkl == null){isUserLocationNull = true;}
-        CategoriesAdapter categoriesAdapter = new CategoriesAdapter(categoriesList,HomeActivity.this,lkl.getLatitude(),lkl.getLongitude(),isUserLocationNull);
+        else{ulat1 = lkl.getLatitude();
+            ulng1 = lkl.getLongitude();}
+        CategoriesAdapter categoriesAdapter = new CategoriesAdapter(categoriesList,HomeActivity.this,ulat1,ulng1,isUserLocationNull);
         LinearLayoutManager manager = new LinearLayoutManager(HomeActivity.this);
         manager.setOrientation(RecyclerView.HORIZONTAL);
         categories.setAdapter(categoriesAdapter);
@@ -578,8 +582,12 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 //            }
 //        }
         boolean isUserLocationNull = false;
+        double ulat1 = 0.0;
+        double ulng1 = 0.0;
         if(lkl == null){isUserLocationNull = true;}
-        PlacesAdapter adapter = new PlacesAdapter(placesList, HomeActivity.this,lkl.getLatitude(),lkl.getLongitude(),isUserLocationNull);
+        else{ulat1 = lkl.getLatitude();
+        ulng1 = lkl.getLongitude();}
+        PlacesAdapter adapter = new PlacesAdapter(placesList, HomeActivity.this,ulat1,ulng1,isUserLocationNull);
         LinearLayoutManager manager1 = new LinearLayoutManager(HomeActivity.this);
         manager1.setOrientation(RecyclerView.VERTICAL);
         places.setAdapter(adapter);
@@ -683,8 +691,12 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                                         }else{
                                             Location lkl = getLastKnownLocation();
                                             boolean isUserLocationNull = false;
+                                            double ulat1 = 0.0;
+                                            double ulng1 = 0.0;
                                             if(lkl == null){isUserLocationNull = true;}
-                                            PlacesAdapter adapter = new PlacesAdapter(list, HomeActivity.this,lkl.getLatitude(),lkl.getLongitude(),isUserLocationNull);
+                                            else{ulat1 = lkl.getLatitude();
+                                                ulng1 = lkl.getLongitude();}
+                                            PlacesAdapter adapter = new PlacesAdapter(list, HomeActivity.this,ulat1,ulng1,isUserLocationNull);
                                             LinearLayoutManager manager1 = new LinearLayoutManager(getApplicationContext());
                                             manager1.setOrientation(RecyclerView.VERTICAL);
                                             searchRecyclerview.setAdapter(adapter);
