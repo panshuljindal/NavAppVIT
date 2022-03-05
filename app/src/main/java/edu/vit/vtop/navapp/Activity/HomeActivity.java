@@ -197,6 +197,10 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
         catch (Exception e)
         {
+            Log.i("Exception",e.getLocalizedMessage());
+            Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
+            startActivity(intent);
+            finish();
         }
 
         binding.changeTheme.setOnClickListener(new View.OnClickListener() {
