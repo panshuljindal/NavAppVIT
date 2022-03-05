@@ -218,8 +218,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 });
                 LatLng center = mMap.getCameraPosition().target;
-                String sLatitude = String.format("%.10f", center.latitude);
-                String sLongitude = String.format("%.10f", center.longitude);
+                String sLatitude = String.format("%.16f", center.latitude);
+                String sLongitude = String.format("%.16f", center.longitude);
                 StringBuilder mLatLng = new StringBuilder();
                 mLatLng.append(sLatitude);
                 mLatLng.append("°");
