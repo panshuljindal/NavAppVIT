@@ -33,7 +33,8 @@ public class CategoryActivity extends AppCompatActivity {
     private List<DataModel> list, sortedList;
     private ImageView back, cancel;
     private ProgressBar progressBar;
-
+    double ulat,ulng;
+    boolean isUserLocationNull = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +45,9 @@ public class CategoryActivity extends AppCompatActivity {
             progressBar.setVisibility(View.VISIBLE);
             Intent i = getIntent();
             String category = i.getStringExtra("category");
+            ulat = i.getDoubleExtra("ulat",0.0);
+            ulng = i.getDoubleExtra("ulon",0.0);
+            isUserLocationNull = i.getBooleanExtra("isUserLocationNull",true);
             RecyclerView categories = findViewById(R.id.cRecyclerView);
             list = new ArrayList<>();
             Call<List<DataModel>> call = NetworkUtil.networkAPI.getCategory(category);
@@ -56,7 +60,7 @@ public class CategoryActivity extends AppCompatActivity {
                     }
                     try {
                         list = response.body();
-                        PlacesAdapter adapter = new PlacesAdapter(list, CategoryActivity.this);
+                        PlacesAdapter adapter = new PlacesAdapter(list, CategoryActivity.this,ulat,ulng,isUserLocationNull);
                         LinearLayoutManager manager = new LinearLayoutManager(CategoryActivity.this);
                         manager.setOrientation(RecyclerView.VERTICAL);
                         categories.setLayoutManager(manager);

@@ -64,6 +64,7 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
 
     private String jokes[],jokes2[];
     private String joke;
+    private boolean isUserLocationNull = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +101,7 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
 
         ulat =i.getDoubleExtra("ulat",0.0);
         ulng =i.getDoubleExtra("ulon",0.0);
+        isUserLocationNull = i.getBooleanExtra("isUserLocationNull",true);
 
             binding.navDestination.setText(marker_model.getName());
             binding.navAddress.setText(marker_model.getAddress());
@@ -246,9 +248,9 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
                 .title(marker_model.getName())
                 .icon(BitmapFromVector(getApplicationContext(), vector)));
 
-        mMap.addMarker(new MarkerOptions().position(new LatLng(ulat, ulng))
-                .title("User")
-                .icon(BitmapFromVector(getApplicationContext(),R.drawable.ic_user)));
+//        mMap.addMarker(new MarkerOptions().position(new LatLng(ulat, ulng))
+//                .title("User")
+//                .icon(BitmapFromVector(getApplicationContext(),R.drawable.ic_user)));
 
         if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
@@ -268,18 +270,23 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
         }, 2000);
 
 
+        if(!isUserLocationNull) {
 
-        PolylineOptions options = new PolylineOptions().width(5).color(Color.BLUE).geodesic(true);
+            PolylineOptions options = new PolylineOptions().width(5).color(Color.BLUE).geodesic(true);
 
-        LatLng point = new LatLng(user.latitude, user.longitude);
-        LatLng point1 = new LatLng(marker_model.getLat(),marker_model.getLon());
-        options.add(point);
-        options.add(point1);
-        Polyline line = mMap.addPolyline(options);
-        List<PatternItem> pattern = Arrays.asList(
-                  new Dash(50));
-        line.setPattern(pattern);
-        mMap.addPolyline(options);
+            LatLng point = new LatLng(user.latitude, user.longitude);
+            LatLng point1 = new LatLng(marker_model.getLat(), marker_model.getLon());
+            options.add(point);
+            options.add(point1);
+            Polyline line = mMap.addPolyline(options);
+            List<PatternItem> pattern = Arrays.asList(
+                    new Dash(50));
+            line.setPattern(pattern);
+            mMap.addPolyline(options);
+        }
+        else{
+            Toast.makeText(getApplicationContext(), "Unable to access user location", Toast.LENGTH_SHORT).show();
+        }
     }
     private BitmapDescriptor BitmapFromVector(Context context, int vectorResId) {
         // below line is use to generate a drawable.

@@ -548,7 +548,9 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 //            }
 //        }
 
-        CategoriesAdapter categoriesAdapter = new CategoriesAdapter(categoriesList,HomeActivity.this);
+        boolean isUserLocationNull = false;
+        if(lkl == null){isUserLocationNull = true;}
+        CategoriesAdapter categoriesAdapter = new CategoriesAdapter(categoriesList,HomeActivity.this,lkl.getLatitude(),lkl.getLongitude(),isUserLocationNull);
         LinearLayoutManager manager = new LinearLayoutManager(HomeActivity.this);
         manager.setOrientation(RecyclerView.HORIZONTAL);
         categories.setAdapter(categoriesAdapter);
@@ -571,8 +573,9 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 //                }
 //            }
 //        }
-
-        PlacesAdapter adapter = new PlacesAdapter(placesList, HomeActivity.this);
+        boolean isUserLocationNull = false;
+        if(lkl == null){isUserLocationNull = true;}
+        PlacesAdapter adapter = new PlacesAdapter(placesList, HomeActivity.this,lkl.getLatitude(),lkl.getLongitude(),isUserLocationNull);
         LinearLayoutManager manager1 = new LinearLayoutManager(HomeActivity.this);
         manager1.setOrientation(RecyclerView.VERTICAL);
         places.setAdapter(adapter);
@@ -674,7 +677,10 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                                             progressBar.setVisibility(View.GONE);
                                             noResult.setVisibility(View.VISIBLE);
                                         }else{
-                                            PlacesAdapter adapter = new PlacesAdapter(list, HomeActivity.this);
+                                            Location lkl = getLastKnownLocation();
+                                            boolean isUserLocationNull = false;
+                                            if(lkl == null){isUserLocationNull = true;}
+                                            PlacesAdapter adapter = new PlacesAdapter(list, HomeActivity.this,lkl.getLatitude(),lkl.getLongitude(),isUserLocationNull);
                                             LinearLayoutManager manager1 = new LinearLayoutManager(getApplicationContext());
                                             manager1.setOrientation(RecyclerView.VERTICAL);
                                             searchRecyclerview.setAdapter(adapter);

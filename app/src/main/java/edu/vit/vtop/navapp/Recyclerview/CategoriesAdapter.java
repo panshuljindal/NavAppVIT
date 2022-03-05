@@ -28,10 +28,15 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.My
 
     List<CategoriesModel> list;
     Context context;
+    double ulat,ulng;
+    boolean isUserLocationNull = true;
 
-    public CategoriesAdapter(List<CategoriesModel> list, Context context) {
+    public CategoriesAdapter(List<CategoriesModel> list, Context context,double ulat, double ulng, boolean isUserLocationNull) {
         this.list = list;
         this.context = context;
+        this.ulat = ulat;
+        this.ulng = ulng;
+        this.isUserLocationNull = isUserLocationNull;
     }
 
     @Override
@@ -50,6 +55,9 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.My
             public void onClick(View view) {
                 Intent i = new Intent(context, CategoryActivity.class);
                 i.putExtra("category",list.get(position).getName());
+                i.putExtra("ulat", ulat);
+                i.putExtra("ulon", ulng);
+                i.putExtra("isUserLocationNull",isUserLocationNull);
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(i);
             }

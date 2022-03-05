@@ -36,11 +36,16 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.MyViewHold
     List<DataModel> list;
     Context context;
     SharedPreferences sharedPreferences;
+    double ulat,ulng;
+    boolean isUserLocationNull = true;
 
-    public PlacesAdapter(List<DataModel> list, Context context) {
+    public PlacesAdapter(List<DataModel> list, Context context, double ulat, double ulng,boolean isUserLocationNull) {
         this.list = list;
         this.context = context;
         sharedPreferences = context.getSharedPreferences("edu.vit.vtop.navapp", Context.MODE_PRIVATE);
+        this.ulat = ulat;
+        this.ulng = ulng;
+        this.isUserLocationNull = isUserLocationNull;
     }
 
     @Override
@@ -150,6 +155,9 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.MyViewHold
                 } else {
                     Intent i = new Intent(context, NavigationActivity.class);
                     i.putExtra("marker_object", list.get(position));
+                    i.putExtra("ulat",ulat);
+                    i.putExtra("ulon",ulng);
+                    i.putExtra("isUserLocationNull",isUserLocationNull);
                     i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(i);
                 }
