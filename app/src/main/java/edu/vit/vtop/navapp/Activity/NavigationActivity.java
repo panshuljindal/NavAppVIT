@@ -58,40 +58,16 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
     private ActivityNavigationBinding binding;
     private TextView name,address;
     private ImageView cancel;
-    private DataModel marker_model;
+    DataModel marker_model;
     private CardView go;
     double lat,lng,ulat,ulng;
-
-    private String jokes[],jokes2[];
-    private String joke;
-    private boolean isUserLocationNull = true;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityNavigationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        jokes = new String[]{"Loading your Route","Hot day ? You should try the cocoa coffee at FC",
-                "The challenge with being faster than light, is you still have to wait on loading pages",
-                "Get some shade while we locate your destination",
-                "Bored ? The nearest Nescafe could be your pitstop to find a friend",
-                " You have been greeted by the loading page. Share this with 300 people for good fortune",
-        "You should check out VIT's library. You might end up finding the Nicholas Flamel to your Harry Potter.",
-        "Looking for birthday cakes ? You might wanna step into DC"};
-
-        int index = (int) (Math.random() * (jokes.length-1));
-        joke = jokes[index];
-        jokes2=new String[]{
-                "VIT has 35,000 students from 54 different countries and from all the states of India",
-                "VIT has a sustainably designed building with natural ventilation",
-                "VIT has a life sized tank perched right next to Amul, where you'd probably want to try the raspberry stick ",
-                "Mental Health is a matter of importance and VIT has a fully equipped counseling team to help you redress your problems."
-        };
-        binding.pleaseWaitText.setText(joke);
-        int index2;
-        index2=(int) (Math.random() * (jokes.length-1));;
-        binding.fact.setText(jokes[index2]);
 
         Intent i = getIntent();
         marker_model = (DataModel) i.getSerializableExtra("marker_object");
@@ -101,7 +77,13 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
 
         ulat =i.getDoubleExtra("ulat",0.0);
         ulng =i.getDoubleExtra("ulon",0.0);
-        isUserLocationNull = i.getBooleanExtra("isUserLocationNull",true);
+
+//            ulat = 12.969845;
+//            ulng = 79.158639;
+
+
+//        Log.i("lat",Double.toString(lat));
+//        Log.i("long",Double.toString(lng));
 
             binding.navDestination.setText(marker_model.getName());
             binding.navAddress.setText(marker_model.getAddress());
@@ -111,9 +93,21 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
                     .findFragmentById(R.id.map);
             mapFragment.getMapAsync(this);
             findID();
+
+//            progressDialog.dismiss();
+
+//        }
+//        catch (Exception e)
+//        {
+//            progressDialog.dismiss();
+//            Toast.makeText(this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+//        }
+
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                Intent i = new Intent(NavigationActivity.this,HomeActivity.class);
+//                startActivity(i);
                 finish();
             }
         });
@@ -142,15 +136,11 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
 
         mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             public void onMapLoaded() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        binding.animationLayout.setVisibility(View.INVISIBLE);
-                    }
-                },2000);
+                binding.animationLayout.setVisibility(View.INVISIBLE);
             }
         });
 
+//        mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getApplicationContext(), R.raw.map_style));
         switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
             case Configuration.UI_MODE_NIGHT_YES:
 
@@ -179,6 +169,9 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
 
         mMap.animateCamera(cu);
 
+        SharedPreferences mPrefs = getSharedPreferences("THEME", 0);
+        String theme=mPrefs.getString("theme","");
+
         // Create a LatLngBounds that includes the VIT Campus bounds
         LatLngBounds vitBounds = new LatLngBounds(
                 new LatLng(12.967077, 79.152291), // SW bounds
@@ -186,7 +179,7 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
         );
 
 
-        // Constrain the camera target to the VIT Campus bounds.
+// Constrain the camera target to the VIT Campus bounds.
         mMap.setLatLngBoundsForCameraTarget(vitBounds);
         mMap.setMinZoomPreference(16.0f); // Set a preference for minimum zoom (Zoom out).
 
@@ -194,6 +187,7 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(lat, lng);
         LatLng user = new LatLng(ulat,ulng);
+
 
         int vector = 0;
         switch (marker_model.getCategory()) {
@@ -248,17 +242,17 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
                 .title(marker_model.getName())
                 .icon(BitmapFromVector(getApplicationContext(), vector)));
 
-//        mMap.addMarker(new MarkerOptions().position(new LatLng(ulat, ulng))
-//                .title("User")
-//                .icon(BitmapFromVector(getApplicationContext(),R.drawable.ic_user)));
+        mMap.addMarker(new MarkerOptions().position(new LatLng(ulat, ulng))
+                .title("User")
+                .icon(BitmapFromVector(getApplicationContext(),R.drawable.ic_user)));
 
         if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             return;
         }
-        mMap.setMyLocationEnabled(true);
-        mMap.getUiSettings().setMyLocationButtonEnabled(false);
-        mMap.getUiSettings().setAllGesturesEnabled(true);
+//        mMap.setMyLocationEnabled(true);
+//        mMap.getUiSettings().setMyLocationButtonEnabled(false);
+//        mMap.getUiSettings().setAllGesturesEnabled(true);
         //delay is for after map loaded animation starts
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -269,25 +263,23 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
             }
         }, 2000);
 
+//        mMap.addMarker(new MarkerOptions().position(user).title("User"));
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(marker_model.getLat(),marker_model.getLon())));
 
-        if(!isUserLocationNull) {
 
-            PolylineOptions options = new PolylineOptions().width(5).color(Color.BLUE).geodesic(true);
+        PolylineOptions options = new PolylineOptions().width(5).color(Color.BLUE).geodesic(true);
 
-            LatLng point = new LatLng(user.latitude, user.longitude);
-            LatLng point1 = new LatLng(marker_model.getLat(), marker_model.getLon());
-            options.add(point);
-            options.add(point1);
-            Polyline line = mMap.addPolyline(options);
-            List<PatternItem> pattern = Arrays.asList(
-                    new Dash(50));
-            line.setPattern(pattern);
-            mMap.addPolyline(options);
-        }
-        else{
-            Toast.makeText(getApplicationContext(), "Unable to access user location", Toast.LENGTH_SHORT).show();
-        }
+        LatLng point = new LatLng(user.latitude, user.longitude);
+        LatLng point1 = new LatLng(marker_model.getLat(),marker_model.getLon());
+        options.add(point);
+        options.add(point1);
+        Polyline line = mMap.addPolyline(options);
+        List<PatternItem> pattern = Arrays.asList(
+                  new Dash(50));
+        line.setPattern(pattern);
+        mMap.addPolyline(options);
     }
+
     private BitmapDescriptor BitmapFromVector(Context context, int vectorResId) {
         // below line is use to generate a drawable.
         Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResId);
