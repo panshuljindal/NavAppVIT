@@ -62,12 +62,35 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
     private CardView go;
     double lat,lng,ulat,ulng;
     private ProgressDialog progressDialog;
+    private String jokes[],jokes2[];
+    private String joke;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityNavigationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        jokes = new String[]{"Loading your Route","Hot day ? You should try the cocoa coffee at FC",
+                "The challenge with being faster than light, is you still have to wait on loading pages",
+                "Get some shade while we locate your destination",
+                "Bored ? The nearest Nescafe could be your pitstop to find a friend",
+                " You have been greeted by the loading page. Share this with 300 people for good fortune",
+                "You should check out VIT's library. You might end up finding the Nicholas Flamel to your Harry Potter.",
+                "Looking for birthday cakes ? You might wanna step into DC"};
+
+        int index = (int) (Math.random() * (jokes.length-1));
+        joke = jokes[index];
+        jokes2=new String[]{
+                "VIT has 35,000 students from 54 different countries and from all the states of India",
+                "VIT has a sustainably designed building with natural ventilation",
+                "VIT has a life sized tank perched right next to Amul, where you'd probably want to try the raspberry stick ",
+                "Mental Health is a matter of importance and VIT has a fully equipped counseling team to help you redress your problems."
+        };
+        binding.pleaseWaitText.setText(joke);
+        int index2;
+        index2=(int) (Math.random() * (jokes.length-1));;
+        binding.fact.setText(jokes[index2]);
 
         Intent i = getIntent();
         marker_model = (DataModel) i.getSerializableExtra("marker_object");
