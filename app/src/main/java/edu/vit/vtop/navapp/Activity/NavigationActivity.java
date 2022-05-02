@@ -108,14 +108,14 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
 //        Log.i("lat",Double.toString(lat));
 //        Log.i("long",Double.toString(lng));
 
-            binding.navDestination.setText(marker_model.getName());
-            binding.navAddress.setText(marker_model.getAddress());
+        binding.navDestination.setText(marker_model.getName());
+        binding.navAddress.setText(marker_model.getAddress());
 
-            // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                    .findFragmentById(R.id.map);
-            mapFragment.getMapAsync(this);
-            findID();
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+        findID();
 
 //            progressDialog.dismiss();
 
@@ -298,7 +298,7 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
         options.add(point1);
         Polyline line = mMap.addPolyline(options);
         List<PatternItem> pattern = Arrays.asList(
-                  new Dash(50));
+                new Dash(50));
         line.setPattern(pattern);
         mMap.addPolyline(options);
     }
