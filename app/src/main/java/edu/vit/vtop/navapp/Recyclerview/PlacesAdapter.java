@@ -1,13 +1,13 @@
 package edu.vit.vtop.navapp.Recyclerview;
 
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.location.Location;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +22,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.LatLng;
-
 import java.util.List;
 
 import edu.vit.vtop.navapp.Activity.HomeActivity;
@@ -38,14 +35,17 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.MyViewHold
     SharedPreferences sharedPreferences;
     double ulat,ulng;
     boolean isUserLocationNull = true;
+    ActivityResultLauncher<String[]> locationPermissionRequest;
+    static int flag = 0;
 
-    public PlacesAdapter(List<DataModel> list, Context context, double ulat, double ulng,boolean isUserLocationNull) {
+    public PlacesAdapter(List<DataModel> list, Context context, double ulat, double ulng,boolean isUserLocationNull,ActivityResultLauncher<String[]> locationPermissionRequest) {
         this.list = list;
         this.context = context;
         sharedPreferences = context.getSharedPreferences("edu.vit.vtop.navapp", Context.MODE_PRIVATE);
         this.ulat = ulat;
         this.ulng = ulng;
         this.isUserLocationNull = isUserLocationNull;
+        this.locationPermissionRequest=locationPermissionRequest;
     }
 
     @Override
@@ -150,16 +150,35 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.MyViewHold
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (sharedPreferences.getBoolean("isOnCampus", false) == false) {
-                    Toast.makeText(context, R.string.onlyVIT, Toast.LENGTH_LONG).show();
-                } else {
-                    Intent i = new Intent(context, NavigationActivity.class);
-                    i.putExtra("marker_object", list.get(position));
-                    i.putExtra("ulat",ulat);
-                    i.putExtra("ulon",ulng);
-                    i.putExtra("isUserLocationNull",isUserLocationNull);
-                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(i);
+                if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+                {
+                    if(flag==1){
+                        Intent i = new Intent(context,HomeActivity.class);
+                        i.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                        flag=0;
+                        context.startActivity(i);
+                    }
+                    if (sharedPreferences.getBoolean("isOnCampus", false) == false) {
+                        Toast.makeText(context, R.string.onlyVIT, Toast.LENGTH_LONG).show();
+                    } else {
+                        Intent i = new Intent(context, NavigationActivity.class);
+                        i.putExtra("marker_object", list.get(position));
+                        i.putExtra("ulat", ulat);
+                        i.putExtra("ulon", ulng);
+                        i.putExtra("isUserLocationNull", isUserLocationNull);
+                        i.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(i);
+                    }
+                }
+                else{
+                    flag=1;
+                    Toast.makeText(context, "Please accept the location permissions", Toast.LENGTH_SHORT).show();
+                    locationPermissionRequest.launch(new String[]{
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION
+
+                    });
+
                 }
             }
         });

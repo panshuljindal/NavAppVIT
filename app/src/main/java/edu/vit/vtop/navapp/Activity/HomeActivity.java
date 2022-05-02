@@ -586,8 +586,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         double ulng1 = 0.0;
         if(lkl == null){isUserLocationNull = true;}
         else{ulat1 = lkl.getLatitude();
-        ulng1 = lkl.getLongitude();}
-        PlacesAdapter adapter = new PlacesAdapter(placesList, HomeActivity.this,ulat1,ulng1,isUserLocationNull);
+            ulng1 = lkl.getLongitude();}
+        PlacesAdapter adapter = new PlacesAdapter(placesList, HomeActivity.this,ulat1,ulng1,isUserLocationNull,locationPermissionRequest);
         LinearLayoutManager manager1 = new LinearLayoutManager(HomeActivity.this);
         manager1.setOrientation(RecyclerView.VERTICAL);
         places.setAdapter(adapter);
@@ -696,7 +696,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                                             if(lkl == null){isUserLocationNull = true;}
                                             else{ulat1 = lkl.getLatitude();
                                                 ulng1 = lkl.getLongitude();}
-                                            PlacesAdapter adapter = new PlacesAdapter(list, HomeActivity.this,ulat1,ulng1,isUserLocationNull);
+                                            PlacesAdapter adapter = new PlacesAdapter(list, HomeActivity.this,ulat1,ulng1,isUserLocationNull,locationPermissionRequest);
                                             LinearLayoutManager manager1 = new LinearLayoutManager(getApplicationContext());
                                             manager1.setOrientation(RecyclerView.VERTICAL);
                                             searchRecyclerview.setAdapter(adapter);
@@ -756,4 +756,5 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         }
     }
+
 }
