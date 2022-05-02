@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<VersionModel> call, Throwable t) {
-                Log.i("Version: ", "fail");
+                Log.i("Version: ", t.getMessage());
 
                 new Handler().postDelayed(new Runnable() {
                     @Override
