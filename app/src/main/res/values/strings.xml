@@ -2,5 +2,5 @@
     <string name="app_name">VIT Nav</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_activity_navigation">NavigationActivity</string>
-     <string name="onlyVIT">This app is only for People inside VIT</string>
+     <string name="onlyVIT1">This app is only for People inside VIT</string>
 </resources>

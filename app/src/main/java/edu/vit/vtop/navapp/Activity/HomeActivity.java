@@ -239,12 +239,12 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                         return;
                     }
-                    if (!vitBounds.contains(new LatLng(location.getLatitude(),location.getLongitude()))) {
-                        Toast.makeText(getApplicationContext(), R.string.onlyVIT, Toast.LENGTH_LONG).show();
-//                        editor.putBoolean("isOnCampus",true).commit();
-//                        editor.apply();
-                    }
-                    else {
+//                    if (!vitBounds.contains(new LatLng(location.getLatitude(),location.getLongitude()))) {
+//                        Toast.makeText(getApplicationContext(), R.string.onlyVIT, Toast.LENGTH_LONG).show();
+////                        editor.putBoolean("isOnCampus",true).commit();
+////                        editor.apply();
+//                    }
+//                    else {
                         mMap.setMyLocationEnabled(true);
                         mMap.getUiSettings().setMyLocationButtonEnabled(false);
                         mMap.getUiSettings().setAllGesturesEnabled(true);
@@ -257,7 +257,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                             }
                         }, 2000);
-                    }
+//                    }
                 }
             }
         });
@@ -448,10 +448,10 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                                 if(location!=null)
                                 {
-                                    if (!vitBounds.contains(new LatLng(location.getLatitude(),location.getLongitude()))) {
-                                        Toast.makeText(getApplicationContext(), R.string.onlyVIT, Toast.LENGTH_LONG).show();
-                                    }
-                                    else {
+//                                    if (!vitBounds.contains(new LatLng(location.getLatitude(),location.getLongitude()))) {
+//                                        Toast.makeText(getApplicationContext(), R.string.onlyVIT, Toast.LENGTH_LONG).show();
+//                                    }
+//                                    else {
                                         marker.hideInfoWindow();
                                         e.setInfoShown(false);
 
@@ -462,7 +462,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                                         i.putExtra("ulon", location.getLongitude());
                                         i.putExtra("marker_object", e);
                                         startActivity(i);
-                                    }
+//                                    }
                                 }
                                 else
                                 {

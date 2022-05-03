@@ -158,9 +158,9 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.MyViewHold
                         flag=0;
                         context.startActivity(i);
                     }
-                    if (sharedPreferences.getBoolean("isOnCampus", false) == false) {
-                        Toast.makeText(context, R.string.onlyVIT, Toast.LENGTH_LONG).show();
-                    } else {
+//                    if (sharedPreferences.getBoolean("isOnCampus", false) == false) {
+//                        Toast.makeText(context, R.string.onlyVIT, Toast.LENGTH_LONG).show();
+//                    } else {
                         Intent i = new Intent(context, NavigationActivity.class);
                         i.putExtra("marker_object", list.get(position));
                         i.putExtra("ulat", ulat);
@@ -168,7 +168,7 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.MyViewHold
                         i.putExtra("isUserLocationNull", isUserLocationNull);
                         i.addFlags(FLAG_ACTIVITY_NEW_TASK);
                         context.startActivity(i);
-                    }
+//                    }
                 }
                 else{
                     flag=1;
