@@ -28,7 +28,8 @@
     <color name="settings">#888888</color>
     <color name="nav_button">#131118</color>
     <color name="nav_button_icon">#888888</color>
-    <color name="anim_background">#F2F2F7</color>
+    <color name="anim_background">#131118</color>
+    <color name="anim_background1">#F2F2F7</color>
     <color name="anim_please_wait">#FFFFFF</color>
     <color name="anim_did_you_know">#888888</color>
 
