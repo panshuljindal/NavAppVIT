@@ -141,7 +141,11 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
                 Uri gmmIntentUri = Uri.parse("google.navigation:q="+lat+","+lng);
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
-                startActivity(mapIntent);
+                try {
+                    startActivity(mapIntent);
+                }catch (Exception e){
+
+                }
             }
         });
     }

@@ -725,36 +725,41 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     boolean doubleback;
     @Override
     public void onBackPressed() {
-        if (cancelSearch.getVisibility() == View.VISIBLE) {
-            progressBar.setVisibility(View.GONE);
-            cat.setVisibility(View.VISIBLE);
-            plac.setText("Places");
-            places.setVisibility(View.VISIBLE);
-            categories.setVisibility(View.VISIBLE);
-            noResult.setVisibility(View.INVISIBLE);
-            cancelSearch.setVisibility(View.GONE);
-            searchRecyclerview.setVisibility(View.INVISIBLE);
-            search.setText("");
-        }else {
+        if(bottomSheetBehavior.getState()==BottomSheetBehavior.STATE_EXPANDED){
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        }else{
+            if (cancelSearch.getVisibility() == View.VISIBLE) {
+                progressBar.setVisibility(View.GONE);
+                cat.setVisibility(View.VISIBLE);
+                plac.setText("Places");
+                places.setVisibility(View.VISIBLE);
+                categories.setVisibility(View.VISIBLE);
+                noResult.setVisibility(View.INVISIBLE);
+                cancelSearch.setVisibility(View.GONE);
+                searchRecyclerview.setVisibility(View.INVISIBLE);
+                search.setText("");
+            }else {
 
 
-            if (doubleback) {
-                //super.onBackPressed();
-                moveTaskToBack(true);
-                android.os.Process.killProcess(android.os.Process.myPid());
-                System.exit(0);
-                //Log.i("doubleback", doubleback.toString());
-            } else {
-                doubleback = true;
-                Toast.makeText(this, "Please once again BACK to exit", Toast.LENGTH_SHORT).show();
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        doubleback = false;
-                    }
-                }, 2000);
+                if (doubleback) {
+                    //super.onBackPressed();
+                    moveTaskToBack(true);
+                    android.os.Process.killProcess(android.os.Process.myPid());
+                    System.exit(0);
+                    //Log.i("doubleback", doubleback.toString());
+                } else {
+                    doubleback = true;
+                    Toast.makeText(this, "Please once again BACK to exit", Toast.LENGTH_SHORT).show();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            doubleback = false;
+                        }
+                    }, 2000);
+                }
             }
         }
+
     }
 
 }
