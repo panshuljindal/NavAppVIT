@@ -101,12 +101,6 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
         ulat =i.getDoubleExtra("ulat",0.0);
         ulng =i.getDoubleExtra("ulon",0.0);
 
-//            ulat = 12.969845;
-//            ulng = 79.158639;
-
-
-//        Log.i("lat",Double.toString(lat));
-//        Log.i("long",Double.toString(lng));
 
         binding.navDestination.setText(marker_model.getName());
         binding.navAddress.setText(marker_model.getAddress());
@@ -117,20 +111,10 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
         mapFragment.getMapAsync(this);
         findID();
 
-//            progressDialog.dismiss();
-
-//        }
-//        catch (Exception e)
-//        {
-//            progressDialog.dismiss();
-//            Toast.makeText(this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-//        }
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent i = new Intent(NavigationActivity.this,HomeActivity.class);
-//                startActivity(i);
                 finish();
             }
         });
@@ -138,7 +122,7 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
         go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Uri gmmIntentUri = Uri.parse("google.navigation:q="+lat+","+lng);
+                Uri gmmIntentUri = Uri.parse("google.navigation:q="+lat+","+lng+"&mode=w");
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
                 try {
@@ -277,10 +261,6 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
 
             return;
         }
-//        mMap.setMyLocationEnabled(true);
-//        mMap.getUiSettings().setMyLocationButtonEnabled(false);
-//        mMap.getUiSettings().setAllGesturesEnabled(true);
-        //delay is for after map loaded animation starts
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -290,8 +270,6 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
             }
         }, 2000);
 
-//        mMap.addMarker(new MarkerOptions().position(user).title("User"));
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(marker_model.getLat(),marker_model.getLon())));
 
 
         PolylineOptions options = new PolylineOptions().width(5).color(Color.BLUE).geodesic(true);
