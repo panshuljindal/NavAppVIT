@@ -705,9 +705,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                                             searchRecyclerview.setVisibility(View.VISIBLE);
                                         }
 
-
-
-
                                     }
                                     @Override
                                     public void onFailure(Call<List<DataModel>> call, Throwable t) {
