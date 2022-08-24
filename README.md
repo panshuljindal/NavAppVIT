@@ -61,8 +61,8 @@ https://play.google.com/store/apps/details?id=edu.vit.vtop.navapp
 </p>
  
 ## Contributors
+- Panshul Jindal : https://github.com/panshuljindal
 - Haneet Arya : https://www.github.com/Haneet-Arya
 - Jatin Dhall : https://github.com/Jatin7385
-- Panshul Jindal : https://github.com/panshuljindal
 
 
